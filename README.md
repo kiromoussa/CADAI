@@ -1,12 +1,15 @@
-# CodeComply — Supabase Auth Setup
+# CodeComply
 
 AI-powered building code compliance for residential architects.
 
-## Stack
+## Build spec
 
-- **Framework:** Next.js 14 (App Router)
-- **Database & Auth:** Supabase (Postgres + Auth + Storage)
-- **Styling:** Tailwind CSS
+Multi-agent implementation guide with research updates:
+
+- [docs/build-spec/README.md](./docs/build-spec/README.md) — agent index and execution order
+- [Agent 2 — APS](./docs/build-spec/agent-2-aps.md) — includes **aps-toolkit** as primary property extraction path
+- [Agent 3 — Codes](./docs/build-spec/agent-3-codes.md) — **IDS/IfcTester** rule format + **ICC Code Connect API** licensing note
+- [Appendix — Offline parsing](./docs/build-spec/appendix-offline-parsing.md) — **svf-utils** / **forge-convert-utils**
 
 ## Getting Started
 

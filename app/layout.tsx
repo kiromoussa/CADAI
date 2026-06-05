@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import { DM_Sans, IBM_Plex_Mono } from 'next/font/google'
+import { IBM_Plex_Mono, Inter } from 'next/font/google'
 import './globals.css'
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-dm-sans',
+  variable: '--font-inter',
 })
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.variable} ${ibmPlexMono.variable} font-sans antialiased`}
+        className={`${inter.variable} ${ibmPlexMono.variable} font-sans antialiased`}
       >
         {children}
       </body>

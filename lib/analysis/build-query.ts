@@ -1,11 +1,89 @@
-import type { ExtractedProperties } from '@/types/analysis'
+import type { Discipline, ExtractedProperties } from '@/types/analysis'
+import { disciplineLabel } from '@/lib/analysis/disciplines'
+
+const DISCIPLINE_KEYWORDS: Partial<Record<Discipline, string[]>> = {
+  electrical: [
+    'branch circuits',
+    'GFCI',
+    'AFCI',
+    'panel clearance',
+    'outlet spacing',
+    'receptacle',
+    'lighting',
+    'California Electrical Code',
+  ],
+  plumbing: [
+    'DWV',
+    'venting',
+    'fixture units',
+    'water supply',
+    'drainage',
+    'California Plumbing Code',
+  ],
+  mechanical: [
+    'HVAC',
+    'duct',
+    'ventilation',
+    'combustion air',
+    'California Mechanical Code',
+  ],
+  fire: [
+    'sprinkler',
+    'fire alarm',
+    'egress',
+    'fire separation',
+    'California Fire Code',
+  ],
+  structural: [
+    'framing',
+    'load bearing',
+    'foundation',
+    'shear wall',
+    'California Building Code structural',
+  ],
+  roof: ['roof covering', 'slope', 'drainage', 'fire classification'],
+  architectural: [
+    'egress windows',
+    'emergency escape',
+    'rescue openings',
+    'bedroom',
+    'ceiling height',
+    'stair dimensions',
+    'door width',
+    'garage separation',
+    'fire rating',
+    'California Residential Code',
+  ],
+  green: [
+    'CALGreen',
+    'energy efficiency',
+    'solar ready',
+    'water efficiency',
+    'California Green Building Standards Code',
+    'residential mandatory measures',
+  ],
+}
+
+export function buildKeywordSearchQuery(
+  context: { city: string; state: string; project_type: string },
+  discipline: Discipline
+): string {
+  const keywords = DISCIPLINE_KEYWORDS[discipline] ?? DISCIPLINE_KEYWORDS.architectural
+  return [
+    `${context.project_type} ${disciplineLabel(discipline)}`,
+    `${context.city}, ${context.state}`,
+    ...(keywords ?? []),
+  ].join('\n')
+}
 
 export function buildSearchQuery(
   properties: ExtractedProperties,
-  context: { city: string; state: string; project_type: string }
+  context: { city: string; state: string; project_type: string },
+  options?: { discipline?: Discipline }
 ): string {
+  const discipline = options?.discipline ?? 'architectural'
   const parts: string[] = [
-    `${context.project_type} residential building code compliance`,
+    `${context.project_type} ${disciplineLabel(discipline)} code compliance`,
     `${context.city}, ${context.state}`,
   ]
 
@@ -43,9 +121,8 @@ export function buildSearchQuery(
     )
   }
 
-  parts.push(
-    'California Residential Code egress windows emergency escape rescue openings bedroom ceiling height stair dimensions door width garage separation fire rating'
-  )
+  const keywords = DISCIPLINE_KEYWORDS[discipline] ?? DISCIPLINE_KEYWORDS.architectural
+  parts.push(...(keywords ?? []))
 
   return parts.join('\n')
 }

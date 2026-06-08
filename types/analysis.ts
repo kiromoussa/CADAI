@@ -1,6 +1,23 @@
 export type Severity = 'violation' | 'warning' | 'pass'
 
-export interface ExtractedWindow {
+export type Discipline =
+  | 'architectural'
+  | 'structural'
+  | 'roof'
+  | 'electrical'
+  | 'plumbing'
+  | 'mechanical'
+  | 'fire'
+  | 'green'
+  | 'general'
+
+export interface EntitySheetContext {
+  sheet_guid?: string
+  sheet_name?: string
+  discipline?: Discipline
+}
+
+export interface ExtractedWindow extends EntitySheetContext {
   name?: string
   width_in?: number
   height_in?: number
@@ -9,7 +26,7 @@ export interface ExtractedWindow {
   dbId?: number
 }
 
-export interface ExtractedDoor {
+export interface ExtractedDoor extends EntitySheetContext {
   name?: string
   width_in?: number
   height_in?: number
@@ -17,7 +34,7 @@ export interface ExtractedDoor {
   dbId?: number
 }
 
-export interface ExtractedRoom {
+export interface ExtractedRoom extends EntitySheetContext {
   name: string
   area_sqft?: number
   length_ft?: number
@@ -28,7 +45,7 @@ export interface ExtractedRoom {
   doors?: ExtractedDoor[]
 }
 
-export interface ExtractedStair {
+export interface ExtractedStair extends EntitySheetContext {
   name?: string
   riser_height_in?: number
   tread_depth_in?: number
@@ -37,10 +54,26 @@ export interface ExtractedStair {
   dbId?: number
 }
 
-export interface ExtractedGarage {
+export interface ExtractedGarage extends EntitySheetContext {
   attached?: boolean
   door_count?: number
   fire_separation?: boolean
+}
+
+export interface ExtractedLayer {
+  name: string
+  entity_count: number
+}
+
+export interface ExtractedSheet {
+  guid: string
+  name: string
+  discipline: Discipline
+  layers: ExtractedLayer[]
+  rooms: ExtractedRoom[]
+  windows: ExtractedWindow[]
+  doors: ExtractedDoor[]
+  stairs: ExtractedStair[]
 }
 
 export interface ExtractedProperties {
@@ -49,6 +82,7 @@ export interface ExtractedProperties {
   doors: ExtractedDoor[]
   stairs: ExtractedStair[]
   garage?: ExtractedGarage
+  sheets?: ExtractedSheet[]
   project?: {
     name?: string
     address?: string
@@ -72,6 +106,8 @@ export interface ComplianceViolation {
   required_value?: string
   confidence?: 'high' | 'medium' | 'low'
   element_id?: string | null
+  sheet_guid?: string | null
+  discipline?: Discipline | null
 }
 
 export interface CodeSectionMatch {
@@ -93,9 +129,32 @@ export type AnalysisStage =
   | 'complete'
   | 'error'
 
+export interface CodeSearchCoverage {
+  discipline: Discipline
+  sections_retrieved: number
+  code_bodies: string[]
+  top_sections: Array<{
+    section: string
+    title: string
+    code_body: string
+    similarity: number
+  }>
+}
+
 export interface AnalysisProgressEvent {
   stage: AnalysisStage
   message: string
   analysis_id?: string
   error?: string
+  discipline?: Discipline
+  sheet_index?: number
+  sheet_total?: number
+  code_coverage?: CodeSearchCoverage
+}
+
+export interface ApsSheetInfo {
+  guid: string
+  name: string
+  role: string
+  discipline: Discipline
 }

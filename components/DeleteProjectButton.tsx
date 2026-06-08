@@ -15,7 +15,7 @@ export function DeleteProjectButton({ projectId, projectName }: Props) {
 
   async function handleDelete() {
     const confirmed = window.confirm(
-      `Delete "${projectName}"?\n\nThis removes the project, any failed analysis runs, and any PDF floor plan stored in Supabase. CAD files uploaded to Autodesk are not removed. This cannot be undone.`
+      `Delete "${projectName}"?\n\nThis removes the project, all analysis results, and any PDF floor plan stored in Supabase. CAD files uploaded to Autodesk are not removed. This cannot be undone.`
     )
     if (!confirmed) return
 

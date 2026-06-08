@@ -76,13 +76,14 @@ export async function GET(request: Request) {
         .update({
           translation_force_retried: true,
           translation_force_retried_at: retriedAt,
+          translation_started_at: retriedAt,
         })
         .eq('id', projectId)
         .eq('user_id', user.id)
 
       retrying = true
       result = await checkTranslationStatus(urn, token, {
-        translationStartedAt: project.translation_started_at,
+        translationStartedAt: retriedAt,
         forceRetried: true,
         forceRetriedAt: retriedAt,
       })
@@ -102,10 +103,15 @@ export async function GET(request: Request) {
       message = 'Waiting for translation to start…'
     } else if (retrying) {
       message =
-        'Translation appears stuck — retrying with DWG-optimized sheet export settings…'
+        'Restarted translation — this usually takes 2–5 minutes…'
+    } else if (result.stalled && project?.translation_force_retried) {
+      message =
+        result.progress && result.progress.includes('%')
+          ? `Finishing sheets (${result.progress})…`
+          : 'Finishing sheet conversion…'
     } else if (result.stalled) {
       message =
-        'Translation appears stuck — retrying with DWG sheet export settings…'
+        'Translation appears stuck — retrying conversion…'
     } else {
       message =
         result.progress && result.progress.includes('%')
@@ -134,6 +140,7 @@ export async function GET(request: Request) {
       progress: result.progress,
       stalled: result.stalled ?? false,
       retrying,
+      force_retried: project?.translation_force_retried ?? false,
       child_errors: result.child_errors,
     })
   } catch (err) {

@@ -5,7 +5,9 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import clsx from 'clsx'
 import { createClient } from '@/lib/supabase/client'
 import { AppHeader } from '@/components/AppHeader'
+import { disciplineLabel } from '@/lib/analysis/disciplines'
 import { hasLocalCode } from '@/lib/jurisdiction'
+import type { Discipline } from '@/types/analysis'
 
 type SourceType = 'pdf' | 'cad' | 'aps'
 type Step = 1 | 2 | 3
@@ -48,6 +50,15 @@ export default function AnalyzePageClient() {
   const [projectId, setProjectId] = useState<string | null>(null)
   const [progressMessage, setProgressMessage] = useState('')
   const [progressStage, setProgressStage] = useState('')
+  const [activeDiscipline, setActiveDiscipline] = useState<Discipline | null>(null)
+  const [sheetProgress, setSheetProgress] = useState<{
+    current: number
+    total: number
+  } | null>(null)
+  const [completedDisciplines, setCompletedDisciplines] = useState<Discipline[]>([])
+  const [pipelineStep, setPipelineStep] = useState<
+    'upload' | 'translate' | 'extract' | 'codes' | 'done'
+  >('upload')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -123,6 +134,11 @@ export default function AnalyzePageClient() {
     setError(null)
     setLoading(true)
     setProgressMessage('Preparing analysis…')
+    setProgressStage('')
+    setActiveDiscipline(null)
+    setSheetProgress(null)
+    setCompletedDisciplines([])
+    setPipelineStep('upload')
 
     try {
       let pdfBase64: string | undefined
@@ -186,16 +202,16 @@ export default function AnalyzePageClient() {
       setProjectId(newProjectId)
 
       if (sourceType === 'cad' && cadFile) {
+        setPipelineStep('upload')
         setProgressStage('uploading')
         setProgressMessage('Uploading CAD file directly to Autodesk…')
         const cadUpload = await uploadCadDirectToOss(cadFile, newProjectId)
         apsUrn = cadUpload.urn
-        if (cadUpload.status !== 'complete') {
-          await waitForTranslation(apsUrn, newProjectId, (message) => {
-            setProgressStage('translating')
-            setProgressMessage(message)
-          }, { fileName: cadFile.name })
-        }
+        await waitForTranslation(apsUrn, newProjectId, (message) => {
+          setPipelineStep('translate')
+          setProgressStage('translating')
+          setProgressMessage(message)
+        }, { fileName: cadFile.name })
       } else if (sourceType === 'aps' && apsUrn) {
         const itemsRes = await fetch('/api/aps/items', {
           method: 'POST',
@@ -203,6 +219,7 @@ export default function AnalyzePageClient() {
           body: JSON.stringify({
             project_id: newProjectId,
             urn: apsUrn,
+            file_name: selectedItem?.name,
             hub_id: hubId,
             aps_project_id: apsProjectId,
             item_id: itemId,
@@ -214,9 +231,10 @@ export default function AnalyzePageClient() {
         }
         if (itemsData.status !== 'complete') {
           await waitForTranslation(apsUrn, newProjectId, (message) => {
+            setPipelineStep('translate')
             setProgressStage('translating')
             setProgressMessage(message)
-          })
+          }, { fileName: selectedItem?.name })
         }
       }
 
@@ -231,6 +249,7 @@ export default function AnalyzePageClient() {
           source_type: sourceType === 'cad' ? 'aps' : sourceType,
           pdf_base64: pdfBase64,
           aps_urn: apsUrn,
+          file_name: sourceType === 'cad' && cadFile ? cadFile.name : selectedItem?.name,
         }),
       })
 
@@ -243,6 +262,7 @@ export default function AnalyzePageClient() {
       const decoder = new TextDecoder()
       let analysisId: string | null = null
       let buffer = ''
+      let lastDiscipline: Discipline | null = null
 
       while (true) {
         const { done, value } = await reader.read()
@@ -254,15 +274,56 @@ export default function AnalyzePageClient() {
         for (const chunk of chunks) {
           const dataLine = chunk.split('\n').find((l) => l.startsWith('data: '))
           if (!dataLine) continue
-          const payload = JSON.parse(dataLine.slice(6)) as {
+          const jsonText = dataLine.slice(6).trim()
+          if (!jsonText) continue
+          let payload: {
             stage: string
             message: string
             analysis_id?: string
             error?: string
+            discipline?: Discipline
+            sheet_index?: number
+            sheet_total?: number
+          }
+          try {
+            payload = JSON.parse(jsonText)
+          } catch {
+            continue
           }
           setProgressStage(payload.stage)
           setProgressMessage(payload.message)
           if (payload.analysis_id) analysisId = payload.analysis_id
+
+          if (payload.stage === 'extracting') {
+            setPipelineStep('extract')
+            if (payload.sheet_index != null && payload.sheet_total != null) {
+              setSheetProgress({
+                current: payload.sheet_index,
+                total: payload.sheet_total,
+              })
+            }
+          } else if (payload.stage === 'searching_codes' || payload.stage === 'analyzing') {
+            setPipelineStep('codes')
+            if (payload.discipline) {
+              if (lastDiscipline && lastDiscipline !== payload.discipline) {
+                setCompletedDisciplines((done) =>
+                  done.includes(lastDiscipline!) ? done : [...done, lastDiscipline!]
+                )
+              }
+              lastDiscipline = payload.discipline
+              setActiveDiscipline(payload.discipline)
+            }
+          } else if (payload.stage === 'complete') {
+            setPipelineStep('done')
+            if (lastDiscipline) {
+              setCompletedDisciplines((done) =>
+                done.includes(lastDiscipline!) ? done : [...done, lastDiscipline!]
+              )
+              lastDiscipline = null
+              setActiveDiscipline(null)
+            }
+          }
+
           if (payload.stage === 'error') {
             throw new Error(payload.error ?? payload.message)
           }
@@ -277,7 +338,18 @@ export default function AnalyzePageClient() {
         router.push(`/viewer/${analysisId}`)
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Analysis failed')
+      const raw = err instanceof Error ? err.message : 'Analysis failed'
+      const message =
+        /input stream|network error|failed to fetch|aborted|connection reset|json\.parse/i.test(
+          raw
+        )
+          ? 'Analysis was interrupted while reading the plan — try again or export a PDF from your CAD tool.'
+          : raw
+      const withHint =
+        sourceType === 'cad' || sourceType === 'aps'
+          ? `${message} You can return to the dashboard and retry, or upload a PDF exported from your CAD tool.`
+          : message
+      setError(withHint)
       setStep(2)
     } finally {
       setLoading(false)
@@ -524,15 +596,53 @@ export default function AnalyzePageClient() {
         )}
 
         {step === 3 && (
-          <div className="rounded-lg border border-border bg-surface p-8 text-center">
-            <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-2 border-accent border-t-transparent" />
-            <p className="text-sm font-medium capitalize text-text-primary">
-              {progressStage.replace(/_/g, ' ') || 'Working'}
-            </p>
-            <p className="mt-2 text-sm text-text-secondary">{progressMessage}</p>
-            {projectId && (
-              <p className="mt-4 font-mono text-xs text-text-secondary">Project {projectId}</p>
-            )}
+          <div className="rounded-lg border border-border bg-surface p-8">
+            <PipelineStepper active={pipelineStep} />
+            <div className="mt-8 text-center">
+              <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+              <p className="text-sm font-medium capitalize text-text-primary">
+                {progressStage.replace(/_/g, ' ') || 'Working'}
+              </p>
+              <p className="mt-2 text-sm text-text-secondary">{progressMessage}</p>
+              {sheetProgress && (
+                <div className="mx-auto mt-4 max-w-xs">
+                  <div className="h-1.5 overflow-hidden rounded-full bg-border">
+                    <div
+                      className="h-full rounded-full bg-accent transition-all duration-300"
+                      style={{
+                        width: `${Math.round((sheetProgress.current / sheetProgress.total) * 100)}%`,
+                      }}
+                    />
+                  </div>
+                  <p className="mt-1 text-xs text-text-secondary">
+                    Sheet {sheetProgress.current} of {sheetProgress.total}
+                  </p>
+                </div>
+              )}
+              {(activeDiscipline || completedDisciplines.length > 0) && (
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  {completedDisciplines.map((d) => (
+                    <span
+                      key={d}
+                      className="rounded-full border border-severity-pass/40 bg-severity-pass/10 px-2 py-0.5 text-xs text-severity-pass"
+                    >
+                      {disciplineLabel(d)} ✓
+                    </span>
+                  ))}
+                  {activeDiscipline &&
+                    !completedDisciplines.includes(activeDiscipline) && (
+                      <span className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-xs text-accent">
+                        {disciplineLabel(activeDiscipline)}…
+                      </span>
+                    )}
+                </div>
+              )}
+              {projectId && (
+                <p className="mt-4 font-mono text-xs text-text-secondary">
+                  Project {projectId}
+                </p>
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -669,6 +779,47 @@ async function putFileToSignedUrls(
   }
 }
 
+type TranslationPollPayload = {
+  status?: string
+  message?: string
+  progress?: string
+  error?: string
+  retryable?: boolean
+  stalled?: boolean
+  retrying?: boolean
+  force_retried?: boolean
+  child_errors?: string[]
+}
+
+async function parseTranslationPollResponse(res: Response): Promise<{
+  data: TranslationPollPayload
+  parseFailed: boolean
+}> {
+  const text = await res.text()
+  if (!text.trim()) {
+    return { data: {}, parseFailed: true }
+  }
+  try {
+    return { data: JSON.parse(text) as TranslationPollPayload, parseFailed: false }
+  } catch {
+    return { data: {}, parseFailed: true }
+  }
+}
+
+function isRetryableTranslationPoll(
+  res: Response,
+  data: TranslationPollPayload,
+  parseFailed: boolean
+): boolean {
+  return (
+    parseFailed ||
+    res.status === 404 ||
+    res.status === 503 ||
+    res.status >= 502 ||
+    data.retryable === true
+  )
+}
+
 async function waitForTranslation(
   urn: string,
   projectId: string,
@@ -688,27 +839,29 @@ async function waitForTranslation(
 
   while (Date.now() - started < TRANSLATION_MAX_WAIT_MS) {
     try {
-      const params = new URLSearchParams({ urn, project_id: projectId })
+      const params = new URLSearchParams()
+      params.set('urn', urn)
+      params.set('project_id', projectId)
       const res = await fetch(`/api/aps/translation?${params}`)
-      const data = (await res.json()) as {
-        status?: string
-        message?: string
-        progress?: string
-        error?: string
-        retryable?: boolean
-        stalled?: boolean
-        retrying?: boolean
-        child_errors?: string[]
-      }
+      const { data, parseFailed } = await parseTranslationPollResponse(res)
 
       if (res.status === 401) {
         throw new Error('Session expired — sign in again and reopen this project from the dashboard.')
       }
 
-      if (res.status === 503 || data.retryable) {
-        onProgress?.(data.message ?? 'Temporary network issue — retrying…')
-        await new Promise((resolve) => setTimeout(resolve, pollIntervalMs))
-        continue
+      if (isRetryableTranslationPoll(res, data, parseFailed)) {
+        if (networkRetries < 20) {
+          networkRetries += 1
+          onProgress?.(
+            data.message ??
+              (res.status === 404 || parseFailed
+                ? 'Waiting for translation service — retrying…'
+                : 'Temporary network issue — retrying…')
+          )
+          await new Promise((resolve) => setTimeout(resolve, pollIntervalMs))
+          continue
+        }
+        throw new Error(data.error ?? 'Translation status check failed')
       }
 
       if (!res.ok) {
@@ -726,7 +879,15 @@ async function waitForTranslation(
 
       let message = data.message ?? 'Translating model for viewer…'
 
-      if (data.retrying || (data.stalled && data.status === 'processing')) {
+      if (data.retrying) {
+        message =
+          'Restarted translation with DWG-optimized PDF sheet settings — this usually takes 2–5 minutes…'
+      } else if (data.stalled && data.force_retried && data.status === 'processing') {
+        message =
+          progressStr && progressStr.includes('%')
+            ? `Finishing DWG sheets (${progressStr})…`
+            : 'Finishing DWG sheet conversion…'
+      } else if (data.stalled && data.status === 'processing') {
         message =
           'Translation appears stuck — retrying with DWG-optimized sheet export settings…'
       } else if (
@@ -754,7 +915,8 @@ async function waitForTranslation(
       }
     } catch (err) {
       const isFetchFailure = err instanceof TypeError && err.message === 'Failed to fetch'
-      if (isFetchFailure && networkRetries < 8) {
+      const isJsonFailure = err instanceof SyntaxError
+      if ((isFetchFailure || isJsonFailure) && networkRetries < 20) {
         networkRetries += 1
         onProgress?.('Connection interrupted — retrying…')
         await new Promise((resolve) => setTimeout(resolve, pollIntervalMs))
@@ -777,4 +939,51 @@ async function waitForTranslation(
 function formatFileSize(bytes: number): string {
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
+
+const PIPELINE_STEPS = [
+  { id: 'upload' as const, label: 'Upload' },
+  { id: 'translate' as const, label: 'Translate' },
+  { id: 'extract' as const, label: 'Extract sheets' },
+  { id: 'codes' as const, label: 'Check codes' },
+  { id: 'done' as const, label: 'Done' },
+]
+
+function PipelineStepper({
+  active,
+}: {
+  active: 'upload' | 'translate' | 'extract' | 'codes' | 'done'
+}) {
+  const activeIndex = PIPELINE_STEPS.findIndex((s) => s.id === active)
+
+  return (
+    <ol className="flex items-center justify-between gap-1">
+      {PIPELINE_STEPS.map((step, i) => {
+        const done = i < activeIndex
+        const current = i === activeIndex
+        return (
+          <li key={step.id} className="flex flex-1 flex-col items-center">
+            <span
+              className={clsx(
+                'flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold transition duration-200',
+                done && 'bg-severity-pass/20 text-severity-pass',
+                current && 'bg-accent/20 text-accent ring-2 ring-accent/40',
+                !done && !current && 'bg-border/50 text-text-secondary'
+              )}
+            >
+              {done ? '✓' : i + 1}
+            </span>
+            <span
+              className={clsx(
+                'mt-1 text-center text-[10px] font-medium',
+                current ? 'text-accent' : 'text-text-secondary'
+              )}
+            >
+              {step.label}
+            </span>
+          </li>
+        )
+      })}
+    </ol>
+  )
 }

@@ -1,7 +1,9 @@
 import Anthropic from '@anthropic-ai/sdk'
+import { disciplineLabel } from '@/lib/analysis/disciplines'
 import type {
   CodeSectionMatch,
   ComplianceViolation,
+  Discipline,
   ExtractedProperties,
 } from '@/types/analysis'
 
@@ -16,16 +18,29 @@ function getClient() {
 export async function runComplianceCheck(
   properties: ExtractedProperties,
   codeSections: CodeSectionMatch[],
-  context: { city: string; state: string; project_type: string }
+  context: {
+    city: string
+    state: string
+    project_type: string
+    discipline?: Discipline
+    sheetNames?: string[]
+  }
 ): Promise<{ violations: ComplianceViolation[]; tokensUsed: number }> {
   const client = getClient()
+  const discipline = context.discipline ?? 'architectural'
+  const disciplineName = disciplineLabel(discipline)
 
   const codeContext = codeSections
     .map(
       (s) =>
-        `[${s.section}] ${s.title}\nText: ${s.full_text.slice(0, 1200)}`
+        `[${s.section}] ${s.title} (${s.code_body})\nText: ${s.full_text.slice(0, 1200)}`
     )
     .join('\n\n---\n\n')
+
+  const sheetHint =
+    context.sheetNames?.length ?
+      `Sheets in scope: ${context.sheetNames.join(', ')}.`
+    : ''
 
   const message = await client.messages.create({
     model: CLAUDE_MODEL,
@@ -33,16 +48,17 @@ export async function runComplianceCheck(
     messages: [
       {
         role: 'user',
-        content: `You are a California building code compliance expert reviewing a ${context.project_type} project in ${context.city}, ${context.state}.
+        content: `You are a California building code compliance expert reviewing the **${disciplineName}** portion of a ${context.project_type} project in ${context.city}, ${context.state}.
+${sheetHint}
 
-## Extracted building properties (JSON)
+## Extracted properties (JSON)
 ${JSON.stringify(properties, null, 2)}
 
 ## Relevant code sections
 ${codeContext}
 
 ## Task
-Compare the extracted properties against the code sections. Return a JSON array of compliance findings. Each item must use this exact shape:
+Compare the extracted ${disciplineName.toLowerCase()} properties against the code sections. Return a JSON array of compliance findings. Each item must use this exact shape:
 
 {
   "severity": "violation" | "warning" | "pass",
@@ -52,17 +68,21 @@ Compare the extracted properties against the code sections. Return a JSON array 
   "finding": "what was found in the model/plan",
   "recommendation": "specific fix or note",
   "element_name": "e.g. Bedroom 2 Window",
-  "element_location": "room/level description for plan callout",
+  "element_location": "Sheet name and room/level description for plan callout",
   "measured_value": "what was measured",
   "required_value": "code minimum/maximum",
   "confidence": "high" | "medium" | "low",
-  "element_id": "APS dbId as string if known, else null"
+  "element_id": "APS dbId as string if known, else null",
+  "sheet_guid": "sheet_guid from properties if known, else null",
+  "discipline": "${discipline}"
 }
 
 Rules:
+- Focus only on ${disciplineName} compliance for this pass
 - Include violations and warnings for clear non-compliance
-- Include pass items for major checks that clearly comply (at least 3 if applicable)
-- Prefer dbId from properties.windows/doors/stairs when assigning element_id
+- Include pass items for major checks that clearly comply (at least 2 if applicable)
+- Prefer dbId from properties when assigning element_id
+- Include sheet_guid from entity sheet_guid fields when available
 - Return ONLY the JSON array, no markdown`,
       },
     ],
@@ -80,7 +100,7 @@ Rules:
   }
 
   const raw = JSON.parse(arrayMatch[0]) as unknown
-  const violations = sanitizeViolations(raw)
+  const violations = sanitizeViolations(raw, discipline)
   const tokensUsed =
     (message.usage?.input_tokens ?? 0) + (message.usage?.output_tokens ?? 0)
 
@@ -89,13 +109,22 @@ Rules:
 
 const VALID_SEVERITY = new Set(['violation', 'warning', 'pass'])
 const VALID_CONFIDENCE = new Set(['high', 'medium', 'low'])
+const VALID_DISCIPLINE = new Set([
+  'architectural',
+  'structural',
+  'roof',
+  'electrical',
+  'plumbing',
+  'mechanical',
+  'fire',
+  'green',
+  'general',
+])
 
-/**
- * The DB requires non-null text for code_section/title/requirement/finding/
- * recommendation, and a known severity. Coerce the model's output so a single
- * malformed item can't fail the whole insert or skew the counts.
- */
-function sanitizeViolations(raw: unknown): ComplianceViolation[] {
+function sanitizeViolations(
+  raw: unknown,
+  defaultDiscipline: Discipline
+): ComplianceViolation[] {
   if (!Array.isArray(raw)) return []
 
   const str = (value: unknown): string =>
@@ -110,6 +139,9 @@ function sanitizeViolations(raw: unknown): ComplianceViolation[] {
       const confidence = VALID_CONFIDENCE.has(item.confidence as string)
         ? (item.confidence as ComplianceViolation['confidence'])
         : 'medium'
+      const discipline = VALID_DISCIPLINE.has(item.discipline as string)
+        ? (item.discipline as Discipline)
+        : defaultDiscipline
 
       return {
         severity,
@@ -127,6 +159,8 @@ function sanitizeViolations(raw: unknown): ComplianceViolation[] {
           item.required_value != null ? str(item.required_value) : undefined,
         confidence,
         element_id: item.element_id != null ? str(item.element_id) : null,
+        sheet_guid: item.sheet_guid != null ? str(item.sheet_guid) : null,
+        discipline,
       }
     })
 }

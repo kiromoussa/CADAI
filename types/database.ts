@@ -188,6 +188,8 @@ export interface Database {
           measured_value: string | null
           required_value: string | null
           confidence: string
+          sheet_guid: string | null
+          discipline: string | null
           created_at: string
         }
         Insert: {
@@ -206,6 +208,8 @@ export interface Database {
           measured_value?: string | null
           required_value?: string | null
           confidence?: string
+          sheet_guid?: string | null
+          discipline?: string | null
           created_at?: string
         }
         Update: {
@@ -224,6 +228,8 @@ export interface Database {
           measured_value?: string | null
           required_value?: string | null
           confidence?: string
+          sheet_guid?: string | null
+          discipline?: string | null
           created_at?: string
         }
         Relationships: []
@@ -286,6 +292,7 @@ export interface Database {
           query_embedding: number[]
           jurisdiction_filter: string
           match_count?: number
+          code_body_filter?: string[] | null
         }
         Returns: Array<{
           id: string

@@ -32,19 +32,6 @@ export async function DELETE(
     return NextResponse.json({ error: 'Project not found' }, { status: 404 })
   }
 
-  const { data: analyses } = await supabase
-    .from('analyses')
-    .select('status')
-    .eq('project_id', projectId)
-
-  const hasComplete = (analyses ?? []).some((row) => row.status === 'complete')
-  if (hasComplete) {
-    return NextResponse.json(
-      { error: 'Completed analyses cannot be deleted from here' },
-      { status: 400 }
-    )
-  }
-
   if (project.pdf_storage_path) {
     const { error: storageError } = await supabase.storage
       .from('floor-plans')

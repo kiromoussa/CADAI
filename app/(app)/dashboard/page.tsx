@@ -5,10 +5,6 @@ import { DeleteProjectButton } from '@/components/DeleteProjectButton'
 import { createClient } from '@/lib/supabase/server'
 import type { AnalysisRow, ProjectRow } from '@/types/database'
 
-function canDeleteProject(analysis: AnalysisRow | undefined): boolean {
-  return analysis?.status !== 'complete'
-}
-
 export default async function DashboardPage() {
   const supabase = createClient()
   const {
@@ -162,12 +158,10 @@ export default async function DashboardPage() {
                             : 'No analysis yet'}
                         </span>
                       )}
-                      {canDeleteProject(analysis) && (
-                        <DeleteProjectButton
-                          projectId={project.id}
-                          projectName={project.name}
-                        />
-                      )}
+                      <DeleteProjectButton
+                        projectId={project.id}
+                        projectName={project.name}
+                      />
                     </div>
                   </li>
                 )

@@ -8,7 +8,7 @@ import {
   objectKeyForUpload,
   uploadObjectToOss,
 } from '@/lib/aps/oss'
-import { ensureModelTranslated } from '@/lib/aps/modelDerivative'
+import { ensureModelTranslated, fileExtensionFromName } from '@/lib/aps/modelDerivative'
 
 export const dynamic = 'force-dynamic'
 export const maxDuration = 120
@@ -67,7 +67,9 @@ export async function POST(request: Request) {
       contentTypeForCad(body.file_name)
     )
 
-    const translation = await ensureModelTranslated(encodedUrn, token)
+    const translation = await ensureModelTranslated(encodedUrn, token, {
+      fileExtension: fileExtensionFromName(body.file_name),
+    })
     const translationStatus =
       translation === 'complete' ? 'complete' : 'processing'
 
@@ -80,6 +82,7 @@ export async function POST(request: Request) {
         aps_item_id: null,
         translation_status: translationStatus,
         source_type: 'aps',
+        original_file_name: body.file_name,
       })
       .eq('id', body.project_id)
       .eq('user_id', user.id)

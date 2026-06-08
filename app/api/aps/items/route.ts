@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { getValidToken } from '@/lib/aps/auth'
-import { encodeUrn, ensureModelTranslated } from '@/lib/aps/modelDerivative'
+import {
+  encodeUrn,
+  ensureModelTranslated,
+  fileExtensionFromName,
+} from '@/lib/aps/modelDerivative'
 
 export const dynamic = 'force-dynamic'
 
@@ -140,6 +144,7 @@ export async function POST(request: Request) {
   const body = (await request.json()) as {
     project_id: string
     urn: string
+    file_name?: string
     hub_id?: string
     aps_project_id?: string
     item_id?: string
@@ -151,7 +156,11 @@ export async function POST(request: Request) {
 
   try {
     const token = await getValidToken(user.id)
-    const translation = await ensureModelTranslated(body.urn, token)
+    const translation = await ensureModelTranslated(body.urn, token, {
+      fileExtension: body.file_name
+        ? fileExtensionFromName(body.file_name)
+        : undefined,
+    })
     const translationStatus =
       translation === 'complete' ? 'complete' : 'processing'
 

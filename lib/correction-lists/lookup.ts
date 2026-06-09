@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { isLocalOnlyRef, normalizeCodeRef } from '@/lib/correction-lists/code-refs'
+import { resolveSectionAlias } from '@/lib/correction-lists/section-aliases'
 import type { CodeRefLookupResult, NormalizedCodeRef } from '@/lib/correction-lists/types'
 
 const CHUNK_DIR = path.join(process.cwd(), 'lib/raw/chunks')
@@ -57,6 +58,45 @@ function extractTitle(chunk: string, section: string): string | undefined {
   return after.slice(0, 120) || undefined
 }
 
+function lookupSectionInChunks(
+  ref: NormalizedCodeRef,
+  section: string
+): CodeRefLookupResult | null {
+  const cache = loadChunkCache()
+  const files =
+    FAMILY_CHUNK_FILES[ref.family] ??
+    [...(FAMILY_CHUNK_FILES.residential ?? []), ...(FAMILY_CHUNK_FILES.building ?? [])]
+
+  for (const file of files) {
+    const chunk = cache.get(file)
+    if (!chunk) continue
+    if (chunkContainsSection(chunk, section)) {
+      return {
+        ref: { ...ref, section },
+        found: true,
+        source: 'chunk',
+        title: extractTitle(chunk, section),
+        chunk_file: file,
+      }
+    }
+  }
+
+  for (const [file, chunk] of Array.from(cache.entries())) {
+    if (files.includes(file)) continue
+    if (chunkContainsSection(chunk, section)) {
+      return {
+        ref: { ...ref, section },
+        found: true,
+        source: 'chunk',
+        title: extractTitle(chunk, section),
+        chunk_file: file,
+      }
+    }
+  }
+
+  return null
+}
+
 export function lookupCodeRef(ref: NormalizedCodeRef): CodeRefLookupResult {
   if (isLocalOnlyRef(ref)) {
     return {
@@ -67,35 +107,12 @@ export function lookupCodeRef(ref: NormalizedCodeRef): CodeRefLookupResult {
     }
   }
 
-  const cache = loadChunkCache()
-  const files =
-    FAMILY_CHUNK_FILES[ref.family] ??
-    [...(FAMILY_CHUNK_FILES.residential ?? []), ...(FAMILY_CHUNK_FILES.building ?? [])]
-
-  for (const file of files) {
-    const chunk = cache.get(file)
-    if (!chunk) continue
-    if (chunkContainsSection(chunk, ref.section)) {
+  for (const candidate of resolveSectionAlias(ref.section)) {
+    const hit = lookupSectionInChunks(ref, candidate)
+    if (hit) {
       return {
-        ref,
-        found: true,
-        source: 'chunk',
-        title: extractTitle(chunk, ref.section),
-        chunk_file: file,
-      }
-    }
-  }
-
-  // Residential sections sometimes appear in building chunks and vice versa
-  for (const [file, chunk] of Array.from(cache.entries())) {
-    if (files.includes(file)) continue
-    if (chunkContainsSection(chunk, ref.section)) {
-      return {
-        ref,
-        found: true,
-        source: 'chunk',
-        title: extractTitle(chunk, ref.section),
-        chunk_file: file,
+        ...hit,
+        ref: { ...hit.ref, section: candidate },
       }
     }
   }

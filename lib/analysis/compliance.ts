@@ -1,5 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { disciplineLabel } from '@/lib/analysis/disciplines'
+import { appliesLaAduCorrectionList } from '@/lib/correction-lists/analysis-seed'
+import { PC_STR_CORR_LST_20A } from '@/lib/correction-lists/catalog'
 import type {
   CodeSectionMatch,
   ComplianceViolation,
@@ -42,6 +44,12 @@ export async function runComplianceCheck(
       `Sheets in scope: ${context.sheetNames.join(', ')}.`
     : ''
 
+  const laAduChecklistHint =
+    appliesLaAduCorrectionList(context.city, context.state, context.project_type) ?
+      `\n## LA City ADU plan check baseline (${PC_STR_CORR_LST_20A.list_id})
+This project is in Los Angeles and subject to the city's ADU/JADU/MTH plan check correction checklist. Apply the retrieved code sections against the uploaded plans the same way a plan checker would — cover egress, ADU zoning (setbacks, height, parking), garage separation, fire/life safety, structural, and energy requirements from that checklist.\n`
+    : ''
+
   const message = await client.messages.create({
     model: CLAUDE_MODEL,
     max_tokens: 8192,
@@ -49,7 +57,7 @@ export async function runComplianceCheck(
       {
         role: 'user',
         content: `You are a California building code compliance expert reviewing the **${disciplineName}** portion of a ${context.project_type} project in ${context.city}, ${context.state}.
-${sheetHint}
+${sheetHint}${laAduChecklistHint}
 
 ## Extracted properties (JSON)
 ${JSON.stringify(properties, null, 2)}

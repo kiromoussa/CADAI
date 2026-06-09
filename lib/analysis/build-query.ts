@@ -1,5 +1,6 @@
 import type { Discipline, ExtractedProperties } from '@/types/analysis'
 import { disciplineLabel } from '@/lib/analysis/disciplines'
+import { appliesLaAduCorrectionList } from '@/lib/correction-lists/analysis-seed'
 
 const DISCIPLINE_KEYWORDS: Partial<Record<Discipline, string[]>> = {
   electrical: [
@@ -69,10 +70,19 @@ export function buildKeywordSearchQuery(
   discipline: Discipline
 ): string {
   const keywords = DISCIPLINE_KEYWORDS[discipline] ?? DISCIPLINE_KEYWORDS.architectural
+  const laAduHints =
+    appliesLaAduCorrectionList(context.city, context.state, context.project_type) ?
+      [
+        'Los Angeles ADU JADU MTH plan check',
+        'accessory dwelling unit zoning setbacks parking',
+        'detached ADU attached JADU conversion',
+      ]
+    : []
   return [
     `${context.project_type} ${disciplineLabel(discipline)}`,
     `${context.city}, ${context.state}`,
     ...(keywords ?? []),
+    ...laAduHints,
   ].join('\n')
 }
 

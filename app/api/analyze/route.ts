@@ -19,12 +19,11 @@ import {
   isDwgExtension,
   isPropertiesEmpty,
 } from '@/lib/aps/modelDerivative'
-import { detectCorrectionSheet } from '@/lib/correction-lists/detect'
-import { extractTextFromPdfBuffer } from '@/lib/correction-lists/parse-pdf'
 import {
-  summarizeVerification,
-  verifyUploadedCorrectionSheet,
-} from '@/lib/correction-lists/verify'
+  appliesLaAduCorrectionList,
+  buildCorrectionListSearchQuery,
+  getPinnedCorrectionListSections,
+} from '@/lib/correction-lists/analysis-seed'
 import { searchJurisdictionsForCity } from '@/lib/jurisdiction'
 import { embedQuery } from '@/lib/voyage'
 import type { Json } from '@/types/database'
@@ -107,11 +106,25 @@ async function searchCodesForDiscipline(
     buildSearchQuery(properties, context, { discipline }),
     buildKeywordSearchQuery(context, discipline),
   ]
+
+  if (appliesLaAduCorrectionList(context.city, context.state, context.project_type)) {
+    queries.push(buildCorrectionListSearchQuery(discipline, context))
+  }
+
   const codeBodies = DISCIPLINE_CODE_BODIES[discipline]
   const jurisdictions = searchJurisdictionsForCity(context.city, context.state)
 
   const seen = new Set<string>()
   let codeSections: CodeSectionMatch[] = []
+
+  if (appliesLaAduCorrectionList(context.city, context.state, context.project_type)) {
+    for (const pinned of getPinnedCorrectionListSections(discipline)) {
+      const key = pinned.id
+      if (seen.has(key)) continue
+      seen.add(key)
+      codeSections.push(pinned)
+    }
+  }
 
   for (const query of queries) {
     const embedding = await embedQuery(query)
@@ -242,44 +255,6 @@ export async function POST(request: Request) {
         if (source_type === 'pdf') {
           if (!pdf_base64) {
             throw new Error('pdf_base64 is required for PDF analysis')
-          }
-
-          const pdfBuffer = Buffer.from(pdf_base64, 'base64')
-          const pdfText = await extractTextFromPdfBuffer(pdfBuffer)
-          const correctionDetection = detectCorrectionSheet(pdfText)
-
-          if (correctionDetection.is_correction_sheet) {
-            const verification = verifyUploadedCorrectionSheet(
-              pdfText,
-              correctionDetection.list_id
-            )
-            const summary = summarizeVerification(verification)
-
-            await admin
-              .from('analyses')
-              .update({
-                status: 'complete',
-                extracted_properties: {
-                  document_type: 'correction_sheet',
-                  list_id: verification.list_id,
-                  revision: verification.revision,
-                  verification,
-                  summary,
-                } as unknown as Json,
-                violation_count: verification.code_refs_missing.length,
-                warning_count: verification.items_missing.length,
-                pass_count: verification.code_refs_found,
-                completed_at: new Date().toISOString(),
-              })
-              .eq('id', analysisId)
-
-            send({
-              stage: 'complete',
-              message: summary.message,
-              analysis_id: analysisId,
-            })
-            controller.close()
-            return
           }
 
           properties = await extractPropertiesFromPdf(pdf_base64, {

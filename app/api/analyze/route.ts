@@ -19,6 +19,7 @@ import {
   isDwgExtension,
   isPropertiesEmpty,
 } from '@/lib/aps/modelDerivative'
+import { municipalCodeBodyForJurisdiction } from '@/lib/analysis/code-bodies'
 import { searchJurisdictionsForCity } from '@/lib/jurisdiction'
 import { embedQuery } from '@/lib/voyage'
 import type { Json } from '@/types/database'
@@ -101,8 +102,14 @@ async function searchCodesForDiscipline(
     buildSearchQuery(properties, context, { discipline }),
     buildKeywordSearchQuery(context, discipline),
   ]
-  const codeBodies = DISCIPLINE_CODE_BODIES[discipline]
   const jurisdictions = searchJurisdictionsForCity(context.city, context.state)
+  const codeBodies = [...DISCIPLINE_CODE_BODIES[discipline]]
+  for (const jurisdiction of jurisdictions) {
+    const municipal = municipalCodeBodyForJurisdiction(jurisdiction)
+    if (municipal && !codeBodies.includes(municipal)) {
+      codeBodies.push(municipal)
+    }
+  }
 
   const seen = new Set<string>()
   let codeSections: CodeSectionMatch[] = []

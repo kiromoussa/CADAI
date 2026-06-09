@@ -348,6 +348,8 @@ def main():
         name = filename.lower()
         if "santa ana" in name:
             return "santa_ana_ca"
+        if "los angeles" in name:
+            return "los_angeles_ca"
         if "long_beach" in name or "long beach" in name:
             return "long_beach_ca"
         return "california"

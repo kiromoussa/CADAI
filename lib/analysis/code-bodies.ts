@@ -7,7 +7,16 @@ export const CODE_BODIES = {
   plumbing: 'California Plumbing Code',
   fire: 'California Fire Code',
   green: 'California Green Building Standards Code',
-  municipal: 'Santa Ana Municipal Code',
 } as const
 
 export type CodeBodyName = (typeof CODE_BODIES)[keyof typeof CODE_BODIES]
+
+/** Municipal code_body per local jurisdiction slug (from chunk ingest). */
+export const MUNICIPAL_CODE_BODIES: Record<string, string> = {
+  santa_ana_ca: 'Santa Ana Municipal Code',
+  los_angeles_ca: 'Los Angeles Municipal Code',
+}
+
+export function municipalCodeBodyForJurisdiction(jurisdiction: string): string | null {
+  return MUNICIPAL_CODE_BODIES[jurisdiction] ?? null
+}

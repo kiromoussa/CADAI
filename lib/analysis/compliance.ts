@@ -47,7 +47,7 @@ export async function runComplianceCheck(
   const laAduChecklistHint =
     appliesLaAduCorrectionList(context.city, context.state, context.project_type) ?
       `\n## LA City ADU plan check baseline (${PC_STR_CORR_LST_20A.list_id})
-This project is in Los Angeles and subject to the city's ADU/JADU/MTH plan check correction checklist. Apply the retrieved code sections against the uploaded plans the same way a plan checker would — cover egress, ADU zoning (setbacks, height, parking), garage separation, fire/life safety, structural, and energy requirements from that checklist.\n`
+This project is in Los Angeles and subject to the city's ADU/JADU/MTH plan check correction checklist. Retrieved code sections may include Los Angeles Municipal Code (LAMC), Los Angeles Building/Residential Code (LABC/LARC), and California state codes. Apply them against the uploaded plans the same way a plan checker would — cover egress, ADU zoning (setbacks, height, parking), garage separation, fire/life safety, structural, and energy requirements.\n`
     : ''
 
   const message = await client.messages.create({

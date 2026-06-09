@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
     environment: 'node',
-    include: ['lib/**/*.test.ts'],
+    include: ['lib/**/*.test.ts', 'lib/**/__tests__/**/*.test.ts'],
   },
   resolve: {
     alias: {

@@ -24,7 +24,8 @@ import {
   buildCorrectionListSearchQuery,
   getPinnedCorrectionListSections,
 } from '@/lib/correction-lists/analysis-seed'
-import { searchJurisdictionsForCity } from '@/lib/jurisdiction'
+import { municipalCodeBodiesForJurisdiction } from '@/lib/analysis/code-bodies'
+import { localJurisdictionForCity, searchJurisdictionsForCity } from '@/lib/jurisdiction'
 import { embedQuery } from '@/lib/voyage'
 import type { Json } from '@/types/database'
 import type {
@@ -111,8 +112,20 @@ async function searchCodesForDiscipline(
     queries.push(buildCorrectionListSearchQuery(discipline, context))
   }
 
-  const codeBodies = DISCIPLINE_CODE_BODIES[discipline]
+  const stateCodeBodies = DISCIPLINE_CODE_BODIES[discipline]
   const jurisdictions = searchJurisdictionsForCity(context.city, context.state)
+  const localSlug = localJurisdictionForCity(context.city, context.state)
+
+  const codeBodiesForJurisdiction = (jurisdiction: string): string[] => {
+    const bodies = [...stateCodeBodies]
+    if (jurisdiction === localSlug && localSlug) {
+      const municipal = municipalCodeBodiesForJurisdiction(localSlug)
+      for (const body of municipal) {
+        if (!bodies.includes(body)) bodies.push(body)
+      }
+    }
+    return bodies
+  }
 
   const seen = new Set<string>()
   let codeSections: CodeSectionMatch[] = []
@@ -129,7 +142,12 @@ async function searchCodesForDiscipline(
   for (const query of queries) {
     const embedding = await embedQuery(query)
     for (const jurisdiction of jurisdictions) {
-      const matches = await matchCodeSections(embedding, jurisdiction, 30, codeBodies)
+      const matches = await matchCodeSections(
+        embedding,
+        jurisdiction,
+        jurisdiction === localSlug ? 40 : 30,
+        codeBodiesForJurisdiction(jurisdiction)
+      )
       for (const match of matches) {
         if (seen.has(match.id)) continue
         seen.add(match.id)

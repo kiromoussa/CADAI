@@ -19,6 +19,12 @@ import {
   isDwgExtension,
   isPropertiesEmpty,
 } from '@/lib/aps/modelDerivative'
+import { detectCorrectionSheet } from '@/lib/correction-lists/detect'
+import { extractTextFromPdfBuffer } from '@/lib/correction-lists/parse-pdf'
+import {
+  summarizeVerification,
+  verifyUploadedCorrectionSheet,
+} from '@/lib/correction-lists/verify'
 import { searchJurisdictionsForCity } from '@/lib/jurisdiction'
 import { embedQuery } from '@/lib/voyage'
 import type { Json } from '@/types/database'
@@ -237,6 +243,45 @@ export async function POST(request: Request) {
           if (!pdf_base64) {
             throw new Error('pdf_base64 is required for PDF analysis')
           }
+
+          const pdfBuffer = Buffer.from(pdf_base64, 'base64')
+          const pdfText = await extractTextFromPdfBuffer(pdfBuffer)
+          const correctionDetection = detectCorrectionSheet(pdfText)
+
+          if (correctionDetection.is_correction_sheet) {
+            const verification = verifyUploadedCorrectionSheet(
+              pdfText,
+              correctionDetection.list_id
+            )
+            const summary = summarizeVerification(verification)
+
+            await admin
+              .from('analyses')
+              .update({
+                status: 'complete',
+                extracted_properties: {
+                  document_type: 'correction_sheet',
+                  list_id: verification.list_id,
+                  revision: verification.revision,
+                  verification,
+                  summary,
+                } as unknown as Json,
+                violation_count: verification.code_refs_missing.length,
+                warning_count: verification.items_missing.length,
+                pass_count: verification.code_refs_found,
+                completed_at: new Date().toISOString(),
+              })
+              .eq('id', analysisId)
+
+            send({
+              stage: 'complete',
+              message: summary.message,
+              analysis_id: analysisId,
+            })
+            controller.close()
+            return
+          }
+
           properties = await extractPropertiesFromPdf(pdf_base64, {
             city,
             state,

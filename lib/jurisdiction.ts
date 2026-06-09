@@ -1,5 +1,5 @@
 /** Jurisdiction slugs that have local municipal code ingested in Supabase. */
-export const LOCAL_CODE_JURISDICTIONS = new Set<string>(['santa_ana_ca'])
+export const LOCAL_CODE_JURISDICTIONS = new Set<string>(['santa_ana_ca', 'los_angeles_ca'])
 
 function normalizeCity(city: string): string {
   return city.trim().toLowerCase()
@@ -19,6 +19,7 @@ export function localJurisdictionForCity(city: string, state: string): string | 
   if (!isCalifornia(state)) return null
   const c = normalizeCity(city)
   if (c.includes('santa ana')) return 'santa_ana_ca'
+  if (c.includes('los angeles') || c === 'la') return 'los_angeles_ca'
   return null
 }
 

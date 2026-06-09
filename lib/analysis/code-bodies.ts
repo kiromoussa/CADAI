@@ -15,7 +15,7 @@ export type CodeBodyName = (typeof CODE_BODIES)[keyof typeof CODE_BODIES]
 
 /**
  * Municipal code_body values per jurisdiction slug (must match Supabase ingest).
- * los_angeles_ca: LAMC + 2023 LABC/LARC/LAPC/etc. (~4,981 chunks after dedupe).
+ * los_angeles_ca: LAMC ingested on main; additional LA codes listed for future ingest.
  */
 export const MUNICIPAL_CODE_BODIES: Record<string, string[]> = {
   santa_ana_ca: ['Santa Ana Municipal Code'],
@@ -33,6 +33,12 @@ export const MUNICIPAL_CODE_BODIES: Record<string, string[]> = {
 
 export function municipalCodeBodiesForJurisdiction(jurisdiction: string): string[] {
   return MUNICIPAL_CODE_BODIES[jurisdiction] ?? []
+}
+
+/** Primary municipal code_body for a jurisdiction (first entry). */
+export function municipalCodeBodyForJurisdiction(jurisdiction: string): string | null {
+  const bodies = municipalCodeBodiesForJurisdiction(jurisdiction)
+  return bodies[0] ?? null
 }
 
 export function municipalCodeBodiesForCity(city: string, state: string): string[] {

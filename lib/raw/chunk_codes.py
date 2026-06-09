@@ -13,6 +13,7 @@ Run this on your Azure compute or locally.
 Install deps: pip install regex tqdm
 """
 
+import os
 import re
 from pathlib import Path
 from tqdm import tqdm
@@ -95,6 +96,18 @@ FILE_CONFIG = {
         "applies_to_default": ["residential", "ADU", "multifamily", "all"],
         "amendment_prefix": "CRC",  # flags local amendments against CRC
     },
+    "Los Angeles, CA Municipal Code.txt": {
+        "code_body": "Los Angeles Municipal Code",
+        "prefix": "LAMC",
+        "year": 2026,
+        # AmLegal export: zoning uses SEC. 11.xx / 12.xx; building code uses 91.xxx.yyy subsections
+        "section_patterns": [
+            r"^([\d]{2}\.[\d]{3}(?:\.[\d]+)*)\.\s+(.+)$",
+            r"^SEC\.\s+([\d]+(?:\.[\d]+)+)\.\s+(.+)$",
+        ],
+        "applies_to_default": ["residential", "ADU", "multifamily", "all"],
+        "amendment_prefix": "CRC",
+    },
 }
 
 # Sections to always skip (administrative, not compliance-relevant)
@@ -118,6 +131,8 @@ KEEP_KEYWORDS = [
     "garage", "adu", "accessory", "dwelling", "residential", "occupancy",
     "exit", "means of egress", "glazing", "safety", "hvac", "mechanical",
     "solar", "green", "water heater", "radon", "termite", "decay",
+    "setback", "height", "density", "zoning", "zone", "parking",
+    "lot coverage", "floor area", "yard", "building code", "residential code",
 ]
 
 
@@ -125,10 +140,25 @@ KEEP_KEYWORDS = [
 
 def clean_line(line: str) -> str:
     """Remove OCR artifacts and normalize whitespace."""
+    # AmLegal / PDF export mojibake
+    for bad, good in (
+        ("â\x80\x99", "'"),
+        ("â\x80\x9c", '"'),
+        ("â\x80\x9d", '"'),
+        ("â\x80\x94", "—"),
+        ("â\x80\x93", "–"),
+        ("â\x80¢", "•"),
+    ):
+        line = line.replace(bad, good)
+    line = line.replace("\u00c2\u00a0", " ")
+    line = re.sub(r"Â+", "", line)
     # Remove common djvu OCR garbage characters
     line = re.sub(r'[|]{2,}', '', line)
     line = re.sub(r'\[cite:\s*\d+\]', '', line)
     line = re.sub(r'\s{3,}', ' ', line)
+    # Drop AmLegal image asset URLs
+    if re.search(r"images\.amlegal\.com", line, re.IGNORECASE):
+        return ""
     # Remove page headers/footers patterns
     line = re.sub(r'^\d{4}\s+20\d{2}\s+CALIFORNIA.+CODE\s*$', '', line, flags=re.IGNORECASE)
     line = re.sub(r'^INTERNATIONAL CODE COUNCIL\s*$', '', line, flags=re.IGNORECASE)
@@ -224,7 +254,15 @@ def chunk_file(filename: str, config: dict) -> list[dict]:
     with open(filepath, "r", encoding="utf-8", errors="replace") as f:
         lines = f.readlines()
 
-    section_pat = re.compile(config["section_pattern"], re.MULTILINE | re.IGNORECASE)
+    pattern_list = config.get("section_patterns")
+    if pattern_list:
+        section_pats = [
+            re.compile(p, re.MULTILINE | re.IGNORECASE) for p in pattern_list
+        ]
+    else:
+        section_pats = [
+            re.compile(config["section_pattern"], re.MULTILINE | re.IGNORECASE)
+        ]
     title_on_next_line = config.get("title_on_next_line", False)
     title_from_content = config.get("title_from_content", False)
     chunks = []
@@ -250,8 +288,12 @@ def chunk_file(filename: str, config: dict) -> list[dict]:
         if in_toc:
             continue
 
-        # Detect section header
-        m = section_pat.match(line)
+        # Detect section header (first matching pattern wins)
+        m = None
+        for section_pat in section_pats:
+            m = section_pat.match(line)
+            if m:
+                break
         if m:
             # Save previous chunk
             if current_section and current_lines:
@@ -374,9 +416,13 @@ def main():
         print(f"\n❌ Raw directory not found: {RAW_DIR.resolve()}")
         return
 
+    only_file = os.getenv("CHUNK_ONLY_FILE", "").lower()
+
     total_chunks = 0
     for filename, config in FILE_CONFIG.items():
         if "hocr" in filename.lower():
+            continue
+        if only_file and only_file not in filename.lower():
             continue
         if not (RAW_DIR / filename).exists():
             print(f"\n⏭️  Skipping missing file: {filename}")

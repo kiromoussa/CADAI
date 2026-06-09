@@ -107,7 +107,6 @@ async function searchCodesForDiscipline(
     buildSearchQuery(properties, context, { discipline }),
     buildKeywordSearchQuery(context, discipline),
   ]
-
   if (appliesLaAduCorrectionList(context.city, context.state, context.project_type)) {
     queries.push(buildCorrectionListSearchQuery(discipline, context))
   }

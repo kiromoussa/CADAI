@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { isAllowedAuthEmail } from '@/lib/auth/allowed-users'
 import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
@@ -11,6 +12,15 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)
 
     if (!error) {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+
+      if (!isAllowedAuthEmail(user?.email)) {
+        await supabase.auth.signOut()
+        return NextResponse.redirect(`${origin}/login?error=unauthorized`)
+      }
+
       return NextResponse.redirect(`${origin}${next}`)
     }
   }

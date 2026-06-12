@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { createClient } from '@/lib/supabase/client'
 import { AppHeader } from '@/components/AppHeader'
 import { disciplineLabel } from '@/lib/analysis/disciplines'
-import { hasLocalCode } from '@/lib/jurisdiction'
+import { ProjectSetupFields, Field } from '@/components/projects/ProjectSetupFields'
 import type { Discipline } from '@/types/analysis'
 
 type SourceType = 'pdf' | 'cad' | 'aps'
@@ -25,9 +25,6 @@ interface ApsItem {
   name: string
   urn: string
 }
-
-const US_STATES = ['CA', 'AZ', 'NV', 'OR', 'WA', 'TX', 'FL', 'NY']
-const PROJECT_TYPES = ['residential', 'adu', 'multifamily', 'commercial']
 
 export default function AnalyzePageClient() {
   const router = useRouter()
@@ -141,7 +138,6 @@ export default function AnalyzePageClient() {
     setPipelineStep('upload')
 
     try {
-      let pdfBase64: string | undefined
       let pdfStoragePath: string | undefined
       let apsUrn: string | undefined
       let hubId: string | undefined
@@ -160,8 +156,6 @@ export default function AnalyzePageClient() {
           .from('floor-plans')
           .upload(pdfStoragePath, pdfFile, { contentType: 'application/pdf' })
         if (uploadError) throw new Error(uploadError.message)
-
-        pdfBase64 = await fileToBase64(pdfFile)
       } else if (sourceType === 'cad') {
         if (!cadFile) throw new Error('Select a CAD file (DWG, RVT, IFC, etc.)')
       } else {
@@ -238,20 +232,64 @@ export default function AnalyzePageClient() {
         }
       }
 
-      const analyzeRes = await fetch('/api/analyze', {
+      // --- Create a board and source node so everything flows through one backend ---
+      const boardRes = await fetch('/api/boards', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          title: name,
+          default_city: city,
+          default_state: state,
+          default_project_type: projectType,
           project_id: newProjectId,
-          city,
-          state,
-          project_type: projectType,
-          source_type: sourceType === 'cad' ? 'aps' : sourceType,
-          pdf_base64: pdfBase64,
-          aps_urn: apsUrn,
-          file_name: sourceType === 'cad' && cadFile ? cadFile.name : selectedItem?.name,
         }),
       })
+      const boardData = (await boardRes.json()) as { board?: { id: string }; error?: string }
+      if (!boardRes.ok || !boardData.board) {
+        throw new Error(boardData.error ?? 'Failed to create board')
+      }
+      const boardId = boardData.board.id
+
+      const nodeElementId = `node-${crypto.randomUUID().slice(0, 8)}`
+      const nodeType = sourceType === 'pdf' ? 'pdf' : 'forge'
+      const nodeRes = await fetch(`/api/boards/${boardId}/nodes`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          excalidraw_element_id: nodeElementId,
+          node_type: nodeType,
+          x: 100,
+          y: 100,
+          width: 480,
+          height: 360,
+          project_id: newProjectId,
+          storage_path: pdfStoragePath ?? null,
+          aps_urn: apsUrn ?? null,
+          content: {
+            label: name,
+            doc_kind: sourceType === 'pdf' ? 'document' : 'cad',
+          },
+        }),
+      })
+      const nodeData = (await nodeRes.json()) as { node?: { id: string }; error?: string }
+      if (!nodeRes.ok || !nodeData.node) {
+        throw new Error(nodeData.error ?? 'Failed to create source node')
+      }
+      const sourceNodeId = nodeData.node.id
+
+      // Route analysis through the board-node endpoint (single backend)
+      const analyzeRes = await fetch(
+        `/api/boards/${boardId}/nodes/${sourceNodeId}/analyze`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            city,
+            state,
+            project_type: projectType,
+          }),
+        }
+      )
 
       if (!analyzeRes.ok || !analyzeRes.body) {
         const errData = (await analyzeRes.json().catch(() => ({}))) as { error?: string }
@@ -328,14 +366,36 @@ export default function AnalyzePageClient() {
             throw new Error(payload.error ?? payload.message)
           }
           if (payload.stage === 'complete' && payload.analysis_id) {
-            router.push(`/viewer/${payload.analysis_id}`)
+            // Create report node next to source, then navigate to the board
+            const reportElementId = `node-${crypto.randomUUID().slice(0, 8)}`
+            await fetch(`/api/boards/${boardId}/nodes`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                excalidraw_element_id: reportElementId,
+                node_type: 'pdf',
+                x: 100 + 480 + 40,
+                y: 100,
+                width: 480,
+                height: 360,
+                analysis_id: payload.analysis_id,
+                content: {
+                  label: 'Compliance Report',
+                  doc_kind: 'document',
+                  analysis_status: 'complete',
+                  linked_analysis_id: payload.analysis_id,
+                  linked_source_node_id: sourceNodeId,
+                },
+              }),
+            })
+            router.push(`/board/${boardId}`)
             return
           }
         }
       }
 
       if (analysisId) {
-        router.push(`/viewer/${analysisId}`)
+        router.push(`/board/${boardId}`)
       }
     } catch (err) {
       const raw = err instanceof Error ? err.message : 'Analysis failed'
@@ -343,7 +403,7 @@ export default function AnalyzePageClient() {
         /input stream|network error|failed to fetch|aborted|connection reset|json\.parse/i.test(
           raw
         )
-          ? 'Analysis was interrupted while reading the plan — try again or export a PDF from your CAD tool.'
+          ? 'Analysis was interrupted while reading the plan.try again or export a PDF from your CAD tool.'
           : raw
       const withHint =
         sourceType === 'cad' || sourceType === 'aps'
@@ -395,58 +455,15 @@ export default function AnalyzePageClient() {
 
         {step === 1 && (
           <div className="space-y-4 rounded-lg border border-border bg-surface p-6">
-            <Field label="Project name">
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="input-field"
-                placeholder="123 Main St ADU"
-              />
-            </Field>
-            <div className="grid grid-cols-2 gap-4">
-              <Field label="City">
-                <input
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  className="input-field"
-                />
-                {hasLocalCode(city, state) ? (
-                  <p className="mt-1 text-xs text-severity-pass">
-                    Local municipal code available for this city.
-                  </p>
-                ) : (
-                  <p className="mt-1 text-xs text-text-secondary">
-                    State building code will be used (no local code ingested for this city yet).
-                  </p>
-                )}
-              </Field>
-              <Field label="State">
-                <select
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
-                  className="input-field"
-                >
-                  {US_STATES.map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-              </Field>
-            </div>
-            <Field label="Project type">
-              <select
-                value={projectType}
-                onChange={(e) => setProjectType(e.target.value)}
-                className="input-field"
-              >
-                {PROJECT_TYPES.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </Field>
+            <ProjectSetupFields
+              values={{ name, city, state, projectType }}
+              onChange={(patch) => {
+                if (patch.name !== undefined) setName(patch.name)
+                if (patch.city !== undefined) setCity(patch.city)
+                if (patch.state !== undefined) setState(patch.state)
+                if (patch.projectType !== undefined) setProjectType(patch.projectType)
+              }}
+            />
             <button
               type="button"
               disabled={!name.trim()}
@@ -501,7 +518,7 @@ export default function AnalyzePageClient() {
                 </p>
                 {cadFile && cadFile.size > 80 * 1024 * 1024 && (
                   <p className="mt-1 text-xs text-severity-warning">
-                    Large file ({formatFileSize(cadFile.size)}) — translation may take 10+ minutes.
+                    Large file ({formatFileSize(cadFile.size)}).translation may take 10+ minutes.
                   </p>
                 )}
               </Field>
@@ -650,15 +667,6 @@ export default function AnalyzePageClient() {
   )
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <label className="block text-sm">
-      <span className="font-medium text-text-primary">{label}</span>
-      {children}
-    </label>
-  )
-}
-
 function SourceTab({
   active,
   onClick,
@@ -682,16 +690,6 @@ function SourceTab({
       {label}
     </button>
   )
-}
-
-async function fileToBase64(file: File): Promise<string> {
-  const buffer = await file.arrayBuffer()
-  const bytes = new Uint8Array(buffer)
-  let binary = ''
-  for (let i = 0; i < bytes.length; i++) {
-    binary += String.fromCharCode(bytes[i])
-  }
-  return btoa(binary)
 }
 
 const TRANSLATION_MAX_WAIT_MS = 20 * 60 * 1000
@@ -846,7 +844,7 @@ async function waitForTranslation(
       const { data, parseFailed } = await parseTranslationPollResponse(res)
 
       if (res.status === 401) {
-        throw new Error('Session expired — sign in again and reopen this project from the dashboard.')
+        throw new Error('Session expired.sign in again and reopen this project from the dashboard.')
       }
 
       if (isRetryableTranslationPoll(res, data, parseFailed)) {
@@ -855,8 +853,8 @@ async function waitForTranslation(
           onProgress?.(
             data.message ??
               (res.status === 404 || parseFailed
-                ? 'Waiting for translation service — retrying…'
-                : 'Temporary network issue — retrying…')
+                ? 'Waiting for translation service.retrying…'
+                : 'Temporary network issue.retrying…')
           )
           await new Promise((resolve) => setTimeout(resolve, pollIntervalMs))
           continue
@@ -881,7 +879,7 @@ async function waitForTranslation(
 
       if (data.retrying) {
         message =
-          'Restarted translation with DWG-optimized PDF sheet settings — this usually takes 2–5 minutes…'
+          'Restarted translation with DWG-optimized PDF sheet settings.this usually takes 2–5 minutes…'
       } else if (data.stalled && data.force_retried && data.status === 'processing') {
         message =
           progressStr && progressStr.includes('%')
@@ -889,13 +887,13 @@ async function waitForTranslation(
             : 'Finishing DWG sheet conversion…'
       } else if (data.stalled && data.status === 'processing') {
         message =
-          'Translation appears stuck — retrying with DWG-optimized sheet export settings…'
+          'Translation appears stuck.retrying with DWG-optimized sheet export settings…'
       } else if (
         progressStr.includes('99%') &&
         Date.now() - lastProgressChangeAt > 3 * 60 * 1000
       ) {
         message =
-          'Translation appears stuck at 99% — retrying with DWG sheet export settings…'
+          'Translation appears stuck at 99%.retrying with DWG sheet export settings…'
       } else if (isDwg && data.status === 'processing' && !progressStr.includes('99%')) {
         if (!message.includes('2–8 minutes')) {
           message = `${message}${dwgExpectation}`
@@ -918,7 +916,7 @@ async function waitForTranslation(
       const isJsonFailure = err instanceof SyntaxError
       if ((isFetchFailure || isJsonFailure) && networkRetries < 20) {
         networkRetries += 1
-        onProgress?.('Connection interrupted — retrying…')
+        onProgress?.('Connection interrupted.retrying…')
         await new Promise((resolve) => setTimeout(resolve, pollIntervalMs))
         continue
       }

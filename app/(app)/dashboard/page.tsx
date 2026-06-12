@@ -3,7 +3,8 @@ import { redirect } from 'next/navigation'
 import { signOut } from '@/app/actions/auth'
 import { DeleteProjectButton } from '@/components/DeleteProjectButton'
 import { createClient } from '@/lib/supabase/server'
-import type { AnalysisRow, ProjectRow } from '@/types/database'
+import { NewBoardButton } from '@/components/canvas/NewBoardButton'
+import type { AnalysisRow, CanvasBoardRow, ProjectRow } from '@/types/database'
 
 export default async function DashboardPage() {
   const supabase = createClient()
@@ -28,6 +29,14 @@ export default async function DashboardPage() {
     .order('created_at', { ascending: false })
     .limit(50)
 
+  const { data: boards } = await supabase
+    .from('canvas_boards')
+    .select('*')
+    .eq('user_id', user.id)
+    .order('updated_at', { ascending: false })
+    .limit(20)
+
+  const boardList = (boards ?? []) as CanvasBoardRow[]
   const projectList = (projects ?? []) as ProjectRow[]
   const projectIds = projectList.map((p) => p.id)
 
@@ -95,7 +104,48 @@ export default async function DashboardPage() {
           >
             New analysis
           </Link>
+          <NewBoardButton />
         </div>
+
+        <section className="mt-10">
+          <h2 className="text-lg font-medium text-offwhite">Compliance boards</h2>
+          {boardList.length === 0 ? (
+            <p className="mt-4 text-offwhite/60">
+              Create a board to arrange PDFs and run compliance checks on a canvas.
+            </p>
+          ) : (
+            <ul className="mt-4 divide-y divide-blueprint rounded-lg border border-blueprint">
+              {boardList.map((board) => (
+                <li
+                  key={board.id}
+                  className="flex flex-wrap items-center justify-between gap-4 px-4 py-4"
+                >
+                  <div>
+                    <p className="font-medium text-offwhite">{board.title}</p>
+                    <p className="mt-1 text-sm text-offwhite/60">
+                      {board.default_city}, {board.default_state} ·{' '}
+                      {board.default_project_type}
+                    </p>
+                    <p className="mt-1 text-xs text-offwhite/50">
+                      Updated{' '}
+                      {new Date(board.updated_at).toLocaleDateString(undefined, {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
+                    </p>
+                  </div>
+                  <Link
+                    href={`/board/${board.id}`}
+                    className="rounded-md border border-cyan px-4 py-2 text-sm text-cyan transition hover:bg-cyan/10"
+                  >
+                    Open board
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
 
         <section className="mt-10">
           <h2 className="text-lg font-medium text-offwhite">Recent projects</h2>

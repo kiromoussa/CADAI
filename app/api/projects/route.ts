@@ -22,6 +22,7 @@ export async function POST(request: Request) {
     aps_hub_id?: string
     aps_project_id?: string
     aps_item_id?: string
+    board_id?: string
   }
 
   if (!body.name || !body.city || !body.state || !body.source_type) {
@@ -42,6 +43,7 @@ export async function POST(request: Request) {
       aps_hub_id: body.aps_hub_id ?? null,
       aps_project_id: body.aps_project_id ?? null,
       aps_item_id: body.aps_item_id ?? null,
+      board_id: body.board_id ?? null,
     })
     .select('id')
     .single()

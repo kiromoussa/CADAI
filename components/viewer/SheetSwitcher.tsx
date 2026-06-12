@@ -39,7 +39,7 @@ export function SheetSwitcher({
       >
         {sheets.map((sheet) => (
           <option key={sheet.guid} value={sheet.guid}>
-            {sheet.name} — {disciplineLabel(sheet.discipline)}
+            {sheet.name} - {disciplineLabel(sheet.discipline)}
             {sheet.violationCount != null && sheet.violationCount > 0
               ? ` (${sheet.violationCount})`
               : ''}

@@ -67,6 +67,7 @@ export interface Database {
           original_file_name: string | null
           translation_force_retried: boolean
           translation_force_retried_at: string | null
+          board_id: string | null
           created_at: string
           updated_at: string
         }
@@ -88,6 +89,7 @@ export interface Database {
           original_file_name?: string | null
           translation_force_retried?: boolean
           translation_force_retried_at?: string | null
+          board_id?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -109,6 +111,7 @@ export interface Database {
           original_file_name?: string | null
           translation_force_retried?: boolean
           translation_force_retried_at?: string | null
+          board_id?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -130,6 +133,7 @@ export interface Database {
           pass_count: number
           claude_model: string | null
           tokens_used: number | null
+          canvas_node_id: string | null
           created_at: string
           completed_at: string | null
         }
@@ -148,6 +152,7 @@ export interface Database {
           pass_count?: number
           claude_model?: string | null
           tokens_used?: number | null
+          canvas_node_id?: string | null
           created_at?: string
           completed_at?: string | null
         }
@@ -166,8 +171,189 @@ export interface Database {
           pass_count?: number
           claude_model?: string | null
           tokens_used?: number | null
+          canvas_node_id?: string | null
           created_at?: string
           completed_at?: string | null
+        }
+        Relationships: []
+      }
+      canvas_boards: {
+        Row: {
+          id: string
+          user_id: string
+          project_id: string | null
+          title: string
+          default_city: string | null
+          default_state: string | null
+          default_project_type: string | null
+          scene_json: Json
+          thumbnail_path: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          project_id?: string | null
+          title?: string
+          default_city?: string | null
+          default_state?: string | null
+          default_project_type?: string | null
+          scene_json?: Json
+          thumbnail_path?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          project_id?: string | null
+          title?: string
+          default_city?: string | null
+          default_state?: string | null
+          default_project_type?: string | null
+          scene_json?: Json
+          thumbnail_path?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      canvas_nodes: {
+        Row: {
+          id: string
+          board_id: string
+          excalidraw_element_id: string
+          node_type: string
+          x: number
+          y: number
+          width: number
+          height: number
+          project_id: string | null
+          storage_path: string | null
+          aps_urn: string | null
+          analysis_id: string | null
+          content: Json
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          board_id: string
+          excalidraw_element_id: string
+          node_type: string
+          x?: number
+          y?: number
+          width?: number
+          height?: number
+          project_id?: string | null
+          storage_path?: string | null
+          aps_urn?: string | null
+          analysis_id?: string | null
+          content?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          board_id?: string
+          excalidraw_element_id?: string
+          node_type?: string
+          x?: number
+          y?: number
+          width?: number
+          height?: number
+          project_id?: string | null
+          storage_path?: string | null
+          aps_urn?: string | null
+          analysis_id?: string | null
+          content?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      code_ingest_jobs: {
+        Row: {
+          id: string
+          user_id: string
+          board_id: string | null
+          node_id: string | null
+          status: string
+          storage_path: string
+          jurisdiction: string | null
+          city: string | null
+          state: string | null
+          code_year: number | null
+          sections_count: number
+          error: string | null
+          created_at: string
+          updated_at: string
+          completed_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          board_id?: string | null
+          node_id?: string | null
+          status?: string
+          storage_path: string
+          jurisdiction?: string | null
+          city?: string | null
+          state?: string | null
+          code_year?: number | null
+          sections_count?: number
+          error?: string | null
+          created_at?: string
+          updated_at?: string
+          completed_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          board_id?: string | null
+          node_id?: string | null
+          status?: string
+          storage_path?: string
+          jurisdiction?: string | null
+          city?: string | null
+          state?: string | null
+          code_year?: number | null
+          sections_count?: number
+          error?: string | null
+          created_at?: string
+          updated_at?: string
+          completed_at?: string | null
+        }
+        Relationships: []
+      }
+      analysis_annotations: {
+        Row: {
+          id: string
+          analysis_id: string
+          user_id: string
+          sheet_guid: string | null
+          scene_json: Json
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          analysis_id: string
+          user_id: string
+          sheet_guid?: string | null
+          scene_json?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          analysis_id?: string
+          user_id?: string
+          sheet_guid?: string | null
+          scene_json?: Json
+          created_at?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -317,3 +503,7 @@ export interface Database {
 export type ViolationRow = Database['public']['Tables']['violations']['Row']
 export type AnalysisRow = Database['public']['Tables']['analyses']['Row']
 export type ProjectRow = Database['public']['Tables']['projects']['Row']
+export type CanvasBoardRow = Database['public']['Tables']['canvas_boards']['Row']
+export type CanvasNodeRow = Database['public']['Tables']['canvas_nodes']['Row']
+export type CodeIngestJobRow = Database['public']['Tables']['code_ingest_jobs']['Row']
+export type AnalysisAnnotationRow = Database['public']['Tables']['analysis_annotations']['Row']

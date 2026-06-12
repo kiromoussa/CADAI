@@ -3,13 +3,46 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0f1e;
-  --foreground: #f9fafb;
+  --background: #0C0A09;
+  --foreground: #FAFAF9;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
+}
+
+.excalidraw-board-host {
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+}
+
+.excalidraw-board-host .excalidraw {
+  height: 100%;
+}
+
+.excalidraw-board-host .canvas-node-overlay {
+  z-index: 3;
+}
+
+.excalidraw-board-host .welcome-screen-decor,
+.excalidraw-board-host .welcome-screen-center,
+.excalidraw-board-host .ExcalidrawLogo,
+.excalidraw-board-host .HelpDialog__header,
+.excalidraw-board-host .library-menu-browse-button,
+.excalidraw-board-host .publish-library-note a {
+  display: none !important;
+}
+
+.excalidraw-board-host a[href*="github.com/excalidraw"],
+.excalidraw-board-host a[href*="x.com/excalidraw"],
+.excalidraw-board-host a[href*="twitter.com/excalidraw"],
+.excalidraw-board-host a[href*="discord.gg"],
+.excalidraw-board-host a[href*="libraries.excalidraw.com"],
+.excalidraw-board-host a[href*="docs.excalidraw.com"],
+.excalidraw-board-host a[href*="plus.excalidraw.com"] {
+  display: none !important;
 }
 
 @layer components {

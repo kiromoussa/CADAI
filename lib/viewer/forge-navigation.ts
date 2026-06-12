@@ -161,6 +161,21 @@ export function getDbIdBounds(
   return union
 }
 
+export function safeSelectDbIds(
+  viewer: ForgeViewerLike,
+  dbIds: number[]
+): boolean {
+  const validIds = dbIds.filter((id) => !Number.isNaN(id))
+  if (validIds.length === 0 || !viewer.model) return false
+  try {
+    viewer.select(validIds)
+    return true
+  } catch {
+    // 2D sheets may not have a selection manager until geometry is fully loaded.
+    return false
+  }
+}
+
 export function locateDbIds(
   viewer: ForgeViewerLike,
   dbIds: number[],
@@ -172,7 +187,7 @@ export function locateDbIds(
   const validIds = dbIds.filter((id) => !Number.isNaN(id))
   if (validIds.length === 0) return false
 
-  viewer.select(validIds)
+  safeSelectDbIds(viewer, validIds)
 
   const THREE = getThree()
   if (!THREE) {

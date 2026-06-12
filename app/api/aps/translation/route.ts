@@ -103,7 +103,7 @@ export async function GET(request: Request) {
       message = 'Waiting for translation to start…'
     } else if (retrying) {
       message =
-        'Restarted translation — this usually takes 2–5 minutes…'
+        'Restarted translation -this usually takes 2–5 minutes…'
     } else if (result.stalled && project?.translation_force_retried) {
       message =
         result.progress && result.progress.includes('%')
@@ -111,7 +111,7 @@ export async function GET(request: Request) {
           : 'Finishing sheet conversion…'
     } else if (result.stalled) {
       message =
-        'Translation appears stuck — retrying conversion…'
+        'Translation appears stuck -retrying conversion…'
     } else {
       message =
         result.progress && result.progress.includes('%')

@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import { IBM_Plex_Mono, Inter } from 'next/font/google'
+import { IBM_Plex_Mono, Outfit } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-outfit',
 })
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -14,7 +14,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'CodeComply — Building Code Compliance',
+  title: 'CodeComply | Building Code Compliance',
   description:
     'AI-powered building code compliance for residential architects',
 }
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${ibmPlexMono.variable} font-sans antialiased`}
+        className={`${outfit.variable} ${ibmPlexMono.variable} font-sans antialiased`}
       >
         {children}
       </body>

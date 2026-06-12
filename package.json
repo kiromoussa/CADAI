@@ -10,14 +10,18 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.101.0",
+    "@excalidraw/excalidraw": "^0.18.1",
+    "@formspree/react": "^3.0.0",
     "@napi-rs/canvas": "^1.0.0",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.8",
     "clsx": "^2.1.1",
+    "motion": "^12.40.0",
     "next": "14.2.28",
     "pdfjs-dist": "^4.8.69",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "tailwind-merge": "^3.6.0",
     "voyageai": "^0.3.1"
   },
   "devDependencies": {

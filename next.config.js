@@ -29,7 +29,7 @@ const nextConfig = {
       },
     ]
   },
-  transpilePackages: [],
+  transpilePackages: ['@excalidraw/excalidraw'],
 }
 
 module.exports = nextConfig

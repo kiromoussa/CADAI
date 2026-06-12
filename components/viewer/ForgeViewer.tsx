@@ -13,6 +13,7 @@ import {
   fitViewerToModel,
   getDbIdScreenCenter,
   locateDbIds,
+  safeSelectDbIds,
   type ForgeViewerLike,
   waitForViewerModel,
   zoomViewer,
@@ -31,6 +32,7 @@ interface ForgeViewerProps {
   onSelect: (id: string) => void
   locateViolation: ViolationRow | null
   onSheetChange?: (sheet: ViewerSheet) => void
+  compact?: boolean
 }
 
 interface Pin {
@@ -155,6 +157,7 @@ export function ForgeViewer({
   onSelect,
   locateViolation,
   onSheetChange,
+  compact = false,
 }: ForgeViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const viewerRef = useRef<Autodesk.Viewing.GuiViewer3D | null>(null)
@@ -172,6 +175,7 @@ export function ForgeViewer({
   >([])
   const [documentSheets, setDocumentSheets] = useState<ViewerSheet[]>([])
   const [viewerReady, setViewerReady] = useState(false)
+  const [layoutReady, setLayoutReady] = useState(false)
   const locateSeqRef = useRef(0)
 
   const sheets: ViewerSheet[] = useMemo(() => {
@@ -244,7 +248,37 @@ export function ForgeViewer({
   )
 
   useEffect(() => {
-    if (!sdkReady || !containerRef.current || viewerRef.current) return
+    const container = containerRef.current
+    if (!container) return
+
+    const check = () => {
+      if (container.clientWidth >= 40 && container.clientHeight >= 40) {
+        setLayoutReady(true)
+      }
+    }
+
+    check()
+
+    if (typeof ResizeObserver === 'undefined') {
+      setLayoutReady(true)
+      return
+    }
+
+    let frame = 0
+    const observer = new ResizeObserver(() => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(check)
+    })
+    observer.observe(container)
+
+    return () => {
+      cancelAnimationFrame(frame)
+      observer.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!sdkReady || !layoutReady || !containerRef.current || viewerRef.current) return
 
     let cancelled = false
 
@@ -404,7 +438,7 @@ export function ForgeViewer({
       sheetNodesRef.current = []
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sdkReady, urn])
+  }, [sdkReady, layoutReady, urn])
 
   function updatePins(viewer: Autodesk.Viewing.GuiViewer3D, currentPins: Pin[]) {
     const overlay = overlayRef.current
@@ -429,8 +463,8 @@ export function ForgeViewer({
         el.style.height = '24px'
         el.style.borderRadius = '9999px'
         el.style.border = '2px solid white'
-        el.style.background = severityColor[pin.severity] ?? '#3B82F6'
-        el.style.color = '#0A0F1E'
+        el.style.background = severityColor[pin.severity] ?? '#EE690B'
+        el.style.color = '#0C0A09'
         el.style.fontSize = '11px'
         el.style.fontWeight = '700'
         el.style.cursor = 'pointer'
@@ -509,11 +543,23 @@ export function ForgeViewer({
   }, [locateViolation, activeSheetGuid, loadSheet, onSelect])
 
   useEffect(() => {
-    if (!selectedId || !viewerRef.current) return
+    if (!selectedId || !viewerReady || loading || sheetLoading) return
+    const viewer = viewerRef.current
+    if (!viewer) return
     const pin = pins.find((p) => p.id === selectedId)
     if (!pin) return
-    viewerRef.current.select([pin.dbId])
-  }, [selectedId, pins])
+
+    let cancelled = false
+    void (async () => {
+      await waitForViewerModel(asForgeNav(viewer))
+      if (cancelled) return
+      safeSelectDbIds(asForgeNav(viewer), [pin.dbId])
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [selectedId, pins, viewerReady, loading, sheetLoading])
 
   const activeSheet = sheets.find((s) => s.guid === activeSheetGuid)
 
@@ -554,6 +600,25 @@ export function ForgeViewer({
   }, [loading, sheetLoading, sdkReady])
 
   useEffect(() => {
+    if (!viewerReady) return
+    const container = containerRef.current
+    if (!container) return
+
+    const resizeViewer = () => {
+      const viewer = viewerRef.current as (Autodesk.Viewing.GuiViewer3D & {
+        resize?: () => void
+      }) | null
+      viewer?.resize?.()
+    }
+
+    const observer = new ResizeObserver(() => {
+      window.requestAnimationFrame(resizeViewer)
+    })
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [viewerReady])
+
+  useEffect(() => {
     if (!sdkReady) return
     const link = document.createElement('link')
     link.rel = 'stylesheet'
@@ -579,12 +644,14 @@ export function ForgeViewer({
         }}
       />
 
-      <SheetSwitcher
-        sheets={sheets}
-        activeGuid={activeSheetGuid}
-        onChange={(guid) => void loadSheet(guid)}
-        loading={sheetLoading}
-      />
+      {!compact && (
+        <SheetSwitcher
+          sheets={sheets}
+          activeGuid={activeSheetGuid}
+          onChange={(guid) => void loadSheet(guid)}
+          loading={sheetLoading}
+        />
+      )}
 
       <div className="relative min-h-0 flex-1">
         <div ref={containerRef} className="absolute inset-0" />
@@ -630,18 +697,20 @@ export function ForgeViewer({
         )}
       </div>
 
-      <ViewerToolbar
-        onZoomIn={handleZoomIn}
-        onZoomOut={handleZoomOut}
-        onFit={handleFit}
-        onHome={handleHome}
-        disabled={!viewerReady || loading || sheetLoading}
-        sheetLabel={
-          activeSheet
-            ? `${activeSheet.name} · ${disciplineLabel(activeSheet.discipline)}`
-            : undefined
-        }
-      />
+      {!compact && (
+        <ViewerToolbar
+          onZoomIn={handleZoomIn}
+          onZoomOut={handleZoomOut}
+          onFit={handleFit}
+          onHome={handleHome}
+          disabled={!viewerReady || loading || sheetLoading}
+          sheetLabel={
+            activeSheet
+              ? `${activeSheet.name} · ${disciplineLabel(activeSheet.discipline)}`
+              : undefined
+          }
+        />
+      )}
     </div>
   )
 }
@@ -686,6 +755,7 @@ declare namespace Autodesk {
       addEventListener(event: string, callback: () => void): void
       removeEventListener(event: string, callback: () => void): void
       setNavigationLock?(lock: boolean): void
+      resize?(): void
     }
     class Document {
       static load(

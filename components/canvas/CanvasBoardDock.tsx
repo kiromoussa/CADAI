@@ -7,6 +7,7 @@ interface CanvasBoardDockProps {
   onAddPdf: (file: File) => void
   onAddDwg: (file: File) => void
   onAddDocument: (file: File) => void
+  onAddNote?: () => void
   busy?: boolean
 }
 
@@ -14,6 +15,7 @@ export function CanvasBoardDock({
   onAddPdf,
   onAddDwg,
   onAddDocument,
+  onAddNote,
   busy,
 }: CanvasBoardDockProps) {
   const dockRef = useRef<HTMLDivElement>(null)
@@ -91,6 +93,16 @@ export function CanvasBoardDock({
       >
         <DocumentIcon />
       </DockButton>
+      {onAddNote && (
+        <DockButton
+          label="Add note"
+          title="Add a sticky note for comments and checklists"
+          disabled={busy}
+          onClick={onAddNote}
+        >
+          <NoteIcon />
+        </DockButton>
+      )}
       <input
         ref={docInputRef}
         type="file"
@@ -183,6 +195,25 @@ function DocumentIcon() {
       <path d="M14 3v4h4" stroke="currentColor" strokeWidth="1.5" />
       <path
         d="M8 11h8M8 14h8M8 17h5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
+function NoteIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M6 4h9l3 3v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <path d="M15 4v3h3" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M8 12h8M8 15h6"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"

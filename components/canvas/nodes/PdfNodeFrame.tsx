@@ -1,8 +1,11 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { CanvasNodeRow } from '@/types/database'
 import type { CanvasNodeContent } from '@/types/canvas'
+import type { ReadinessResult } from '@/lib/analysis/readiness'
+import { ReadinessBanner } from '@/components/viewer/ReadinessBanner'
 
 interface PdfNodeFrameProps {
   node: CanvasNodeRow
@@ -20,6 +23,7 @@ interface PdfNodeFrameProps {
  */
 export function PdfNodeFrame({ node, pdfUrl }: PdfNodeFrameProps) {
   const router = useRouter()
+  const [readiness, setReadiness] = useState<ReadinessResult | null>(null)
   const content = (node.content ?? {}) as CanvasNodeContent & {
     linked_analysis_id?: string
     violation_count?: number
@@ -30,28 +34,43 @@ export function PdfNodeFrame({ node, pdfUrl }: PdfNodeFrameProps) {
   const label =
     content.label ?? content.file_name ?? (isDocument ? 'Document' : 'Floor plan')
 
+  useEffect(() => {
+    if (!linkedAnalysisId) return
+    void fetch(`/api/analyses/${linkedAnalysisId}/readiness`)
+      .then((res) => res.json())
+      .then((data: { readiness?: ReadinessResult }) => {
+        if (data.readiness) setReadiness(data.readiness)
+      })
+      .catch(() => {})
+  }, [linkedAnalysisId])
+
   if (linkedAnalysisId) {
     return (
-      <div className="flex h-full flex-col items-center justify-center gap-4 bg-surface/80 p-6 text-center">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-severity-pass/20">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-severity-pass" />
-            <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" className="text-severity-pass" />
-          </svg>
+      <div className="flex h-full flex-col gap-3 overflow-y-auto bg-surface/80 p-4">
+        <div className="text-center">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-severity-pass/20">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-severity-pass" />
+              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" className="text-severity-pass" />
+            </svg>
+          </div>
+          <p className="mt-2 text-sm font-semibold text-text-primary">Compliance Report</p>
+          <p className="text-xs text-text-secondary">Analysis complete</p>
         </div>
-        <div>
-          <p className="text-sm font-semibold text-text-primary">Compliance Report</p>
-          <p className="mt-1 text-xs text-text-secondary">
-            Analysis complete
-          </p>
-        </div>
+        {readiness && <ReadinessBanner readiness={readiness} compact />}
         <button
           type="button"
           onClick={() => router.push(`/viewer/${linkedAnalysisId}`)}
-          className="btn-primary px-6 py-2 text-sm"
+          className="btn-primary w-full px-4 py-2 text-sm"
         >
           Open full report
         </button>
+        <a
+          href={`/api/analyses/${linkedAnalysisId}/report`}
+          className="text-center text-xs text-accent hover:underline"
+        >
+          Download markdown report
+        </a>
       </div>
     )
   }

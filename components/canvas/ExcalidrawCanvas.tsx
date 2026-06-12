@@ -57,6 +57,7 @@ interface ExcalidrawCanvasProps {
   onAddPdf?: (file: File) => void
   onAddDwg?: (file: File) => void
   onAddDocument?: (file: File) => void
+  onAddNote?: () => void
   planImportBusy?: boolean
   dock?: ReactNode
   /** PDF/CAD node windows — rendered above the canvas but below Excalidraw UI popups. */
@@ -73,6 +74,7 @@ export function ExcalidrawCanvas({
   onAddPdf,
   onAddDwg,
   onAddDocument,
+  onAddNote,
   planImportBusy,
   dock,
   overlay,
@@ -255,6 +257,7 @@ export function ExcalidrawCanvas({
           onAddPdf={onAddPdf}
           onAddDwg={onAddDwg}
           onAddDocument={onAddDocument}
+          onAddNote={onAddNote}
           busy={planImportBusy}
         />
       )}

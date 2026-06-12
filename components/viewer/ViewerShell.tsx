@@ -7,6 +7,9 @@ import { disciplineLabel } from '@/lib/analysis/disciplines'
 import type { AnalysisRow, ProjectRow, ViolationRow } from '@/types/database'
 import { ViolationPanel } from '@/components/viewer/ViolationPanel'
 import { ExcalidrawOverlay } from '@/components/viewer/ExcalidrawOverlay'
+import { ReadinessBanner } from '@/components/viewer/ReadinessBanner'
+import { PlanChatPanel } from '@/components/board/PlanChatPanel'
+import { computeReadinessScore } from '@/lib/analysis/readiness'
 import type { ViewerSheet } from '@/components/viewer/SheetSwitcher'
 
 function ViewerLoading({ message }: { message: string }) {
@@ -54,6 +57,9 @@ export function ViewerShell({
   const [activeSheet, setActiveSheet] = useState<ViewerSheet | null>(null)
   const [toast, setToast] = useState<string | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [chatOpen, setChatOpen] = useState(false)
+
+  const readiness = useMemo(() => computeReadinessScore(violations), [violations])
 
   const handleLocate = useCallback((violation: ViolationRow) => {
     setSelectedId(violation.id)
@@ -114,12 +120,32 @@ export function ViewerShell({
             )}
           </p>
         </div>
-        <Link
-          href="/analyze"
-          className="rounded-md border border-border px-3 py-1.5 text-sm text-text-primary transition hover:border-accent hover:text-accent"
-        >
-          New analysis
-        </Link>
+        <div className="flex flex-wrap items-center gap-2">
+          <a
+            href={`/api/analyses/${analysis.id}/report`}
+            className="rounded-md border border-border px-3 py-1.5 text-sm text-text-primary transition hover:border-accent hover:text-accent"
+          >
+            Export report
+          </a>
+          <button
+            type="button"
+            onClick={() => setChatOpen((o) => !o)}
+            className={
+              'rounded-md border px-3 py-1.5 text-sm transition ' +
+              (chatOpen
+                ? 'border-accent bg-accent/10 text-accent'
+                : 'border-border text-text-primary hover:border-accent')
+            }
+          >
+            Plan chat
+          </button>
+          <Link
+            href="/analyze"
+            className="rounded-md border border-border px-3 py-1.5 text-sm text-text-primary transition hover:border-accent hover:text-accent"
+          >
+            New analysis
+          </Link>
+        </div>
       </header>
 
       {toast && (
@@ -130,6 +156,10 @@ export function ViewerShell({
           {toast}
         </div>
       )}
+
+      <div className="shrink-0 border-b border-border px-4 py-3">
+        <ReadinessBanner readiness={readiness} />
+      </div>
 
       <div className="relative flex min-h-0 flex-1">
         <div className="min-w-0 flex-1 transition-all duration-300">
@@ -192,14 +222,19 @@ export function ViewerShell({
             sidebarOpen ? 'w-[35%]' : 'w-0'
           } overflow-hidden`}
         >
-          <div className="h-full w-[35vw] min-w-0">
-            <ViolationPanel
-              violations={violations}
-              selectedId={selectedId}
-              activeSheetGuid={activeSheetGuid}
-              onSelect={setSelectedId}
-              onLocate={handleLocate}
-            />
+          <div className="flex h-full w-[35vw] min-w-0">
+            {chatOpen ? (
+              <PlanChatPanel analysisId={analysis.id} className="h-full w-full" />
+            ) : (
+              <ViolationPanel
+                violations={violations}
+                selectedId={selectedId}
+                activeSheetGuid={activeSheetGuid}
+                analysisId={analysis.id}
+                onSelect={setSelectedId}
+                onLocate={handleLocate}
+              />
+            )}
           </div>
         </div>
       </div>

@@ -13,6 +13,7 @@ import { useExcalidrawStageOffset } from '@/lib/canvas/use-excalidraw-stage-offs
 import { PdfNodeFrame } from '@/components/canvas/nodes/PdfNodeFrame'
 import { ForgeNodeFrame, type ForgeNodeProgress } from '@/components/canvas/nodes/ForgeNodeFrame'
 import { CodeIngestNode } from '@/components/canvas/nodes/CodeIngestNode'
+import { NoteNodeFrame } from '@/components/canvas/nodes/NoteNodeFrame'
 import { resolveForgeUrn } from '@/lib/canvas/forge-urn'
 
 const MIN_WIDTH = 220
@@ -35,6 +36,7 @@ interface CanvasNodeOverlayProps {
   selectedNodeId: string | null
   onSelectNode: (id: string) => void
   onGeometryChange: (id: string, geometry: NodeGeometry) => void
+  onNoteContentChange?: (id: string, text: string) => void
 }
 
 type ResizeCorner = 'nw' | 'ne' | 'sw' | 'se'
@@ -58,7 +60,9 @@ function nodeLabel(node: CanvasNodeRow): { label: string; badge: string | null }
         ? 'Document'
         : node.node_type === 'code_ingest'
           ? 'Code'
-          : 'Floor plan')
+          : node.node_type === 'note'
+            ? 'Note'
+            : 'Floor plan')
 
   let badge: string | null = null
   if (isDocument) badge = 'Reference'
@@ -81,6 +85,7 @@ interface NodeWindowProps {
   forgeProgress?: ForgeNodeProgress
   onSelect: (id: string) => void
   onGeometryChange: (id: string, geometry: NodeGeometry) => void
+  onNoteContentChange?: (id: string, text: string) => void
 }
 
 function NodeWindow({
@@ -94,6 +99,7 @@ function NodeWindow({
   forgeProgress,
   onSelect,
   onGeometryChange,
+  onNoteContentChange,
 }: NodeWindowProps) {
   const [draft, setDraft] = useState<DraftRect | null>(null)
   const gesture = useRef<{
@@ -268,6 +274,9 @@ function NodeWindow({
             <ForgeNodeFrame node={node} urn={urn} progress={forgeProgress} />
           )}
           {node.node_type === 'code_ingest' && <CodeIngestNode node={node} />}
+          {node.node_type === 'note' && onNoteContentChange && (
+            <NoteNodeFrame node={node} onContentChange={onNoteContentChange} />
+          )}
         </div>
       </div>
 
@@ -315,6 +324,7 @@ export function CanvasNodeOverlay({
   selectedNodeId,
   onSelectNode,
   onGeometryChange,
+  onNoteContentChange,
 }: CanvasNodeOverlayProps) {
   const stageOffset = useExcalidrawStageOffset(containerRef)
 
@@ -346,6 +356,7 @@ export function CanvasNodeOverlay({
             forgeProgress={forgeProgress?.[node.id]}
             onSelect={onSelectNode}
             onGeometryChange={onGeometryChange}
+            onNoteContentChange={onNoteContentChange}
           />
         )
       })}

@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { disciplineLabel } from '@/lib/analysis/disciplines'
 import type { Discipline } from '@/types/analysis'
 import type { ViolationRow } from '@/types/database'
+import { ResolutionPathwaysPanel } from '@/components/viewer/ResolutionPathwaysPanel'
 
 export type SeverityFilter = 'all' | 'violation' | 'warning' | 'pass'
 
@@ -12,6 +13,7 @@ interface ViolationPanelProps {
   violations: ViolationRow[]
   selectedId: string | null
   activeSheetGuid?: string | null
+  analysisId?: string
   onSelect: (id: string) => void
   onLocate: (violation: ViolationRow) => void
 }
@@ -64,6 +66,7 @@ export function ViolationPanel({
   violations,
   selectedId,
   activeSheetGuid,
+  analysisId,
   onSelect,
   onLocate,
 }: ViolationPanelProps) {
@@ -321,6 +324,14 @@ export function ViolationPanel({
                                       Locate on plan
                                     </button>
                                   </div>
+                                  {analysisId &&
+                                    (violation.severity === 'violation' ||
+                                      violation.severity === 'warning') && (
+                                      <ResolutionPathwaysPanel
+                                        analysisId={analysisId}
+                                        violationId={violation.id}
+                                      />
+                                    )}
                                 </div>
                               )}
                             </article>

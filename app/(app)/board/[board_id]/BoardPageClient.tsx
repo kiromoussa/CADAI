@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { CanvasToolbar } from '@/components/canvas/CanvasToolbar'
+import { BoardToolsPanel } from '@/components/board/BoardToolsPanel'
 import type { NodeGeometry } from '@/components/canvas/CanvasNodeOverlay'
 import type { ForgeNodeProgress } from '@/components/canvas/nodes/ForgeNodeFrame'
 import { ProjectSetupModal } from '@/components/projects/ProjectSetupModal'
@@ -90,6 +91,7 @@ export default function BoardPageClient({
     initialNodes[0]?.id ?? null
   )
   const [analyzing, setAnalyzing] = useState(false)
+  const [toolsOpen, setToolsOpen] = useState(true)
   const [planImportBusy, setPlanImportBusy] = useState(false)
   const [progressMessage, setProgressMessage] = useState('')
   // Per-node upload/translation progress for CAD nodes — drives the step tracker
@@ -509,6 +511,62 @@ export default function BoardPageClient({
     setPendingUpload({ file, kind: 'dwg' })
   }, [])
 
+  const addNoteNode = useCallback(async () => {
+    const elementId = randomElementId()
+    const offsetIndex = nodes.length
+    const x = 80 + (offsetIndex % 3) * 520
+    const y = 80 + Math.floor(offsetIndex / 3) * 400
+
+    const res = await fetch(`/api/boards/${board.id}/nodes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        excalidraw_element_id: elementId,
+        node_type: 'note',
+        x,
+        y,
+        width: 280,
+        height: 200,
+        content: { label: 'Note', text: '' },
+      }),
+    })
+
+    const data = (await res.json()) as { node?: CanvasNodeRow; error?: string }
+    if (res.ok && data.node) {
+      setNodes((prev) => [...prev, data.node!])
+      setSelectedNodeId(data.node.id)
+    }
+  }, [board.id, nodes.length])
+
+  const handleNoteContentChange = useCallback(
+    async (nodeId: string, text: string) => {
+      setNodes((prev) =>
+        prev.map((n) =>
+          n.id === nodeId
+            ? {
+                ...n,
+                content: {
+                  ...(typeof n.content === 'object' && n.content !== null ? n.content : {}),
+                  text,
+                },
+              }
+            : n
+        )
+      )
+      const node = nodesRef.current.find((n) => n.id === nodeId)
+      const existing =
+        typeof node?.content === 'object' && node.content !== null ? node.content : {}
+      await fetch(`/api/boards/${board.id}/nodes/${nodeId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          content: { ...existing, text },
+        }),
+      })
+    },
+    [board.id]
+  )
+
   const handleSetupSubmit = useCallback(
     (setup: ProjectSetupValues) => {
       if (!pendingUpload) return
@@ -649,7 +707,24 @@ export default function BoardPageClient({
     : undefined
   const canRunCompliance =
     !!selectedNode &&
+    selectedNode.node_type !== 'note' &&
     (selectedNode.content as { doc_kind?: string } | null)?.doc_kind !== 'document'
+
+  const analysisOptions = nodes
+    .filter((n) => n.analysis_id)
+    .map((n) => ({
+      id: n.analysis_id!,
+      label:
+        ((n.content as { label?: string } | null)?.label ?? 'Plan') +
+        (n.analysis_id ? '' : ''),
+    }))
+
+  const activeAnalysisId =
+    selectedNode?.analysis_id ??
+    analysisOptions[analysisOptions.length - 1]?.id ??
+    null
+
+  const exportAnalysisId = activeAnalysisId
 
   useEffect(() => {
     return () => {
@@ -682,26 +757,45 @@ export default function BoardPageClient({
         canRunCompliance={canRunCompliance}
         analyzing={analyzing}
         progressMessage={progressMessage}
+        toolsOpen={toolsOpen}
+        onToggleTools={() => setToolsOpen((o) => !o)}
+        exportAnalysisId={exportAnalysisId}
       />
-      <div ref={containerRef} className="relative min-h-0 flex-1 overflow-hidden">
-        <BoardCanvasWorkspace
-          containerRef={containerRef}
-          scene={scene}
-          nodes={nodes}
-          viewport={viewport}
-          pdfUrls={pdfUrls}
-          projectUrns={projectUrns}
-          forgeProgress={forgeProgress}
-          selectedNodeId={selectedNodeId}
-          planImportBusy={planImportBusy}
-          onSceneChange={handleSceneChange}
-          onViewportChange={handleViewportChange}
-          onExcalidrawApi={handleExcalidrawApiReady}
-          onAddPdf={handleAddPdf}
-          onAddDwg={handleAddDwg}
-          onAddDocument={handleAddDocument}
-          onSelectNode={setSelectedNodeId}
-          onGeometryChange={handleNodeGeometryChange}
+      <div className="flex min-h-0 flex-1">
+        <div ref={containerRef} className="relative min-h-0 min-w-0 flex-1 overflow-hidden">
+          <BoardCanvasWorkspace
+            containerRef={containerRef}
+            scene={scene}
+            nodes={nodes}
+            viewport={viewport}
+            pdfUrls={pdfUrls}
+            projectUrns={projectUrns}
+            forgeProgress={forgeProgress}
+            selectedNodeId={selectedNodeId}
+            planImportBusy={planImportBusy}
+            onSceneChange={handleSceneChange}
+            onViewportChange={handleViewportChange}
+            onExcalidrawApi={handleExcalidrawApiReady}
+            onAddPdf={handleAddPdf}
+            onAddDwg={handleAddDwg}
+            onAddDocument={handleAddDocument}
+            onAddNote={() => void addNoteNode()}
+            onSelectNode={setSelectedNodeId}
+            onGeometryChange={handleNodeGeometryChange}
+            onNoteContentChange={handleNoteContentChange}
+          />
+        </div>
+        <BoardToolsPanel
+          open={toolsOpen}
+          onClose={() => setToolsOpen(false)}
+          activeAnalysisId={activeAnalysisId}
+          analysisOptions={analysisOptions}
+          jurisdiction={
+            board.default_city && board.default_state
+              ? `${board.default_city}, ${board.default_state}`
+              : undefined
+          }
+          projectType={board.default_project_type ?? undefined}
         />
       </div>
     </div>

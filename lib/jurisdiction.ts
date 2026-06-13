@@ -19,7 +19,7 @@ export function localJurisdictionForCity(city: string, state: string): string | 
   if (!isCalifornia(state)) return null
   const c = normalizeCity(city)
   if (c.includes('santa ana')) return 'santa_ana_ca'
-  if (c.includes('los angeles')) return 'los_angeles_ca'
+  if (c.includes('los angeles') || c === 'la') return 'los_angeles_ca'
   return null
 }
 

@@ -1,0 +1,2231 @@
+{
+  "list_id": "PC/STR/Corr.Lst.20A",
+  "revision": "2025-10-01",
+  "title": "Accessory Dwelling Unit (ADU), Junior Accessory Dwelling Unit (JADU), Movable Tiny House (MTH) Correction Sheet",
+  "jurisdiction": "los_angeles_ca",
+  "code_year": 2023,
+  "forms": [
+    "PC/STR/Corr.Lst.20A",
+    "PC/GRAD/Bond",
+    "PC/GRAD/App.13",
+    "PC/GRAD/Aff.17",
+    "PC/STR/Aff.13",
+    "PC/STR/Aff.19",
+    "PC/STR/Aff.22",
+    "PC/STR/Aff.23",
+    "PC/STR/Aff.25",
+    "PC/STR/Aff.42",
+    "PC/STR/Aff.43",
+    "PC/STR/Aff.45"
+  ],
+  "information_bulletins": [],
+  "parts": [
+    {
+      "part": "I",
+      "title": "GENERAL REQUIREMENTS"
+    },
+    {
+      "part": "II",
+      "title": "DEVELOPMENT STANDARDS"
+    },
+    {
+      "part": "III",
+      "title": "BUILDING AND RESIDENTIAL CODE REQUIREMENTS"
+    }
+  ],
+  "items": [
+    {
+      "id": "I-A-1",
+      "part": "I",
+      "section": "A",
+      "section_title": "P ERMIT APPLICATION",
+      "number": 1,
+      "text": "Provide a fully dimensioned 8½ ” x 11 ” plot plan to scale, in ink, on the PCIS application plot plan sheet.",
+      "code_refs": []
+    },
+    {
+      "id": "I-A-2",
+      "part": "I",
+      "section": "A",
+      "section_title": "P ERMIT APPLICATION",
+      "number": 2,
+      "text": "Provide complete and correct legal description (Tract, Lot, Block, and a copy of the Grant Deed). Provide complete information for applicant, owner, engineer, architect, and contractor.",
+      "code_refs": []
+    },
+    {
+      "id": "I-A-3",
+      "part": "I",
+      "section": "A",
+      "section_title": "P ERMIT APPLICATION",
+      "number": 3,
+      "text": "Obtain separate applications for the following items: a. Retaining wall b. Grading work c. Block wall d. Sign e. Swimming pool f. Fire sprinkler system g. Separate structure h. Electrical, Mechanical, Plumbing work i. Shoring j. Demolition",
+      "code_refs": []
+    },
+    {
+      "id": "I-A-4",
+      "part": "I",
+      "section": "A",
+      "section_title": "P ERMIT APPLICATION",
+      "number": 4,
+      "text": "The permit application must be signed by the property owner or licensed contractor or authorized agent at the time the permit is to be issued: a. For owner - builder permits: Owner’s signature shall be i n person or by notarization. Additional documentation required for properties owned by partnership, joint venture, corporation, LLC, etc. Owner’s representative must present a notarized letter of authorization from the owner. Owner Builder Declaration form must be completed and signed by the property owner. b. For contractor permits: Prior to the issuance of a building permit, the contractor shall have the following: i) Certificate of W orkers Compensation Insurance made out to the Contractors State License Board . ii) Notarized letter of authorization for agents. iii) Copy of Contractors State License or pocket ID. iv) Copy of City of Los Angeles business tax registration certificate or a newly paid receipt for one.",
+      "code_refs": []
+    },
+    {
+      "id": "I-B-1",
+      "part": "I",
+      "section": "B",
+      "section_title": "CLEARANCES",
+      "number": 1,
+      "text": "Obtain all clearances as noted on the attached Clearance Summary Worksheet. Prompt attention is suggested as it can take months for some departments to review the project. Comply with conditions given under approval prior to the permit issuance.",
+      "code_refs": []
+    },
+    {
+      "id": "I-B-2",
+      "part": "I",
+      "section": "B",
+      "section_title": "CLEARANCES",
+      "number": 2,
+      "text": "Obtain lot cut date from Land Records of Public Works. Lots divided after 6 - 1 - 46 shall comply with lot area and width requirements of the zone. Lots divided after 7 - 29 - 62 shall obtain a Certificate of Compliance from City Planning Department.",
+      "code_refs": []
+    },
+    {
+      "id": "I-B-3",
+      "part": "I",
+      "section": "B",
+      "section_title": "CLEARANCES",
+      "number": 3,
+      "text": "Provide copies of the following recorded document(s) _______________ ___________________ _________ .",
+      "code_refs": []
+    },
+    {
+      "id": "I-B-4",
+      "part": "I",
+      "section": "B",
+      "section_title": "CLEARANCES",
+      "number": 4,
+      "text": "A recorded affidavit is required for ___________________ ________________________ . See Information Bulletin No. P/GI 202 3 - 024 for instructions on how to process affidavits available at https://dbs.lacity.gov/",
+      "code_refs": []
+    },
+    {
+      "id": "I-B-5",
+      "part": "I",
+      "section": "B",
+      "section_title": "CLEARANCES",
+      "number": 5,
+      "text": "Soil/Foundation/Geology report(s) must be approved by the Grading Section. Provide approved reports with the Department approval letter. Show compliance with the report requirements and approval letter conditions. The approval letter shall be part of th e plans.",
+      "code_refs": []
+    },
+    {
+      "id": "I-B-6",
+      "part": "I",
+      "section": "B",
+      "section_title": "CLEARANCES",
+      "number": 6,
+      "text": "Provide a copy of the Grading Pre - inspection report and comply with the conditions of report.",
+      "code_refs": []
+    },
+    {
+      "id": "I-B-7",
+      "part": "I",
+      "section": "B",
+      "section_title": "CLEARANCES",
+      "number": 7,
+      "text": "Fire lane access is required (for new construction) (where any part of the building is 150 ft. from the edge of an improved street or approved fire lane) for project valuation of $50,000 or more. Obtain clearance from the Hydrants and Access Unit of the Fire Department. LAMC 57.09.03",
+      "code_refs": [
+        "LAMC 57.09.03"
+      ]
+    },
+    {
+      "id": "I-B-8",
+      "part": "I",
+      "section": "B",
+      "section_title": "CLEARANCES",
+      "number": 8,
+      "text": "Obtain written approval from DWP for any work, including conversion to an ADU, located in or within 10’ of a DWP easement.",
+      "code_refs": []
+    },
+    {
+      "id": "I-B-9",
+      "part": "I",
+      "section": "B",
+      "section_title": "CLEARANCES",
+      "number": 9,
+      "text": "Obtain Coastal Development Permit clearance for the change of use, density, or number vehicle parking spaces per L AMC 12.20.2.",
+      "code_refs": []
+    },
+    {
+      "id": "I-B-10",
+      "part": "I",
+      "section": "B",
+      "section_title": "CLEARANCES",
+      "number": 10,
+      "text": "Provide a completed No Net Loss Declaration of Housing Units (SB 8 ).",
+      "code_refs": []
+    },
+    {
+      "id": "I-C-1",
+      "part": "I",
+      "section": "C",
+      "section_title": "ADMINISTRATION",
+      "number": 1,
+      "text": "Each sheet of the architectural and structural plans shall bear the signature, registration number, and expiration date of an architect or engineer registered in the State of California.",
+      "code_refs": []
+    },
+    {
+      "id": "I-C-2",
+      "part": "I",
+      "section": "C",
+      "section_title": "ADMINISTRATION",
+      "number": 2,
+      "text": "Show the address of the building, the name and address of the owner, and the name and address of the consultants on the first sheet of the plans.",
+      "code_refs": []
+    },
+    {
+      "id": "I-C-3",
+      "part": "I",
+      "section": "C",
+      "section_title": "ADMINISTRATION",
+      "number": 3,
+      "text": "(One) / (Two) / (Three) sets of plans will be required for permit issuance. Plans must be: (106.3.2.2., 106.3.3., R106.3.1): a. Quality blue or black line drawings with uniform an d light background color. b. Max. 36 ” x 48 ” size with minimum 1/8 ” lettering size. c. Sticky back details must produce prints without contrasting shades of background color. PC/STR/Corr.Lst.20A (Rev. 10 /0 1 /202 5 ) https://dbs.lacity.gov/ Page 4 of 14",
+      "code_refs": [
+        "R106.3.1",
+        "106.3.2.2",
+        "106.3.3"
+      ]
+    },
+    {
+      "id": "I-C-4",
+      "part": "I",
+      "section": "C",
+      "section_title": "ADMINISTRATION",
+      "number": 4,
+      "text": "The final set of plans must be stamped by : Accessibility Div. City Planning Dept. Fire Dept. Green Building Div. Sanitation Dept (LID)",
+      "code_refs": []
+    },
+    {
+      "id": "I-C-5",
+      "part": "I",
+      "section": "C",
+      "section_title": "ADMINISTRATION",
+      "number": 5,
+      "text": "Provide the following with each set of plans: Topography Survey Map Survey Analysis Map Floor Plans Use of Each Room Two Elevations Construction Sections Roof Plans Fou ndation Plans Framing Plans Structural Details Green Code Notes Grading Plans Grading Details Energy Notes & Certificates",
+      "code_refs": []
+    },
+    {
+      "id": "I-C-6",
+      "part": "I",
+      "section": "C",
+      "section_title": "ADMINISTRATION",
+      "number": 6,
+      "text": "Provide complete existing and proposed floor plans, framing plans, and foundation pla ns.",
+      "code_refs": []
+    },
+    {
+      "id": "I-C-7",
+      "part": "I",
+      "section": "C",
+      "section_title": "ADMINISTRATION",
+      "number": 7,
+      "text": "Provide fully dimensioned plot plan to scale. Show legal description, building lines, easements, lot size, zone boundaries, highway dedication lines, street center line, alley, building dimensions and setbacks, location and dimensions of new work, parking spaces, and location of all buildings. Show type of construction, number of stories, type of occupancy, and the use for all buildings. (106.3.2.1, R106.2)",
+      "code_refs": [
+        "106.3.2.1, R106.2",
+        "R106.2",
+        "106.3.2.1"
+      ]
+    },
+    {
+      "id": "I-C-8",
+      "part": "I",
+      "section": "C",
+      "section_title": "ADMINISTRATION",
+      "number": 8,
+      "text": "Show the building area, occupancy groups, uses, type of construction, number of stories , fire zone, lot size, lot area and height on the first sheet or title sheet of plans.",
+      "code_refs": []
+    },
+    {
+      "id": "I-C-9",
+      "part": "I",
+      "section": "C",
+      "section_title": "ADMINISTRATION",
+      "number": 9,
+      "text": "Remove all pages, details or notes that do not pertain to the project.",
+      "code_refs": []
+    },
+    {
+      "id": "I-C-10",
+      "part": "I",
+      "section": "C",
+      "section_title": "ADMINISTRATION",
+      "number": 10,
+      "text": "For ADU conversions, unpermitted buildings or unpermitted ADU or JADUs, refer to Information Bulle tin P/BC 2023 -",
+      "code_refs": []
+    },
+    {
+      "id": "I-C-150",
+      "part": "I",
+      "section": "C",
+      "section_title": "ADMINISTRATION",
+      "number": 150,
+      "text": "***************************************************************************************************************************** *********** ****",
+      "code_refs": []
+    },
+    {
+      "id": "II-A-1",
+      "part": "II",
+      "section": "A",
+      "section_title": "ORDINANCE DETACHED ADU PER LAMC 12.22 A.33 (b)(1), (c) , (d) ,(h) and (k)",
+      "number": 1,
+      "text": "The lot shall include an existing or proposed single family or multifamily dwelling.",
+      "code_refs": []
+    },
+    {
+      "id": "II-A-2",
+      "part": "II",
+      "section": "A",
+      "section_title": "ORDINANCE DETACHED ADU PER LAMC 12.22 A.33 (b)(1), (c) , (d) ,(h) and (k)",
+      "number": 2,
+      "text": "The total area of an ADU shall not exceed 1,200 sf.",
+      "code_refs": []
+    },
+    {
+      "id": "II-A-3",
+      "part": "II",
+      "section": "A",
+      "section_title": "ORDINANCE DETACHED ADU PER LAMC 12.22 A.33 (b)(1), (c) , (d) ,(h) and (k)",
+      "number": 3,
+      "text": "The proposed project exceeds th e m aximum Residential Floor Area of ______ __ sf , and m aximum g rading of _________ c ubic y ards. (12.21C10(b) & 12.21C10(f) & Ordinance 1 84 , 802 Baseline Mansionization. ***",
+      "code_refs": [
+        "Ordinance 1"
+      ]
+    },
+    {
+      "id": "II-A-4",
+      "part": "II",
+      "section": "A",
+      "section_title": "ORDINANCE DETACHED ADU PER LAMC 12.22 A.33 (b)(1), (c) , (d) ,(h) and (k)",
+      "number": 4,
+      "text": "Building exceeds ___________ ft height for __________ zone. (12.21.1, 12.21A17(c), 12.21C10(d))",
+      "code_refs": []
+    },
+    {
+      "id": "II-A-5",
+      "part": "II",
+      "section": "A",
+      "section_title": "ORDINANCE DETACHED ADU PER LAMC 12.22 A.33 (b)(1), (c) , (d) ,(h) and (k)",
+      "number": 5,
+      "text": "Provide minimum 4 - ft setback from rear property line and 4 - ft setback from side property line for addition portions or new construction . (12.22 A.33(c)(8))",
+      "code_refs": []
+    },
+    {
+      "id": "II-A-6",
+      "part": "II",
+      "section": "A",
+      "section_title": "ORDINANCE DETACHED ADU PER LAMC 12.22 A.33 (b)(1), (c) , (d) ,(h) and (k)",
+      "number": 6,
+      "text": "A det ached ADU is not permitted on front half of lot, except when located minimum 55 - ft from the front line (12.21C5(b)) ***",
+      "code_refs": []
+    },
+    {
+      "id": "II-A-7",
+      "part": "II",
+      "section": "A",
+      "section_title": "ORDINANCE DETACHED ADU PER LAMC 12.22 A.33 (b)(1), (c) , (d) ,(h) and (k)",
+      "number": 7,
+      "text": "ADU shall not be located between a dwelling unit and the Front Lot Line (12.22 A.33(d)(3)) ***",
+      "code_refs": []
+    },
+    {
+      "id": "II-A-8",
+      "part": "II",
+      "section": "A",
+      "section_title": "ORDINANCE DETACHED ADU PER LAMC 12.22 A.33 (b)(1), (c) , (d) ,(h) and (k)",
+      "number": 8,
+      "text": "ADU is limited to two stories maximum ( basement counts as a story for purposes of the two story ADU limitation ) . (12.22 A.33(d)(2))",
+      "code_refs": []
+    },
+    {
+      "id": "II-A-9",
+      "part": "II",
+      "section": "A",
+      "section_title": "ORDINANCE DETACHED ADU PER LAMC 12.22 A.33 (b)(1), (c) , (d) ,(h) and (k)",
+      "number": 9,
+      "text": "The s ingle or multi f amily d welling, ADU, and/or JADU exceed s the allowable com binations of unit types as shown below: a. New or existing SFD + one detached Ordinance ADU + one attached State ADU + one attached JADU ; or b. E xisting multifamily dwelling + one detached Ordinance ADU + multiple attached State ADUs ; or c. Proposed multifamily dwelling + one detached Ordinance ADU + one attached Ordinance ADU . 1",
+      "code_refs": []
+    },
+    {
+      "id": "II-A-0",
+      "part": "II",
+      "section": "A",
+      "section_title": "ORDINANCE DETACHED ADU PER LAMC 12.22 A.33 (b)(1), (c) , (d) ,(h) and (k)",
+      "number": 0,
+      "text": "One parking space is required for a n ADU unless: i) Located within ½ mile walking distance from a bus or rail stop ; or ii) Located within one block of a designated car share pickup or drop off location ; or iii) Located within an applicable historic district or any Historic Preservation Overlay Zone ; or iv) Whe n ADU is fully contained within a proposed or existing primary residence or an existing accessory structure; or v) When parking permits are required but not offered to the occupant of the ADU [GC § 66 322] ; or vi) W hen a permit application for an ADU is submitted with a permit application to create a new single - family dwelling or a new multifamily dwelling on the same lot [GC § 66322] . *** Any requirement for a zoning clearance or separate zoning review or any other minimum or maximum size for an accessory dwelling unit, size based upon a percentage of the proposed or existing primary dwelling, or limits on lot coverage, floor area ratio, open space, front setbacks, and minimum lot size shall not preclude a detached or attached ADU that has a total floor area of 800 square feet, a maximum height per GC § 66321(b)(4) and four - foot rear and side yard setbacks. PC/STR/Corr.Lst.20A (Rev. 10 /0 1 /202 5 ) https://dbs.lacity.gov/ Page 5 of 14",
+      "code_refs": [
+        "GC § 66 322",
+        "GC § 66322",
+        "GC § 66321(b)(4) and four - foot rear and side yard setbacks. PC/STR/Corr.Lst.20A (Rev. 10 /0 1 /202 5 ) https"
+      ]
+    },
+    {
+      "id": "II-B-1",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 1,
+      "text": "MTH shall meet the following requirements to be considered for an ADU. a. Licensed and registered with the California Department of Motor Vehicles; b. Meets the American National Standards Institute (ANSI) 119.5 requirements or the National Fire Protection Association (NFPA) 1192 standards, and is certified for ANSI or NFPA compliance; c. Cannot move under its own power; d. Is no larger than allowed by CA State Law for movement on public highways; e. Is no smaller than 150 square feet and no larger than 430 square feet as measured within the exterior faces of the exterior walls.",
+      "code_refs": [
+        "119.5"
+      ]
+    },
+    {
+      "id": "II-B-2",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 2,
+      "text": "The lot shall include an existing or proposed single family or multifamily dwelling.",
+      "code_refs": []
+    },
+    {
+      "id": "II-B-3",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 3,
+      "text": "Only 1 MTH is allowed on a lot and no lot may be approved for more than one MTH per year.",
+      "code_refs": []
+    },
+    {
+      "id": "II-B-4",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 4,
+      "text": "Show location of new MTH utility hookups (post).",
+      "code_refs": []
+    },
+    {
+      "id": "II-B-5",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 5,
+      "text": "Zoning Requirements: a. Limited to 2 stories. b. One parking space is required for a MTH unless: i) Located within ½ mile walking distance from a bus or rail stop ; or ii) Located within one block of a designated car share pickup or drop off location ; or iii) Located wit hin an applicable historic district or any Historic Preservation Overlay Zone .",
+      "code_refs": []
+    },
+    {
+      "id": "II-B-6",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 6,
+      "text": "Parking located in a required front yard must be located on an existing driveway.",
+      "code_refs": []
+    },
+    {
+      "id": "II-B-7",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 7,
+      "text": "Driveway access areas located in the required front yard shall not be expanded to provide required parking.",
+      "code_refs": []
+    },
+    {
+      "id": "II-B-8",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 8,
+      "text": "Provide and dimension on plan: (__________) Front Yard, as required for Zone (__________).",
+      "code_refs": []
+    },
+    {
+      "id": "II-B-9",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 9,
+      "text": "Minimum 4’ rear and side yard setbacks are required .",
+      "code_refs": []
+    },
+    {
+      "id": "II-B-10",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 10,
+      "text": "Shall not be located between the primary dwelling unit and the street adjoining the front yard, except where the MTH is on a Through Lot and complies with LAMC 12.21 C5(k).",
+      "code_refs": [
+        "LAMC 12.21"
+      ]
+    },
+    {
+      "id": "II-B-11",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 11,
+      "text": "The single or multifamily dwelling, ADU, and/or JADU exceeds the allowable combinations of unit types as shown below: a. New or existing SFD + one MTH + one a ttached State ADU + one attached JADU ; or b. E xisting multifamily dwelling + one MTH + multiple attached State ADUs ; or c. New multifamily dwelling + one MTH + one attached Ordinance ADU.",
+      "code_refs": []
+    },
+    {
+      "id": "II-B-12",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 12,
+      "text": "Required Provisions (Add as notes to plans) a. The undercarriage (wheels, axles, tongue and hitch) shall be hidden/screened from view. b. The wheels and leveling or support jacks must sit on a paved surface compliant with LAMC 12.21 A.6(c). c. Mechanical equipment shall be incorporated into the structure and not located on the roof. d. Shall be connected to water, sewer and electric utilities. A 30 amp minimum circuit shall be installed, but not less than required by the MTH manufacturer. e. Shall follow the ANSI A119.5 or NFPA 1192 standards relating to health, fire and life - safety.",
+      "code_refs": [
+        "LAMC 12.21"
+      ]
+    },
+    {
+      "id": "II-B-13",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 13,
+      "text": "Required Design Elements (Add as notes to plans) f. Cladding and Trim . Materials used on the exterior of a movable tiny house shall exclude single piece composite, laminates, or interlocked metal sheathing. g. Windows and Doors . Window s shall be at least double pane glass and labelled for building use, and shall include exterior trim. Windows and doors shall not have radius corners. h. Roofing . Roofs shall have a minimum of a 12:2 pitch for greater than 50% of the roof area, and shall not be composed of wooden shingles. i. Extensions . All exterior walls and roof of movable tiny houses used as ADUs shall be fixed with no slide - outs, tip - outs, nor other forms of mechanically articulating room area extensions.",
+      "code_refs": []
+    },
+    {
+      "id": "II-B-14",
+      "part": "II",
+      "section": "B",
+      "section_title": "ORDINANCE MOVABLE TINY HOUSE PER LAMC 12.22 A.33(c) AND (f)",
+      "number": 14,
+      "text": "Complete, notarize and return Ow ner’s Declaration and Acknowledgement for Movable Tiny House.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-1",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 1,
+      "text": "The lot shall include an existing single family dwelling.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-2",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 2,
+      "text": "The ADU must be within the existing space of an accessory structure.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-3",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 3,
+      "text": "The total addition shall not exceed 150 sf.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-4",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 4,
+      "text": "Any addition shall be limited to accommodating ingress and egress only.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-5",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 5,
+      "text": "The single or multi family dwelling, ADU, and/or JADU exceed s the allowable combination of unit types as shown below: a. E xisting SFD + one detached / c onversion State ADU + one attached State or Ordinance ADU + one attached JADU D . NEW DETACHED STATE ADU PER GC § 6 6323 (a)(2) for EXISTING OR NEW SFD",
+      "code_refs": [
+        "GC § 6 6323 (a)(2) for EXISTING OR NEW SFD"
+      ]
+    },
+    {
+      "id": "II-C-1",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 1,
+      "text": "The lot shall include an existing or proposed single family dwelling. 2 . The total area for an ADU (new or addition) shall not exceed 800 sf. (6 6323 ( a )( 2 )( A ) ). 3 . Height of ADU exceeds the height limit listed below : PC/STR/Corr.Lst.20A (Rev. 10 /0 1 /202 5 ) https://dbs.lacity.gov/ Page 6 of 14 ( 6632 3 ( a )( 2 )(B) and 66321 (b)(4)) a. 16’ height. b. 18’ height if the lot is within one - half mile walking distance of a major transit stop or a high - quality transit corridor. An additional 2’ in height may be allowed to accommodate a roof pitch on the ADU that is aligned with the roof pitch of the primary dwelling unit. 4 . Provide minimum 4 - ft setback from rear property line and 4 - ft setback from side property line for addition portions or new construction . (6 63 23 ( a )( 2 ) ) 5 . The single family dwelling, ADU, and/or JADU exceed the allowable combinations of unit types as shown below: a. New or existing SFD + one detached State ADU + one attached State or Ordinance ADU + one attached JADU E . DETACHED STATE ADUs PER GC § 66323(a)(4) FOR EXISTING OR PROPOSED MULTIFAMILY DWELLING S",
+      "code_refs": [
+        "GC § 66323(a)(4) FOR EXISTING OR PROPOSED MULTIFAMILY DWELLING S"
+      ]
+    },
+    {
+      "id": "II-C-1",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 1,
+      "text": "The lot shall include an existing or proposed multifamily dwelling.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-2",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 2,
+      "text": "Site is limited to a. For existing multifamily dwelling: up to 8 State detached ADUs not to exceed number of existing dwelling units on the lot (ADU s and JADU s are not counted as existing dwel ling units for this provision). b. For proposed multifamily: up to two detached State ADU’s .",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-3",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 3,
+      "text": "Height of ADU exceeds the height limit listed below: (66323(a)(2)(B) and 66321(b)(4)) a. 16’ height. b. 18’ height if the lot is within one - half mile walking distance of a major transit stop or a high - quality transit corridor. An additional 2’ in height may be allowed to accommodate a roof pitch on the ADU that is aligned with the roof pitch of the primary d welling unit.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-4",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 4,
+      "text": "Provide minimum 4 - ft setback from rear property line and 4 - ft setback from side property line for addition portions or new construction.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-5",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 5,
+      "text": "The multifamily dwelling and ADUs exceed the allowable combinations of the unit types as shown below: a. E xisting Multifamily dwelling + multiple detached State ADUs + one attached Ordinance ADU or multiple attached State ADUs. b. Proposed multifamily dwelling + 2 detached State ADUs + one at tached Ordinance ADU ATTACHED ADU s AND JADU OPTIONS : F . ATTACHED ORDINANCE ADU PER LAMC 12.22 A.33(c) and (e) FOR EXISTING OR NEW SFD OR MULTI FAMILY",
+      "code_refs": [
+        "LAMC 12.22"
+      ]
+    },
+    {
+      "id": "II-C-1",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 1,
+      "text": "The lot shall include an existing or proposed single family or multifamily dwelling.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-2",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 2,
+      "text": "The total Floor Area for an ADU attached to an existing main dwelling shall be limited to a maximum of 50% of existing the Floor Area of the e xisting s ingle f amily d welling (excluding garage) or 50 % of the average floor area of the existing units of the mu ltifamily dwelling . a. Or 850 sf , whichever is greater; b. Or 1000 sf, whichever is greater , for an attached ADU that provides for more than one bedroom.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-3",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 3,
+      "text": "The proposed project exceeds the maximum Residential Floor Area of ________ sf, and maximum grading of ________ cubic yards. (12.21C10(b) & 12.21C10(f) & Ordinance 184,802 Baseline Mansionization. ***",
+      "code_refs": [
+        "Ordinance 184,802"
+      ]
+    },
+    {
+      "id": "II-C-4",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 4,
+      "text": "Building exceeds ___________ ft height for __________ zone per LAMC sections 12.21.1, 12.21A17(c) or 12.21C10(d) or up to 25 feet whichever is lower.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-5",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 5,
+      "text": "Provide minimum 4 - ft setback from rear property line and 4 - ft setback from side property line for the ADU addition portion or new construction portion.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-6",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 6,
+      "text": "Provide and dimension on plan: (__________) Front Yard, (__________) Side Yard, and (__________) Rear Yard as required for Zone (__________) for the main dwelling.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-7",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 7,
+      "text": "The single or multifamily dwelling, ADU, and/or JADU exceeds the allowable combinations of unit types as shown below: a. Proposed or existing SFD + one attached Ordinance ADU + one detached State ADU + one attached JADU ; or b. E xisting multifamily dwelling + one attached Ordinance ADU + multiple detached State ADUs ; or c . P roposed multifamily dwelling + o ne attached Ordinance ADU + 2 detached State ADU s or one detached Ordinance ADU . 8 . One parking space is required for an ADU unless: i) Located within ½ mile walking distance from a bus or rail stop; or ii) Located within one block of a designated car share pickup or drop off location; or iii) Located within an applicable historic district or any Historic Preservation Overlay Zone; or iv) When ADU is fully contained within a proposed or existing primary residence or an existing accessory structure; or v) When parking permits are required but not PC/STR/Corr.Lst.20A (Rev. 10 /0 1 /202 5 ) https://dbs.lacity.gov/ Page 7 of 14 offered to the occupant of the ADU [GC § 66322]; or vi) When a permit application for an ADU is submitted with a permit application to create a new single - family dwelli ng or a new multifamily dwelling on the same lot [GC § 66322]. ***Any requirement for a zoning clearance or separate zoning review or any other minimum or maximum size for an accessory dwelling unit, size based upon a percentage of the proposed or existing primary dwelling, or limits on lot coverage, floor area ratio, open space, front setbacks, and minimum lot size shall not preclude a detached or attached ADU that has a total floor area of 800 square feet, a maximum height per GC § 66321(b)(4) and four - fo ot rear and side yard setbacks G . AT TACHED STATE ADU PER GC § 66323(a)(1) CONTAIN IN AN EXISTING SFD",
+      "code_refs": [
+        "GC § 66322",
+        "GC § 66321(b)(4) and four - fo ot rear and side yard setbacks G . AT TACHED STATE ADU PER GC"
+      ]
+    },
+    {
+      "id": "II-C-1",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 1,
+      "text": "The lot shall include a n existing single family dwelling.",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-2",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 2,
+      "text": "ADU can only be converted from the existing space of the single family dwelling (including garage).",
+      "code_refs": []
+    },
+    {
+      "id": "II-C-3",
+      "part": "II",
+      "section": "C",
+      "section_title": "CONVERSION OF DETACHED ACCESSORY STRUCTURE TO STATE ADU PER GC § 6 6323(a ) (1) FOR EXISTING SFD ONLY",
+      "number": 3,
+      "text": "The single dwelling, ADU, and/or JADU exceeds the allowable combinations of the unit types as shown below: a. existing SFD + one attached State ADU + one detached State or Ordinance ADU + one attached JADU",
+      "code_refs": []
+    },
+    {
+      "id": "II-H-1",
+      "part": "II",
+      "section": "H",
+      "section_title": "ATTACHED STATE ADU PER GC § 66323(a)(1) CONTAIN WITHING A NEW SFD",
+      "number": 1,
+      "text": "ADU must be within a new single family dwelling or an addition to an existing single family dwelling.",
+      "code_refs": []
+    },
+    {
+      "id": "II-H-2",
+      "part": "II",
+      "section": "H",
+      "section_title": "ATTACHED STATE ADU PER GC § 66323(a)(1) CONTAIN WITHING A NEW SFD",
+      "number": 2,
+      "text": "The proposed project exceeds the m aximum Residential Floor Area of ________ sf , and maximum gr ading of ________ c ubic y ards. (12.21C10(b) & 12.21C10(f) & Ordinance 1 84 ,8 02 Baseline Mansionization.",
+      "code_refs": [
+        "Ordinance 1"
+      ]
+    },
+    {
+      "id": "II-H-3",
+      "part": "II",
+      "section": "H",
+      "section_title": "ATTACHED STATE ADU PER GC § 66323(a)(1) CONTAIN WITHING A NEW SFD",
+      "number": 3,
+      "text": "Building exceeds ___________ ft height for __________ zone. (12.21.1, 12.21A17(c), 12.21C10(d))",
+      "code_refs": []
+    },
+    {
+      "id": "II-H-4",
+      "part": "II",
+      "section": "H",
+      "section_title": "ATTACHED STATE ADU PER GC § 66323(a)(1) CONTAIN WITHING A NEW SFD",
+      "number": 4,
+      "text": "Determine required prevailing setback for front yard. Incorporate block plot and calculations on plans. See the “Prevailing setback calculator” available at https://dbs.lacity.gov/",
+      "code_refs": []
+    },
+    {
+      "id": "II-H-5",
+      "part": "II",
+      "section": "H",
+      "section_title": "ATTACHED STATE ADU PER GC § 66323(a)(1) CONTAIN WITHING A NEW SFD",
+      "number": 5,
+      "text": "Provide and dimension on plan: (_________ _) Front Yard, (_________ _) Side Yard, and (_________ _) Rear Yard as required for Zone (_________ _) for the main dwelling.",
+      "code_refs": []
+    },
+    {
+      "id": "II-H-6",
+      "part": "II",
+      "section": "H",
+      "section_title": "ATTACHED STATE ADU PER GC § 66323(a)(1) CONTAIN WITHING A NEW SFD",
+      "number": 6,
+      "text": "Maintain minimum 10 ’ separation between dwelling and accessory building(s). (12.21C5(d))",
+      "code_refs": []
+    },
+    {
+      "id": "II-H-7",
+      "part": "II",
+      "section": "H",
+      "section_title": "ATTACHED STATE ADU PER GC § 66323(a)(1) CONTAIN WITHING A NEW SFD",
+      "number": 7,
+      "text": "The single dwelling, ADU, JADU exceeds the allowable combinations of unit types as shown below: a. New SFD or addition to existing SFD + one attached State ADU + one detached State or Ordinance ADU + one attached JADU",
+      "code_refs": []
+    },
+    {
+      "id": "II-I-1",
+      "part": "II",
+      "section": "I",
+      "section_title": "ATTACHED STATE ADU PER GC § 66323(a)( 3 ) FOR EXISTING MULTI - FAMILY",
+      "number": 1,
+      "text": "The lot shall include an existing mu ltifamily dwelling.",
+      "code_refs": []
+    },
+    {
+      "id": "II-I-2",
+      "part": "II",
+      "section": "I",
+      "section_title": "ATTACHED STATE ADU PER GC § 66323(a)( 3 ) FOR EXISTING MULTI - FAMILY",
+      "number": 2,
+      "text": "N umber of attached ADU s exceeds max 25% of the existing dwelling units. Min 1 ADU allowed within existing multi - family dwelling.",
+      "code_refs": []
+    },
+    {
+      "id": "II-I-3",
+      "part": "II",
+      "section": "I",
+      "section_title": "ATTACHED STATE ADU PER GC § 66323(a)( 3 ) FOR EXISTING MULTI - FAMILY",
+      "number": 3,
+      "text": "ADU(s) must b e located within existing non - livable space. Existing commercial space in mixed - use building can be considered as non - livable space.",
+      "code_refs": []
+    },
+    {
+      "id": "II-I-4",
+      "part": "II",
+      "section": "I",
+      "section_title": "ATTACHED STATE ADU PER GC § 66323(a)( 3 ) FOR EXISTING MULTI - FAMILY",
+      "number": 4,
+      "text": "The multifamily dwelling and ADUs exceed the allowable combinations of the unit types as shown below: a. Existing Multifamily dwelling + multiple at tached State ADUs + one de tached Ordinance ADU ; or b. Existing multifamily dwelling + multiple attached State ADUs + multiple de tached State ADU s .",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-1",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 1,
+      "text": "The lot shall include an existing or proposed single family dwelling.",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-2",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 2,
+      "text": "JADU is permitted in zones which allow single - family dwellings .",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-3",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 3,
+      "text": "JADU shall be within a single - family dwelling. When part of a proposed or addition to a single - family dwelling, applicable local development standards will apply to the entire building .",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-4",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 4,
+      "text": "The maximum size of a JADU shall be limited to 500 sf. 5 . The JADU shall have exterior access separate from the main entrance to the single family dwelling .",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-6",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 6,
+      "text": "If t he JADU does not have a bathroom , provide an interior entry to the main living area of the single family dwelling in addition to the exterior access.",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-7",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 7,
+      "text": "The JADU shall include at least an efficiency kitchen including a. A cooking facility with at least two appliances. b. A food preparation counter and storage cabinets.",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-8",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 8,
+      "text": "The proposed project exceeds the m aximum Residential Floo r Area of ________ sf , and maximum g rading of ________ cubic yards . (12.21C10(b) & 12.21C10(f) & Ordinance 1 84 ,8 02 Baseline Mansionization.",
+      "code_refs": [
+        "Ordinance 1"
+      ]
+    },
+    {
+      "id": "II-J-9",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 9,
+      "text": "Building exceeds ___________ ft height for __________ zone. (12.21.1, 12.21A17(c), 12.21C10(d)).",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-10",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 10,
+      "text": "Determine required prevailing setback for front yard. Incorporate block plot and calculations on plans. See the “Prevailing setback calculator” available at https://dbs.lacity.gov/",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-11",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 11,
+      "text": "Provide and dimension on plan: (_________) Front PC/STR/Corr.Lst.20A (Rev. 10 /0 1 /202 5 ) https://dbs.lacity.gov/ Page 8 of 14 Yard, (_________) Side Yard, and (_________) Rear Yard as required for Zone (_________) for the new construction of a main dwelling with JADU.",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-12",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 12,
+      "text": "A recorded affidavit is required (see Page 2 ) . Obtain a copy of instruction to process af fidavits from LADBS and follow the instructions.",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-13",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 13,
+      "text": "The single dwelling, ADU, and/or JADU exceeds the allowable combinations of the unit types as shown below: a. Existing or proposed SFD + one attached JADU + one attached State ADU + one detached State or Ordinance ADU ; or b. Existing or proposed SFD + one attached JADU + one attached Ordinance ADU + one detached State ADU . K . GENERAL ZONING REQUIREMENTS",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-1",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 1,
+      "text": "Provide a copy of the Certificates of Occupancy and building permits (with plot plan) showing the legal existing uses and parking spaces for all existing buildings on the lot.",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-2",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 2,
+      "text": "An ADU is not permitted in the _ __ _______ _ zone.",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-3",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 3,
+      "text": "Provide _________ paved parking spaces. A min. of _______ spaces shall be standard stalls (12.21 A4 & 12.21A17(h) & 12.21C10(g) ) .",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-4",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 4,
+      "text": "Provide parking layout, including parking stall and access aisle dimensions, striping details, dr iveway slope, and stall slope. (12.21A5)",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-5",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 5,
+      "text": "Parking located in a required front yard must be located on an existing driveway. (12.22 A.33(c)(12)(ii))",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-6",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 6,
+      "text": "Driveway access areas located in the required front yard shall not be expanded to provide required parking. (12.22 A.33(c)(12)(ii))",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-7",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 7,
+      "text": "Automobiles are not permitted to back onto a public street or sidewalk except where such parking stalls serve not more than two dwelling units and where the driveway access is to a street other than a major or secondary highway . (12.21A5(i)(1))",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-8",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 8,
+      "text": "Revise plans to maintain a ___ _ __ _ backup aisle based on a stall width of ____ _ _ ___ _ _. (12.21A5(b))",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-9",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 9,
+      "text": "Parking areas or access driveways within 15 ft. of a property line must be enclosed by a (3 ft.) (5 ft - 9 in.) high (solid) (masonry) fence per Section 12.21A6(d),(e) unless it is exempt for the ADU parking area s per Section 12.22A.33(c)( 12)(ii).",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-10",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 10,
+      "text": "Provide topographic map with the building or structure outlined to determine height of building or structure. (12.03) 1 1 . Basement containing a habitable room shall be considered a story for side and rear yard and Height District requirements. (12.21C1(l) & 12.21.1A8) 1 2 . Maximum eave projection of ______ inches allowed in _______________ yard provided the yard is not reduced to less than 30\". (12.22C20(b)) 1 3 . Projection of _____ _______________ ________ into the _______________ yard / passageway is not permitted or limited to __________. (12.22C20) 1 4 . Provide copy of most recent Los Angeles County Tax Assessor’s records to verify existing Residential Floor Area with cumulative area less than 1,000 sq. ft. (12.03) a. The HILLSIDE ORDINANCE may apply to this project. Obtain determination of street type (standard or substandard) from Public Works. (12.21A17) b. The BASELINE HILLSIDE ORDINANCE applies to this project. Obtain and complete the Joint Referral Form from City Planning to determine the permitted maximum Residential Floor Area. The Joint Referral Form and the Slope Analysis Map shall be a part of the final approved set(s) of plans. (12.21C10(b)). L. MAXIMUM RESIDENTIAL FLOOR AREA (RFA)",
+      "code_refs": []
+    },
+    {
+      "id": "II-J-1",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 1,
+      "text": "Provide a summary of the total site RFA. Clearly indicate the RFA per structure on site and any exemptions used. (See Residential Floor Area definition in LAMC 12.03) a. Provide complete cross sections specifying the ceiling heights and attic ceiling heights. Portions of attics with a cei ling height of more than 7 ft. shall be included in Residential Floor Area calculations. Where the ceiling height exceeds 14 ft., provide floor plans and clearly identify the areas which exceed the above thresholds (with hatching and dimension). The subjec t areas shall be counted twice in the RFA calculations. The area of stairways and elevator shafts shall only be counted once regardless of ceiling height. b. The parking areas shall be included in the RFA calculations. Except that 200 sq. ft. per required cov ered parking space, up to a maximum of 400 sq. ft. may be exempt, if all of said parking is in the rear half of the lot or 55 ft. from a Front Lot Line. Only 200 sq. ft. shall be exempted if said parking is not located as required above. c. Detached accessory buildings which exceed 200 sq. ft. shall be included in RFA calculations. The total combined area exempted, of all detached accessory buildings on the lot, shall not exceed 400 sq. ft. d. Porches, patios, and breezeways with a solid roof shall be included in the RFA calculations. Porches, patios, and breezeways with a lattice roof shall not be included in the Residential Floor Area calculations e. The B asement area shall be included in the RFA calculations when • t he elevation of the floor or roof above the Basement exceeds 3 ft. in height above the PC/STR/Corr.Lst.20A (Rev. 10 /0 1 /202 5 ) https://dbs.lacity.gov/ Page 9 of 14 finished or natural grade whichever is lower for at least 60 percent of the perimeter length of the exterior Basement walls for lots located in the Hillside Area or • the elevation of the floor or roof above the Basement ex ceeds 2 f t in height at any point above the finished or natural Grade whichever is lower for lots outside of Hillside or Coastal Zone . (12.03) M . MAXIMUM F L OOR AREA RATIO (FAR)",
+      "code_refs": [
+        "LAMC 12.03)"
+      ]
+    },
+    {
+      "id": "II-J-1",
+      "part": "II",
+      "section": "J",
+      "section_title": "ATTACHED STATE JUNIOR ACCESSORY DWELLING UNIT (JADU) PER GC 66323(a)(1) and 66333 FOR EXISTING OR PROPOSED SFD",
+      "number": 1,
+      "text": "Building exceeds maximum floor area ratio for height district and zone. (12.21.1.A.1) a. For Height District 1 , 1L, 1VL, 1XL in a commercial zoned lot, floor area is limited to 1.5 X Buildable Lot Area. b. For Height District 1, 1L, 1VL, 1XL in a residential zoned lot, floor area is limited to 3X Buildable Lot Area. c. For Height District 2 in a commercial or residential zoned lot, floor area is limited to 6X Buildable Lot Area. d. For Height District 3 in a commercial or residential zoned lot, floor area is limited to 10X Buildable Lot Area. e. For Height District 4 in a commercial or residential zoned lot, floor area is limited to 13X Buildable Lot Area. ****************** **************************************************************************************************************************",
+      "code_refs": []
+    },
+    {
+      "id": "III-A-1",
+      "part": "III",
+      "section": "A",
+      "section_title": "OCCUPANCY CLASSIFICATION The following are required for attached garage / carport:",
+      "number": 1,
+      "text": "U Occupancy garage is limited to 1 , 000 / 3 , 000 sq. ft. and one - story in height. (406.3.1)",
+      "code_refs": [
+        "406.3.1"
+      ]
+    },
+    {
+      "id": "III-A-2",
+      "part": "III",
+      "section": "A",
+      "section_title": "OCCUPANCY CLASSIFICATION The following are required for attached garage / carport:",
+      "number": 2,
+      "text": "Separation from the dwelling unit and its attic area by means of a minimum 1 / 2 - inch gypsum board applied to the garage side. (406.3. 2 , R302.6)",
+      "code_refs": [
+        "R302.6",
+        "406.3"
+      ]
+    },
+    {
+      "id": "III-A-3",
+      "part": "III",
+      "section": "A",
+      "section_title": "OCCUPANCY CLASSIFICATION The following are required for attached garage / carport:",
+      "number": 3,
+      "text": "Separation from all habitable rooms above by not less than a 5 / 8 - inch Type X gypsum board or equivalent. (406.3. 2 , R302.6)",
+      "code_refs": [
+        "R302.6",
+        "406.3"
+      ]
+    },
+    {
+      "id": "III-A-4",
+      "part": "III",
+      "section": "A",
+      "section_title": "OCCUPANCY CLASSIFICATION The following are required for attached garage / carport:",
+      "number": 4,
+      "text": "Doors between garage and dwelling unit shall be self - closing and self - latching, solid wood or sol id or honeycomb core steel not less than 1 3 / 8 inches thick, or have a minimum fire protection rating of 20 minutes. (406.3. 2 , R302.5.1)",
+      "code_refs": [
+        "R302.5.1",
+        "406.3"
+      ]
+    },
+    {
+      "id": "III-A-5",
+      "part": "III",
+      "section": "A",
+      "section_title": "OCCUPANCY CLASSIFICATION The following are required for attached garage / carport:",
+      "number": 5,
+      "text": "Exterior walls of a detached U occupancy less than 5' from a property line must be one - hour construction without opening s. (Table 602, Table 705.8, Table R302.1(1), R302.1(2))",
+      "code_refs": [
+        "Table 602, Table 705.8, Table R302.1(1",
+        "R302.1",
+        "705.8"
+      ]
+    },
+    {
+      "id": "III-A-6",
+      "part": "III",
+      "section": "A",
+      "section_title": "OCCUPANCY CLASSIFICATION The following are required for attached garage / carport:",
+      "number": 6,
+      "text": "Garage shall not open directly into a room used for sleeping purposes. (406. 2.5 , R302.5.1)",
+      "code_refs": [
+        "R302.5.1"
+      ]
+    },
+    {
+      "id": "III-A-7",
+      "part": "III",
+      "section": "A",
+      "section_title": "OCCUPANCY CLASSIFICATION The following are required for attached garage / carport:",
+      "number": 7,
+      "text": "Detail on plan that exterior posts shall be at least 1 ” above floor/slab and 8 ” above exposed earth. Isolated piers in enclosed crawl space must be 8 ” above exposed earth. As an alternate, use pressure treated posts. (2304. 12 , R317.1)",
+      "code_refs": [
+        "R317.1"
+      ]
+    },
+    {
+      "id": "III-B-1",
+      "part": "III",
+      "section": "B",
+      "section_title": "BUILDING LIMITATION",
+      "number": 1,
+      "text": "Provide calculations for establishing grade plane as per Section 202 . Attach calculations and es tablished grade planes on elevation plans and site plan. ( 202 , R202)",
+      "code_refs": []
+    },
+    {
+      "id": "III-B-2",
+      "part": "III",
+      "section": "B",
+      "section_title": "BUILDING LIMITATION",
+      "number": 2,
+      "text": "Show maximum height of the structure (in feet and stories) from top of roof to grade plane on all elevation views. (50 4 .1, R202)",
+      "code_refs": []
+    },
+    {
+      "id": "III-B-3",
+      "part": "III",
+      "section": "B",
+      "section_title": "BUILDING LIMITATION",
+      "number": 3,
+      "text": "Lowest level is determined not to be a basement. This lev el is considered as 1 st story above grade plane. Include this story in total building height. ( 202 , R202)",
+      "code_refs": []
+    },
+    {
+      "id": "III-B-4",
+      "part": "III",
+      "section": "B",
+      "section_title": "BUILDING LIMITATION",
+      "number": 4,
+      "text": "Maximum 3 stories allowed for R - 3, Type (VA, VB) construction. (Table 504.4)",
+      "code_refs": [
+        "Table 504.4",
+        "504.4"
+      ]
+    },
+    {
+      "id": "III-C-1",
+      "part": "III",
+      "section": "C",
+      "section_title": "SPECIAL USE OR AREAS",
+      "number": 1,
+      "text": "Show the pool enclosure on the plan. A 5' high fenc e and gate are required. The gate shall open outward away from the pool and shall be self - closing and self - latching. (3109.4.1.7, LARC AG105)",
+      "code_refs": [
+        "LARC AG105",
+        "3109.4.1.7"
+      ]
+    },
+    {
+      "id": "III-C-2",
+      "part": "III",
+      "section": "C",
+      "section_title": "SPECIAL USE OR AREAS",
+      "number": 2,
+      "text": "Pool shall be equipped with two drowning prevention safety features.",
+      "code_refs": []
+    },
+    {
+      "id": "III-C-3",
+      "part": "III",
+      "section": "C",
+      "section_title": "SPECIAL USE OR AREAS",
+      "number": 3,
+      "text": "Attach Green Building Code Form numbers 1, 11, 14, and 16 as part of plans.",
+      "code_refs": []
+    },
+    {
+      "id": "III-D-1",
+      "part": "III",
+      "section": "D",
+      "section_title": "FIRE - RESISTANCE RATED CONSTRUCTION",
+      "number": 1,
+      "text": "Provide 1 - hr fire - resistance rating for exterior walls for R - 3 and/or U occupancy less than 5’ from property line or assumed property line. (Table 602, 706.1.1, & 706.4, R302.1) (1207)",
+      "code_refs": [
+        "Table 602, 706.1.1, & 706.4, R302.1",
+        "1207",
+        "R302.1",
+        "706.1.1",
+        "706.4"
+      ]
+    },
+    {
+      "id": "III-D-2",
+      "part": "III",
+      "section": "D",
+      "section_title": "FIRE - RESISTANCE RATED CONSTRUCTION",
+      "number": 2,
+      "text": "Projections beyond exterior walls shall not extend any closer to the line used to determine the fire separation distance than shown in (Table 705.2) (Table R302.1(1)) (Table R302.1(2)). (705.2, R302.1)",
+      "code_refs": [
+        "Table 705.2",
+        "Table R302.1(1)",
+        "Table R302.1(2)",
+        "705.2, R302.1",
+        "R302.1",
+        "705.2"
+      ]
+    },
+    {
+      "id": "III-D-3",
+      "part": "III",
+      "section": "D",
+      "section_title": "FIRE - RESISTANCE RATED CONSTRUCTION",
+      "number": 3,
+      "text": "The exter ior walls shall be fire rated per Table 601, Table R302.1(1), Table R302.1(2) and 602 (___ hr. rated). Provide complete details per Section 705.5. (R302.1)",
+      "code_refs": [
+        "R302.1",
+        "705.5"
+      ]
+    },
+    {
+      "id": "III-D-4",
+      "part": "III",
+      "section": "D",
+      "section_title": "FIRE - RESISTANCE RATED CONSTRUCTION",
+      "number": 4,
+      "text": "Provide complete analysis for protected and unprotected exterior wall openings per section 705.8 a nd Equation 7 -",
+      "code_refs": [
+        "705.8"
+      ]
+    },
+    {
+      "id": "III-D-2",
+      "part": "III",
+      "section": "D",
+      "section_title": "FIRE - RESISTANCE RATED CONSTRUCTION",
+      "number": 2,
+      "text": "(705.8.1) (R302.1)",
+      "code_refs": [
+        "705.8.1",
+        "R302.1"
+      ]
+    },
+    {
+      "id": "III-D-5",
+      "part": "III",
+      "section": "D",
+      "section_title": "FIRE - RESISTANCE RATED CONSTRUCTION",
+      "number": 5,
+      "text": "Provide (1 - hr) (2 - hr) rated Fire Partition between units. Provide complete details. (708.1) (R302.2)",
+      "code_refs": [
+        "708.1",
+        "R302.2"
+      ]
+    },
+    {
+      "id": "III-E-1",
+      "part": "III",
+      "section": "E",
+      "section_title": "FIRE PROTECTION",
+      "number": 1,
+      "text": "Smoke detectors shall be provided in each sleeping PC/STR/Corr.Lst.20A (Rev. 10 /0 1 /202 5 ) https://dbs.lacity.gov/ Page 10 of 14 room, on the ceiling or wall immediately outside o f each sleeping room, and on each story and basement for dwellings with more than one story. (907.2.11.2, R314 .2 )",
+      "code_refs": [
+        "907.2.11.2"
+      ]
+    },
+    {
+      "id": "III-E-2",
+      "part": "III",
+      "section": "E",
+      "section_title": "FIRE PROTECTION",
+      "number": 2,
+      "text": "The power source for smoke detectors shall be as follows: a. In new construction smoke detectors shall receive their primary power from the build ing wiring and shall be equipped with a battery backup. (907.2.11. 5 , R314.4) b. In existing SFD, smoke detectors may be battery operated. (907.2.11. 9 , R314.4)",
+      "code_refs": [
+        "R314.4",
+        "907.2.11"
+      ]
+    },
+    {
+      "id": "III-E-3",
+      "part": "III",
+      "section": "E",
+      "section_title": "FIRE PROTECTION",
+      "number": 3,
+      "text": "Carbon monoxide alarm is required . (915. 1 , & R315 )",
+      "code_refs": []
+    },
+    {
+      "id": "III-E-4",
+      "part": "III",
+      "section": "E",
+      "section_title": "FIRE PROTECTION",
+      "number": 4,
+      "text": "Sprinkler system shall be required for the ADU if the existing dwelling has a sprinkler system.",
+      "code_refs": []
+    },
+    {
+      "id": "III-F-1",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 1,
+      "text": "Provide emergency egress from sleeping rooms and basement. Show details on plans. Required minimum dimensions are 24 ” clear height, 20 ” clear width, 5.7 sq. ft. (5.0 sq. ft. at grade level) and 44 ” max to bottom of opening. (103 1 . 3 , R310.2)",
+      "code_refs": [
+        "R310.2"
+      ]
+    },
+    {
+      "id": "III-F-2",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 2,
+      "text": "At least one door shall be 36” wide by 80” high. (R311.2)",
+      "code_refs": [
+        "R311.2"
+      ]
+    },
+    {
+      "id": "III-F-3",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 3,
+      "text": "Landing at a door shall have a length measured in the direction of travel of no less than (3 6 ” ) (44”). (10 10.1.5 , R311.3)",
+      "code_refs": [
+        "R311.3"
+      ]
+    },
+    {
+      "id": "III-F-4",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 4,
+      "text": "Provide 42 ” high guards with less than 4 ” spacing opening between rails. For R - 3 occupancies and within individual units in R - 2 occupancies, guards whose top rail also serves as a handrail shall have a height between 34” to 38 ” measured vertically from the leading edge of the stair nosing tread. (1015.3 & 1015.4, R312.1)",
+      "code_refs": [
+        "1015.3 & 1015.4, R312.1",
+        "R312.1",
+        "1015.3",
+        "1015.4"
+      ]
+    },
+    {
+      "id": "III-F-5",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 5,
+      "text": "Show the following stairway details on plans: a. 7 ” , 7.75 ” rise & min. 11 ” , 10 ” run. (1011.5, R311.7.5) b. Min. 6 ’ - 8 ” headroom clearance. (1011.3, R311.7.2) c. Min 36 ” clear width. (1011.2, R311.7.1) d. Handrails 34 ” to 38 ” high above tread nosing (1014.2, R311.7.8.1) e. Handgrip portion of handrail shall not be less than 1.25 ” and no more than 2 ” cross - sectional dimension having a smooth surface with no sharp corners (1014.3, R311.7.8.3) f. Less than 4 ” clear spacing opening between rails. (1015.4, R312.1.3)",
+      "code_refs": [
+        "1011.5, R311.7.5",
+        "1011.3, R311.7.2",
+        "1011.2, R311.7.1",
+        "1014.2, R311.7.8.1",
+        "1014.3, R311.7.8.3",
+        "1015.4, R312.1.3",
+        "R311.7.5",
+        "R311.7.2",
+        "R311.7.1",
+        "R311.7.8.1",
+        "R311.7.8.3",
+        "R312.1.3",
+        "1011.5",
+        "1011.3",
+        "1011.2",
+        "1014.2",
+        "1014.3",
+        "1015.4"
+      ]
+    },
+    {
+      "id": "III-F-6",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 6,
+      "text": "Enclosed useable space under interior stairs requires one - hour fire - resistive construction on enclosed side. (Such as 5/8 ” Type X gypsum board) (1011.7.3, R302.7)",
+      "code_refs": [
+        "1011.7.3, R302.7",
+        "R302.7",
+        "1011.7.3"
+      ]
+    },
+    {
+      "id": "III-F-7",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 7,
+      "text": "Show stairway landing details. The width of landings shall not be less than the width of stairways they serve. The minimum dimension in the direction of travel must be equal to the w idth of the stairway. (1011.6, R311.7.1)",
+      "code_refs": [
+        "1011.6, R311.7.1",
+        "R311.7.1",
+        "1011.6"
+      ]
+    },
+    {
+      "id": "III-F-8",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 8,
+      "text": "Ramp slopes shall not exceed 1:12 (8%). (1012.2, R311.8.1)",
+      "code_refs": [
+        "1012.2, R311.8.1",
+        "R311.8.1",
+        "1012.2"
+      ]
+    },
+    {
+      "id": "III-F-9",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 9,
+      "text": "Occupied roofs shall be provided with exits as required for stories. (1006.3)",
+      "code_refs": [
+        "1006.3"
+      ]
+    },
+    {
+      "id": "III-F-10",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 10,
+      "text": "Provide a minimum of two exits if occupant load for R - ____ occupancy group exceeds _____ occupants . ( Table 1006.2.1)",
+      "code_refs": [
+        "1006.2.1"
+      ]
+    },
+    {
+      "id": "III-F-11",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 11,
+      "text": "Exits shall be separated by at least (1/2) (1/3) the maximum diagonal of the area served. (1007.1.1)",
+      "code_refs": [
+        "1007.1.1"
+      ]
+    },
+    {
+      "id": "III-F-12",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 12,
+      "text": "The required number of exits from any story, basement or individual space shall be maintained until arrival at gr ade or the public way. (1006.3. 3 )",
+      "code_refs": [
+        "1006.3"
+      ]
+    },
+    {
+      "id": "III-F-13",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 13,
+      "text": "Egress shall not pass through kitchens (unless part of the same dwelling unit) , storage rooms, garage, closets or spaces used for similar purposes. (1016.2, R311.1)",
+      "code_refs": [
+        "1016.2, R311.1",
+        "R311.1",
+        "1016.2"
+      ]
+    },
+    {
+      "id": "III-F-14",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 14,
+      "text": "Provide min 7 ’ - 6 ” , 7’ - 0” ceiling height along means of egress. (1003.2) (R305.1)",
+      "code_refs": [
+        "1003.2",
+        "R305.1"
+      ]
+    },
+    {
+      "id": "III-F-15",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 15,
+      "text": "For glass handrails and guards, the panels and their support system shall be designed to withstand the loads specified in Chapter",
+      "code_refs": []
+    },
+    {
+      "id": "III-F-16",
+      "part": "III",
+      "section": "F",
+      "section_title": "MEANS OF EGRESS",
+      "number": 16,
+      "text": "A safety factor of four shall be used. The minimum nominal thickness of the glass shall be 1 /4 inch. (2407)",
+      "code_refs": [
+        "2407"
+      ]
+    },
+    {
+      "id": "III-G-1",
+      "part": "III",
+      "section": "G",
+      "section_title": "INTERIOR ENVIRONMENT",
+      "number": 1,
+      "text": "Required ceiling height is 7 ’ - 6 ” , 7’ - 0” min., 7 ’ - 0 ” min. in kitchen, bathrooms, laundry rooms and storage rooms. (1208.2, R305.1)",
+      "code_refs": [
+        "1208.2, R305.1",
+        "R305.1",
+        "1208.2"
+      ]
+    },
+    {
+      "id": "III-G-2",
+      "part": "III",
+      "section": "G",
+      "section_title": "INTERIOR ENVIRONMENT",
+      "number": 2,
+      "text": "Provide natural light in habitable rooms with an area not less than ______ _ ( 8%) of floor area or provide artificial light with an average illumination of 10 ft. - candles at a height of 30” above floor level. (120 4 . 2 , R303.1)",
+      "code_refs": [
+        "R303.1"
+      ]
+    },
+    {
+      "id": "III-G-3",
+      "part": "III",
+      "section": "G",
+      "section_title": "INTERIOR ENVIRONMENT",
+      "number": 3,
+      "text": "Provide natural ventilation in habitable rooms by means of operable exterior openings with an area not less than __ ____ _ ( 4%) of floor area. Mechanical ventilating systems may be permitted. ( 120 2.5.1 , 1202.4.3, R303.1)",
+      "code_refs": [
+        "R303.1",
+        "1202.4.3"
+      ]
+    },
+    {
+      "id": "III-G-4",
+      "part": "III",
+      "section": "G",
+      "section_title": "INTERIOR ENVIRONMENT",
+      "number": 4,
+      "text": "Rooms containing bathtubs, shower, spas, and similar bathing fixtures, shall be mechanically ventilated. Separate mechanical permit may be required. ( 120 2 .5.2.1)",
+      "code_refs": []
+    },
+    {
+      "id": "III-G-5",
+      "part": "III",
+      "section": "G",
+      "section_title": "INTERIOR ENVIRONMENT",
+      "number": 5,
+      "text": "Provide 15” min between center line of water closet to any side wall or obstruction and 24” clear space in front of water closet. (LAPC 407.5)",
+      "code_refs": [
+        "LAPC 407.5",
+        "407.5"
+      ]
+    },
+    {
+      "id": "III-G-6",
+      "part": "III",
+      "section": "G",
+      "section_title": "INTERIOR ENVIRONMENT",
+      "number": 6,
+      "text": "Provide (16”) / ( 18” ) x 24” min. underfloor access, clearance and ventilation. Under - floor ventilatio n shall be not less than 1/150 of under floor area. (1209.1 , R408. 2, R408.4 )",
+      "code_refs": [
+        "R408.4",
+        "1209.1"
+      ]
+    },
+    {
+      "id": "III-G-7",
+      "part": "III",
+      "section": "G",
+      "section_title": "INTERIOR ENVIRONMENT",
+      "number": 7,
+      "text": "Provide ( 20” ) / (22”) x 30” min. attic access, clearance and ventilation. Attic ventilation shall be not less than 1/150 of attic area. (1209.2, R807.1)",
+      "code_refs": [
+        "1209.2, R807.1",
+        "R807.1",
+        "1209.2"
+      ]
+    },
+    {
+      "id": "III-G-8",
+      "part": "III",
+      "section": "G",
+      "section_title": "INTERIOR ENVIRONMENT",
+      "number": 8,
+      "text": "In residential buildings, every interior door through which occupants pass shall have a minimum width of 32”. ( 6304.1 , R311.2 )",
+      "code_refs": [
+        "R311.2",
+        "6304.1"
+      ]
+    },
+    {
+      "id": "III-G-9",
+      "part": "III",
+      "section": "G",
+      "section_title": "INTERIOR ENVIRONMENT",
+      "number": 9,
+      "text": "Provide Sound Transmission Class (STC) of 50 / Impact Insulation Class (IIC) of 50 separation and STC 26 door PC/STR/Corr.Lst.20A (Rev. 10 /0 1 /202 5 ) https://dbs.lacity.gov/ Page 11 of 14 between units and between common use areas a nd units. P rovide complete details. ( 1206 )",
+      "code_refs": []
+    },
+    {
+      "id": "III-H-1",
+      "part": "III",
+      "section": "H",
+      "section_title": "BUILDING ENVELOPE",
+      "number": 1,
+      "text": "Provide a Class A, B or C fire - retardant cool roof labeled and certified by the CRRC. (1505.1 & Table 1505.1, R902.1 ) 2, Glazing in hazardous locations shall be tempered (2406.4, R308.4): a. Ingress and egress doors b. Panels in sliding or swinging doors c. Doors and enclosure for hot tub, bathtub, showers (Also glazing in wall enclosing these compartments within 5 ’ of standing surface) d. If within 2’ of vertical edge of closed door and within 5 ’ of s tanding surface e. In wall enclosing stairway landing f. Guards and handrails",
+      "code_refs": [
+        "2406.4, R308.4",
+        "R902.1",
+        "R308.4",
+        "1505.1",
+        "2406.4"
+      ]
+    },
+    {
+      "id": "III-H-3",
+      "part": "III",
+      "section": "H",
+      "section_title": "BUILDING ENVELOPE",
+      "number": 3,
+      "text": "Show roof slopes, drains and overflow drains or scuppers on the roof plan. Provide a detail of the roof drain and overflow system. (150 2 , R903.4)",
+      "code_refs": [
+        "R903.4"
+      ]
+    },
+    {
+      "id": "III-H-4",
+      "part": "III",
+      "section": "H",
+      "section_title": "BUILDING ENVELOPE",
+      "number": 4,
+      "text": "Window sill of openable windows more than 72 inches above finished grade or other surface below shall not be less than 24/42 inches from finished floor of the room it is located in. (1015.1, R312.2.1)",
+      "code_refs": [
+        "1015.1, R312.2.1",
+        "R312.2.1",
+        "1015.1"
+      ]
+    },
+    {
+      "id": "III-H-5",
+      "part": "III",
+      "section": "H",
+      "section_title": "BUILDING ENVELOPE",
+      "number": 5,
+      "text": "Details of the guards at the floor and roof openings, occupied roofs and ba lconies or porches more than 30 ” above grade are required. Guards shall be 42 ” in height, have intermediate rails or balusters spaced at 4 ” maximum and be designed for (50 lbs/ft) (20 lbs/ft) (200 lb. concentrated) lateral load. (1015.3 &",
+      "code_refs": [
+        "1015.3"
+      ]
+    },
+    {
+      "id": "III-H-1607",
+      "part": "III",
+      "section": "H",
+      "section_title": "BUILDING ENVELOPE",
+      "number": 1607,
+      "text": "9 , 2407, R31 2.1)",
+      "code_refs": []
+    },
+    {
+      "id": "III-H-6",
+      "part": "III",
+      "section": "H",
+      "section_title": "BUILDING ENVELOPE",
+      "number": 6,
+      "text": "Clearly indicate on the plans the location of glass or plastic skylights. If the roof slope is less than 3:12, provide minimum 4 ” curb. (2405.4 , 2610.2, R308.6.8) Glass skylights shall comply with Section",
+      "code_refs": [
+        "2405.4 , 2610.2, R308.6.8",
+        "R308.6.8",
+        "2405.4",
+        "2610.2"
+      ]
+    },
+    {
+      "id": "III-H-2405",
+      "part": "III",
+      "section": "H",
+      "section_title": "BUILDING ENVELOPE",
+      "number": 2405,
+      "text": "Plastic skylights shall comply with (Section",
+      "code_refs": []
+    },
+    {
+      "id": "III-H-7",
+      "part": "III",
+      "section": "H",
+      "section_title": "BUILDING ENVELOPE",
+      "number": 7,
+      "text": "For pre - fab fireplaces, provide manufacturer, model, and Underwriter Laboratories certification number (or ICCs) (a cut sheet is required per Green Building Code – the fireplace shall be direct - vent and sealed combustion type). For masonry fire place (not allowed per Green Building Code), provide details and calculations for chimney. Show compliance per (Sec. 2111 & 2113, R1004 .1, R1001.1, R1003).",
+      "code_refs": []
+    },
+    {
+      "id": "III-H-8",
+      "part": "III",
+      "section": "H",
+      "section_title": "BUILDING ENVELOPE",
+      "number": 8,
+      "text": "Show on plan that top of chimney must extend a minimum of 2 ’ above any part of the building within 10', but not less than 3’ above from the adjacent roof below. (2113.9, R1003.9)",
+      "code_refs": [
+        "2113.9"
+      ]
+    },
+    {
+      "id": "III-H-9",
+      "part": "III",
+      "section": "H",
+      "section_title": "BUILDING ENVELOPE",
+      "number": 9,
+      "text": "Comply to Title 24 energy requirements g. Provide en ergy calculations h. HERS field verification is required i. Provide a CFIR Form (certificate of compliance) j. Certificate of compliance shall display the required registration number.",
+      "code_refs": []
+    },
+    {
+      "id": "III-H-10",
+      "part": "III",
+      "section": "H",
+      "section_title": "BUILDING ENVELOPE",
+      "number": 10,
+      "text": "Every dwelling unit shall be provided with a water closet, lavatory, bathtub or shower, and kitchen. (R306.1 & R306.2)",
+      "code_refs": [
+        "R306.1 & R306.2",
+        "R306.1",
+        "R306.2"
+      ]
+    },
+    {
+      "id": "III-I-1",
+      "part": "III",
+      "section": "I",
+      "section_title": "NOTES ON PLANS:",
+      "number": 1,
+      "text": "All newly constructed buildings shall be all - electric buildings per Ordinance No. 187714 . Exceptions: a. Application for a building permit is submitted, accepted by the Department of Building and Safety, and building permit application fees are paid prior to April 1,",
+      "code_refs": []
+    },
+    {
+      "id": "III-I-2023",
+      "part": "III",
+      "section": "I",
+      "section_title": "NOTES ON PLANS:",
+      "number": 2023,
+      "text": "b. Application for a building permit for an Affordable Housing Project, as defined in the Mayor’s Executive Directive 13, is submitted, accepted by the Department of Building and Safety, and building permit application fees are paid prior to June 1,",
+      "code_refs": []
+    },
+    {
+      "id": "III-I-2023",
+      "part": "III",
+      "section": "I",
+      "section_title": "NOTES ON PLANS:",
+      "number": 2023,
+      "text": "c. Attached accessory dwelling units using existing gas piping systems in conjunctio n with the primary dwelling. d. Cooking equipment contained within kitchens located in a public use area, as defined in the California Building Code Chapter 2, such as restaurants, commissaries, cafeterias, and community kitchens provided the electrical infrastructure is installed in accordance with Section 99.04.106.8.1. e. Gas - powered emergency life - safety systems, including emergency backup.",
+      "code_refs": [
+        "106.8.1"
+      ]
+    },
+    {
+      "id": "III-I-2",
+      "part": "III",
+      "section": "I",
+      "section_title": "NOTES ON PLANS:",
+      "number": 2,
+      "text": "The construction shall not restrict a five - foot clear and unobstructed access to any water or power distribution facilities (Power poles, pull - boxes, transformers, vaults, pumps, valves, meters, appurtenances, etc.) or to the location of the hook - up. The c onstruction shall not be within ten feet of any power lines - whether or not the lines are located on the property. Failure to comply may cause construction delays and/or additional expenses.",
+      "code_refs": []
+    },
+    {
+      "id": "III-I-3",
+      "part": "III",
+      "section": "I",
+      "section_title": "NOTES ON PLANS:",
+      "number": 3,
+      "text": "An approved Seismic Gas Shut Off Valve or Excess Flow Shut Off Val ve will be installed on the fuel gas line on the down - stream side of the utility meter and be rigidly connected to the exterior of the building or structure containing the fuel gas piping. (Per Ordinance 170,158 and 180,670) Separate plumbing permit is req uired .",
+      "code_refs": [
+        "Ordinance 170,158"
+      ]
+    },
+    {
+      "id": "III-I-4",
+      "part": "III",
+      "section": "I",
+      "section_title": "NOTES ON PLANS:",
+      "number": 4,
+      "text": "Provide ultra - flush water closets for all new construction. Existing shower heads and toilets must be adapted for low water consumption.",
+      "code_refs": []
+    },
+    {
+      "id": "III-I-5",
+      "part": "III",
+      "section": "I",
+      "section_title": "NOTES ON PLANS:",
+      "number": 5,
+      "text": "Provide (70) (72) inch high non - absorbent wall adjacent to shower and approved shatter - resistant materials for shower enclosure. (1210.2.3, 2406.4.5, R307.2, R308.4)",
+      "code_refs": [
+        "1210.2.3, 2406.4.5, R307.2, R308.4",
+        "R307.2",
+        "R308.4",
+        "1210.2.3",
+        "2406.4.5"
+      ]
+    },
+    {
+      "id": "III-I-6",
+      "part": "III",
+      "section": "I",
+      "section_title": "NOTES ON PLANS:",
+      "number": 6,
+      "text": "Water heater must be strapped to wall. (507.3 & LAPC)",
+      "code_refs": [
+        "507.3"
+      ]
+    },
+    {
+      "id": "III-I-7",
+      "part": "III",
+      "section": "I",
+      "section_title": "NOTES ON PLANS:",
+      "number": 7,
+      "text": "Sprinkler system must be approved by the Mechanical Division prior to installation.",
+      "code_refs": []
+    },
+    {
+      "id": "III-I-8",
+      "part": "III",
+      "section": "I",
+      "section_title": "NOTES ON PLANS:",
+      "number": 8,
+      "text": "A fire alarm (visual and audible) system is required. The PC/STR/Corr.Lst.20A (Rev. 10 /0 1 /202 5 ) https://dbs.lacity.gov/ Page 12 of 14 alar m system must be approved by the Fire Department and Electrical Plan Check prior to installation. (LAMC 57.122)",
+      "code_refs": [
+        "LAMC 57.122"
+      ]
+    },
+    {
+      "id": "III-I-9",
+      "part": "III",
+      "section": "I",
+      "section_title": "NOTES ON PLANS:",
+      "number": 9,
+      "text": "Carbon monoxide alarm is required . ( 915.4 , R315)",
+      "code_refs": [
+        "915.4"
+      ]
+    },
+    {
+      "id": "III-J-1",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 1,
+      "text": "Provide (6 - mil ) (10 - mil) polyethylene or approved vapor retarder below the concrete floor slab. An approved epoxy slab coating shall be applied on top of the slab if it does not have the required moisture barrier membrane . (1907.1, R506.2.3)",
+      "code_refs": [
+        "1907.1, R506.2.3",
+        "R506.2.3",
+        "1907.1"
+      ]
+    },
+    {
+      "id": "III-J-2",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 2,
+      "text": "Provide a Los Angeles City Research Re port number for ______________________________ _________ ____ . Show compliance with all report requirements.",
+      "code_refs": []
+    },
+    {
+      "id": "III-J-3",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 3,
+      "text": "All sheets of plans and cover sheet of calculations must be signed and stamped by a civil or structural engineer, or architect, licensed by the Stat e of California.",
+      "code_refs": []
+    },
+    {
+      "id": "III-J-4",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 4,
+      "text": "Dimension exterior and bearing wall foundations per the WFPP. Show depth of embedment of foundation into soil. (1808.8, R403.1)",
+      "code_refs": [
+        "1808.8, R403.1",
+        "R403.1",
+        "1808.8"
+      ]
+    },
+    {
+      "id": "III-J-5",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 5,
+      "text": "Footings of foundations for buildings and structures founded on expansive soils shall be designed per 1808.6.",
+      "code_refs": [
+        "1808.6"
+      ]
+    },
+    {
+      "id": "III-J-6",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 6,
+      "text": "Provide material specifications for Concrete (Min . concrete strength is 2 , 500 psi), Masonry (reinforcements) Steel, _______________________.",
+      "code_refs": []
+    },
+    {
+      "id": "III-J-7",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 7,
+      "text": "Provide design by a licensed engineer or architect for the (vertical) (seismic/wind lateral) force resisting system per (LABC 2305, 2306, & 2307, R301.1.3).",
+      "code_refs": [
+        "LABC 2305, 2306, & 2307,",
+        "R301.1.3"
+      ]
+    },
+    {
+      "id": "III-J-8",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 8,
+      "text": "Provide a nailing schedule for plywood diaphragms and shear walls on plans. Use common nails. ( LABC T able 230 4.10.2 & R602.3)",
+      "code_refs": [
+        "R602.3"
+      ]
+    },
+    {
+      "id": "III-J-9",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 9,
+      "text": "Provide size, spacing and direction of girders, floor joists, ceiling joists, rafters, beam over _______________, post under _______________.",
+      "code_refs": []
+    },
+    {
+      "id": "III-J-10",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 10,
+      "text": "Provide shear wall elevations and connection details on plans, to show shear load transfer path.",
+      "code_refs": []
+    },
+    {
+      "id": "III-J-11",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 11,
+      "text": "Provide approved plate washers. (2308. 3 )",
+      "code_refs": []
+    },
+    {
+      "id": "III-J-12",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 12,
+      "text": "Show hold - down locations on the foundation plan.",
+      "code_refs": []
+    },
+    {
+      "id": "III-J-13",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 13,
+      "text": "A licensed fabricator is required for _______________.",
+      "code_refs": []
+    },
+    {
+      "id": "III-J-14",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 14,
+      "text": "Continuous Special Inspection, Periodic Special Inspection is required for ___________ ______ per Sec",
+      "code_refs": []
+    },
+    {
+      "id": "III-J-15",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 15,
+      "text": "The maximum height - width ratio for shear panels is 2:1 for plywood or 1.5:1 for stucco. ( Section 4.3.5 SDPWS )",
+      "code_refs": []
+    },
+    {
+      "id": "III-J-16",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 16,
+      "text": "The Wood Frame Prescriptive Provisions (WFPP) sheet requires spacing between braced wall lines to be 25 feet max in both directions. (2308.12.3, R602.10.1.3)",
+      "code_refs": [
+        "2308.12.3, R602.10.1.3",
+        "R602.10.1.3",
+        "2308.12.3"
+      ]
+    },
+    {
+      "id": "III-J-17",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 17,
+      "text": "The Wood Frame Prescriptive Provisions (WFPP) sheet requires minimum length of plywood, stucco , shear panels not less than __ __ _ , 48%, 100% of the entire wall line per Table",
+      "code_refs": []
+    },
+    {
+      "id": "III-J-2308",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 2308,
+      "text": "6.1 & R602.10.",
+      "code_refs": [
+        "R602.10"
+      ]
+    },
+    {
+      "id": "III-J-18",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 18,
+      "text": "Provide foundation anchor bolts not less than 1.5 inch diameter w ith embedment depth into the concrete or masonry and spacing per (2308.3.3, 2308.6, R 403.1.6).",
+      "code_refs": [
+        "2308.3.3",
+        "2308.6",
+        "403.1.6"
+      ]
+    },
+    {
+      "id": "III-J-19",
+      "part": "III",
+      "section": "J",
+      "section_title": "STRUCTURE",
+      "number": 19,
+      "text": "Provide the following distances for construction on slope: a. H/3 distance to daylight from bottom of footing. b. H/2 setback from toe of slope. (1808.7, R403.1.7).",
+      "code_refs": [
+        "1808.7, R403.1.7",
+        "R403.1.7",
+        "1808.7"
+      ]
+    },
+    {
+      "id": "III-K-1",
+      "part": "III",
+      "section": "K",
+      "section_title": "STRUCTURAL NOTES ON PLANS",
+      "number": 1,
+      "text": "Specify that all construction shall comply with the WFPP.",
+      "code_refs": []
+    },
+    {
+      "id": "III-K-2",
+      "part": "III",
+      "section": "K",
+      "section_title": "STRUCTURAL NOTES ON PLANS",
+      "number": 2,
+      "text": "Structural observation is required per Sec 170 4 for shear walls in excess of 300 plf, hold - down anchors, diaphragm, other: ______________________.",
+      "code_refs": []
+    },
+    {
+      "id": "III-K-3",
+      "part": "III",
+      "section": "K",
+      "section_title": "STRUCTURAL NOTES ON PLANS",
+      "number": 3,
+      "text": "Specify that bolt holes shall be max. 1/16 ” oversized. Note on the plans “ inspector to verify.”",
+      "code_refs": []
+    },
+    {
+      "id": "III-K-4",
+      "part": "III",
+      "section": "K",
+      "section_title": "STRUCTURAL NOTES ON PLANS",
+      "number": 4,
+      "text": "Specify continuous inspection for: a. Concrete greater than 2,500 psi b. Installation of concrete anchors per LARR c. Field welding/Rebar welding d. Masonry e. Other _____________________.",
+      "code_refs": []
+    }
+  ],
+  "total_items": 200,
+  "unique_code_refs": [
+    "1003.2",
+    "1006.2.1",
+    "1006.3",
+    "1007.1.1",
+    "1011.2",
+    "1011.2, R311.7.1",
+    "1011.3",
+    "1011.3, R311.7.2",
+    "1011.5",
+    "1011.5, R311.7.5",
+    "1011.6",
+    "1011.6, R311.7.1",
+    "1011.7.3",
+    "1011.7.3, R302.7",
+    "1012.2",
+    "1012.2, R311.8.1",
+    "1014.2",
+    "1014.2, R311.7.8.1",
+    "1014.3",
+    "1014.3, R311.7.8.3",
+    "1015.1",
+    "1015.1, R312.2.1",
+    "1015.3",
+    "1015.3 & 1015.4, R312.1",
+    "1015.4",
+    "1015.4, R312.1.3",
+    "1016.2",
+    "1016.2, R311.1",
+    "106.3.2.1",
+    "106.3.2.1, R106.2",
+    "106.3.2.2",
+    "106.3.3",
+    "106.8.1",
+    "119.5",
+    "1202.4.3",
+    "1207",
+    "1208.2",
+    "1208.2, R305.1",
+    "1209.1",
+    "1209.2",
+    "1209.2, R807.1",
+    "1210.2.3",
+    "1210.2.3, 2406.4.5, R307.2, R308.4",
+    "1505.1",
+    "1808.6",
+    "1808.7",
+    "1808.7, R403.1.7",
+    "1808.8",
+    "1808.8, R403.1",
+    "1907.1",
+    "1907.1, R506.2.3",
+    "2113.9",
+    "2308.12.3",
+    "2308.12.3, R602.10.1.3",
+    "2308.3.3",
+    "2308.6",
+    "2405.4",
+    "2405.4 , 2610.2, R308.6.8",
+    "2406.4",
+    "2406.4, R308.4",
+    "2406.4.5",
+    "2407",
+    "2610.2",
+    "3109.4.1.7",
+    "403.1.6",
+    "406.3",
+    "406.3.1",
+    "407.5",
+    "504.4",
+    "507.3",
+    "6304.1",
+    "705.2",
+    "705.2, R302.1",
+    "705.5",
+    "705.8",
+    "705.8.1",
+    "706.1.1",
+    "706.4",
+    "708.1",
+    "907.2.11",
+    "907.2.11.2",
+    "915.4",
+    "GC § 6 6323 (a)(2) for EXISTING OR NEW SFD",
+    "GC § 66 322",
+    "GC § 66321(b)(4) and four - fo ot rear and side yard setbacks G . AT TACHED STATE ADU PER GC",
+    "GC § 66321(b)(4) and four - foot rear and side yard setbacks. PC/STR/Corr.Lst.20A (Rev. 10 /0 1 /202 5 ) https",
+    "GC § 66322",
+    "GC § 66323(a)(4) FOR EXISTING OR PROPOSED MULTIFAMILY DWELLING S",
+    "LABC 2305, 2306, & 2307,",
+    "LAMC 12.03)",
+    "LAMC 12.21",
+    "LAMC 12.22",
+    "LAMC 57.09.03",
+    "LAMC 57.122",
+    "LAPC 407.5",
+    "LARC AG105",
+    "Ordinance 1",
+    "Ordinance 170,158",
+    "Ordinance 184,802",
+    "R106.2",
+    "R106.3.1",
+    "R301.1.3",
+    "R302.1",
+    "R302.2",
+    "R302.5.1",
+    "R302.6",
+    "R302.7",
+    "R303.1",
+    "R305.1",
+    "R306.1",
+    "R306.1 & R306.2",
+    "R306.2",
+    "R307.2",
+    "R308.4",
+    "R308.6.8",
+    "R310.2",
+    "R311.1",
+    "R311.2",
+    "R311.3",
+    "R311.7.1",
+    "R311.7.2",
+    "R311.7.5",
+    "R311.7.8.1",
+    "R311.7.8.3",
+    "R311.8.1",
+    "R312.1",
+    "R312.1.3",
+    "R312.2.1",
+    "R314.4",
+    "R317.1",
+    "R403.1",
+    "R403.1.7",
+    "R408.4",
+    "R506.2.3",
+    "R602.10",
+    "R602.10.1.3",
+    "R602.3",
+    "R807.1",
+    "R902.1",
+    "R903.4",
+    "Table 504.4",
+    "Table 602, 706.1.1, & 706.4, R302.1",
+    "Table 602, Table 705.8, Table R302.1(1",
+    "Table 705.2",
+    "Table R302.1(1)",
+    "Table R302.1(2)"
+  ]
+}

@@ -18,9 +18,14 @@ import {
   isDwgExtension,
   isPropertiesEmpty,
 } from '@/lib/aps/modelDerivative'
-import { municipalCodeBodyForJurisdiction } from '@/lib/analysis/code-bodies'
+import { municipalCodeBodiesForJurisdiction } from '@/lib/analysis/code-bodies'
 import { computeReadinessScore } from '@/lib/analysis/readiness'
-import { searchJurisdictionsForCity } from '@/lib/jurisdiction'
+import {
+  appliesLaAduCorrectionList,
+  buildCorrectionListSearchQuery,
+  getPinnedCorrectionListSections,
+} from '@/lib/correction-lists/analysis-seed'
+import { localJurisdictionForCity, searchJurisdictionsForCity } from '@/lib/jurisdiction'
 import { embedQuery } from '@/lib/voyage'
 import type { Json } from '@/types/database'
 import type {
@@ -100,22 +105,44 @@ async function searchCodesForDiscipline(
     buildSearchQuery(properties, context, { discipline }),
     buildKeywordSearchQuery(context, discipline),
   ]
+  if (appliesLaAduCorrectionList(context.city, context.state, context.project_type)) {
+    queries.push(buildCorrectionListSearchQuery(discipline, context))
+  }
+
+  const stateCodeBodies = DISCIPLINE_CODE_BODIES[discipline]
   const jurisdictions = searchJurisdictionsForCity(context.city, context.state)
-  const codeBodies = [...DISCIPLINE_CODE_BODIES[discipline]]
-  for (const jurisdiction of jurisdictions) {
-    const municipal = municipalCodeBodyForJurisdiction(jurisdiction)
-    if (municipal && !codeBodies.includes(municipal)) {
-      codeBodies.push(municipal)
+  const localSlug = localJurisdictionForCity(context.city, context.state)
+
+  const codeBodiesForJurisdiction = (jurisdiction: string): string[] => {
+    const bodies = [...stateCodeBodies]
+    if (jurisdiction === localSlug && localSlug) {
+      for (const body of municipalCodeBodiesForJurisdiction(localSlug)) {
+        if (!bodies.includes(body)) bodies.push(body)
+      }
     }
+    return bodies
   }
 
   const seen = new Set<string>()
   let codeSections: CodeSectionMatch[] = []
 
+  if (appliesLaAduCorrectionList(context.city, context.state, context.project_type)) {
+    for (const pinned of getPinnedCorrectionListSections(discipline)) {
+      if (seen.has(pinned.id)) continue
+      seen.add(pinned.id)
+      codeSections.push(pinned)
+    }
+  }
+
   for (const query of queries) {
     const embedding = await embedQuery(query)
     for (const jurisdiction of jurisdictions) {
-      const matches = await matchCodeSections(embedding, jurisdiction, 30, codeBodies)
+      const matches = await matchCodeSections(
+        embedding,
+        jurisdiction,
+        jurisdiction === localSlug ? 40 : 30,
+        codeBodiesForJurisdiction(jurisdiction)
+      )
       for (const match of matches) {
         if (seen.has(match.id)) continue
         seen.add(match.id)

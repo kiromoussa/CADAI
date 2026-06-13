@@ -62,12 +62,20 @@ export function CanvasToolbar({
         </button>
       )}
       {exportAnalysisId && (
-        <a
-          href={`/api/analyses/${exportAnalysisId}/report`}
-          className="rounded border border-border px-3 py-1.5 text-sm text-text-primary transition hover:border-accent hover:text-accent"
-        >
-          Export report
-        </a>
+        <>
+          <a
+            href={`/api/analyses/${exportAnalysisId}/approval-plan`}
+            className="rounded border border-border px-3 py-1.5 text-sm text-text-primary transition hover:border-accent hover:text-accent"
+          >
+            Approval plan
+          </a>
+          <a
+            href={`/api/analyses/${exportAnalysisId}/report`}
+            className="rounded border border-border px-3 py-1.5 text-sm text-text-primary transition hover:border-accent hover:text-accent"
+          >
+            Export report
+          </a>
+        </>
       )}
       {progressMessage && (
         <span className="text-xs text-text-secondary">{progressMessage}</span>

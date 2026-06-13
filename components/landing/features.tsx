@@ -76,11 +76,11 @@ export function FeaturesSection() {
         <BlurFade inView direction="up" className="mx-auto max-w-3xl text-center">
           <p className="font-mono text-xs uppercase tracking-widest text-cyan">Features</p>
           <h2 className="mt-3 text-3xl font-semibold text-offwhite md:text-4xl">
-            Everything you need to submit clean plans
+            Resolution-first plan review on a compliance board
           </h2>
           <p className="mt-4 text-offwhite/60">
-            Canvas boards, instant compliance analysis, 3D model integration, and
-            reports that speak plain English. All in one place.
+            Every issue ships with resolution pathways. Every run ends with a FirstPass
+            Readiness Score. Built for lean firms doing multifamily and mixed-use.
           </p>
         </BlurFade>
 

@@ -26,6 +26,8 @@ export async function GET() {
   return NextResponse.json({ boards: data ?? [] })
 }
 
+import { FIRSTPASS_PERSONA } from '@/lib/persona/defaults'
+
 export async function POST(request: Request) {
   const supabase = createClient()
   const {
@@ -49,9 +51,9 @@ export async function POST(request: Request) {
     .insert({
       user_id: user.id,
       title: body.title ?? 'Untitled board',
-      default_city: body.default_city ?? 'Santa Ana',
-      default_state: body.default_state ?? 'CA',
-      default_project_type: body.default_project_type ?? 'residential',
+      default_city: body.default_city ?? FIRSTPASS_PERSONA.defaultCity,
+      default_state: body.default_state ?? FIRSTPASS_PERSONA.defaultState,
+      default_project_type: body.default_project_type ?? FIRSTPASS_PERSONA.defaultProjectType,
       project_id: body.project_id ?? null,
       scene_json: { elements: [], appState: {}, files: {} } as Json,
     })

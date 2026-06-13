@@ -9,7 +9,7 @@ import { ViolationPanel } from '@/components/viewer/ViolationPanel'
 import { ExcalidrawOverlay } from '@/components/viewer/ExcalidrawOverlay'
 import { ReadinessBanner } from '@/components/viewer/ReadinessBanner'
 import { PlanChatPanel } from '@/components/board/PlanChatPanel'
-import { computeReadinessScore } from '@/lib/analysis/readiness'
+import { computeReadinessScore, type ReadinessResult } from '@/lib/analysis/readiness'
 import type { ViewerSheet } from '@/components/viewer/SheetSwitcher'
 
 function ViewerLoading({ message }: { message: string }) {
@@ -58,8 +58,22 @@ export function ViewerShell({
   const [toast, setToast] = useState<string | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [chatOpen, setChatOpen] = useState(false)
+  const [violationList, setViolationList] = useState(violations)
 
-  const readiness = useMemo(() => computeReadinessScore(violations), [violations])
+  const readiness = useMemo((): ReadinessResult => {
+    if (
+      analysis.readiness_data &&
+      typeof analysis.readiness_data === 'object' &&
+      !Array.isArray(analysis.readiness_data)
+    ) {
+      return analysis.readiness_data as unknown as ReadinessResult
+    }
+    return computeReadinessScore(violationList)
+  }, [analysis.readiness_data, violationList])
+
+  const handleViolationUpdate = useCallback((updated: ViolationRow) => {
+    setViolationList((prev) => prev.map((v) => (v.id === updated.id ? updated : v)))
+  }, [])
 
   const handleLocate = useCallback((violation: ViolationRow) => {
     setSelectedId(violation.id)
@@ -69,7 +83,7 @@ export function ViewerShell({
   const handleSheetChange = useCallback(
     (sheet: ViewerSheet) => {
       setActiveSheet(sheet)
-      const onSheet = violations.filter(
+      const onSheet = violationList.filter(
         (v) => !v.sheet_guid || v.sheet_guid === sheet.guid
       )
       const issueCount = onSheet.filter(
@@ -82,7 +96,7 @@ export function ViewerShell({
           : `Showing ${label} - ${sheet.name}`
       )
     },
-    [violations]
+    [violationList]
   )
 
   useEffect(() => {
@@ -97,12 +111,12 @@ export function ViewerShell({
 
   const sheetViolationCount = useMemo(() => {
     if (!activeSheetGuid) return 0
-    return violations.filter(
+    return violationList.filter(
       (v) =>
         (!v.sheet_guid || v.sheet_guid === activeSheetGuid) &&
         (v.severity === 'violation' || v.severity === 'warning')
     ).length
-  }, [violations, activeSheetGuid])
+  }, [violationList, activeSheetGuid])
 
   return (
     <div className="flex h-screen flex-col bg-background">
@@ -113,14 +127,27 @@ export function ViewerShell({
           </Link>
           <h1 className="mt-1 text-lg font-semibold text-text-primary">{project.name}</h1>
           <p className="text-xs text-text-secondary">
-            {project.city}, {project.state} · {analysis.project_type} ·{' '}
-            {analysis.violation_count} violations · {analysis.warning_count} warnings
+            {project.city}, {project.state} · {analysis.project_type}
+            {analysis.readiness_score != null && (
+              <>
+                {' · '}
+                <span className="font-semibold text-accent">
+                  FirstPass {analysis.readiness_score}/100
+                </span>
+              </>
+            )}
             {activeSheet && sheetViolationCount > 0 && (
               <> · {sheetViolationCount} on current sheet</>
             )}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          <a
+            href={`/api/analyses/${analysis.id}/approval-plan`}
+            className="rounded-md border border-border px-3 py-1.5 text-sm text-text-primary transition hover:border-accent hover:text-accent"
+          >
+            Approval plan
+          </a>
           <a
             href={`/api/analyses/${analysis.id}/report`}
             className="rounded-md border border-border px-3 py-1.5 text-sm text-text-primary transition hover:border-accent hover:text-accent"
@@ -166,7 +193,7 @@ export function ViewerShell({
           {isAps && project.aps_urn ? (
             <ForgeViewer
               urn={project.aps_urn}
-              violations={violations}
+              violations={violationList}
               selectedId={selectedId}
               onSelect={setSelectedId}
               locateViolation={locateViolation}
@@ -176,14 +203,14 @@ export function ViewerShell({
             <div className="relative h-full">
               <PdfViewer
                 pdfUrl={pdfUrl}
-                violations={violations}
+                violations={violationList}
                 selectedId={selectedId}
                 onSelect={setSelectedId}
                 locateViolation={locateViolation}
               />
               <ExcalidrawOverlay
                 analysisId={analysis.id}
-                violations={violations}
+                violations={violationList}
                 sheetGuid={activeSheetGuid}
                 onViolationSelect={setSelectedId}
               />
@@ -227,12 +254,13 @@ export function ViewerShell({
               <PlanChatPanel analysisId={analysis.id} className="h-full w-full" />
             ) : (
               <ViolationPanel
-                violations={violations}
+                violations={violationList}
                 selectedId={selectedId}
                 activeSheetGuid={activeSheetGuid}
                 analysisId={analysis.id}
                 onSelect={setSelectedId}
                 onLocate={handleLocate}
+                onViolationUpdate={handleViolationUpdate}
               />
             )}
           </div>

@@ -4,6 +4,7 @@ import { signOut } from '@/app/actions/auth'
 import { DeleteProjectButton } from '@/components/DeleteProjectButton'
 import { createClient } from '@/lib/supabase/server'
 import { NewBoardButton } from '@/components/canvas/NewBoardButton'
+import { FirstPassScorePill } from '@/components/shared/FirstPassScorePill'
 import type { AnalysisRow, CanvasBoardRow, ProjectRow } from '@/types/database'
 
 export default async function DashboardPage() {
@@ -186,16 +187,25 @@ export default async function DashboardPage() {
                           )}
                       </p>
                       {analysis && (
-                        <p className="mt-1 text-xs text-offwhite/50">
-                          Last run{' '}
-                          {new Date(analysis.created_at).toLocaleDateString(undefined, {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric',
-                          })}
-                          {' · '}
-                          {analysis.violation_count} violations, {analysis.warning_count}{' '}
-                          warnings
+                        <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-offwhite/50">
+                          <span>
+                            Last run{' '}
+                            {new Date(analysis.created_at).toLocaleDateString(undefined, {
+                              month: 'short',
+                              day: 'numeric',
+                              year: 'numeric',
+                            })}
+                          </span>
+                          <FirstPassScorePill
+                            score={analysis.readiness_score}
+                            recommendation={analysis.readiness_recommendation}
+                          />
+                          {!analysis.readiness_score && (
+                            <span>
+                              · {analysis.violation_count} violations, {analysis.warning_count}{' '}
+                              warnings
+                            </span>
+                          )}
                         </p>
                       )}
                     </div>

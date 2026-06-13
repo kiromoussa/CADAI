@@ -18,13 +18,7 @@ interface BoardToolsPanelProps {
   projectType?: string
 }
 
-const DEFAULT_CHECKLIST = [
-  'Egress paths are shown and dimensioned on all floor plans',
-  'Fire-rated assemblies are labeled at corridor and stair walls',
-  'Accessible routes connect all public entrances to primary spaces',
-  'Window schedule includes egress sizing and sill heights',
-  'Energy compliance notes reference applicable Title 24 package',
-]
+import { DEFAULT_CHECKLIST_ITEMS } from '@/lib/persona/defaults'
 
 export function BoardToolsPanel({
   open,
@@ -38,7 +32,7 @@ export function BoardToolsPanel({
   const [codeSection, setCodeSection] = useState('R310.1')
   const [codeLoading, setCodeLoading] = useState(false)
   const [interpretation, setInterpretation] = useState<CodeInterpretation | null>(null)
-  const [checklistItems, setChecklistItems] = useState(DEFAULT_CHECKLIST.join('\n'))
+  const [checklistItems, setChecklistItems] = useState(DEFAULT_CHECKLIST_ITEMS.join('\n'))
   const [checklistLoading, setChecklistLoading] = useState(false)
   const [checklistResult, setChecklistResult] = useState<ChecklistReviewResult | null>(null)
   const [priorId, setPriorId] = useState(analysisOptions[0]?.id ?? '')

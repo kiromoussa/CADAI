@@ -9,13 +9,15 @@ const FEATURES = [
     title: 'Canvas board',
     subtitle: 'Your entire project on one infinite board',
     description:
-      'Drop PDFs, embed live 3D Forge models, and run code compliance checks side by side. Pin annotations, compare sheets, and share the board with your team. One workspace replaces the scattered tabs.',
+      'Drop PDFs, embed live 3D Forge models, and run code compliance checks side by side. Board tools add plan chat, code interpreter, checklist review, and version diff — all without leaving the canvas.',
     capabilities: [
-      'Drag-and-drop PDF sheets onto the canvas',
+      'Drag-and-drop PDF sheets and CAD models onto the canvas',
       'Embed live Autodesk Forge 3D viewers',
-      'Run compliance checks from any node',
-      'Side-by-side sheet comparison',
-      'Shareable boards with persistent annotations',
+      'Run compliance checks from any plan node',
+      'Plan chat, code interpreter, and checklist review in Board tools',
+      'Version diff between compliance runs on the same board',
+      'Sticky notes for reviewer comments and team coordination',
+      'Export markdown compliance reports from the board toolbar',
     ],
   },
   {
@@ -23,12 +25,13 @@ const FEATURES = [
     title: 'Instant code compliance',
     subtitle: 'Every applicable code section, checked automatically',
     description:
-      'Upload a floor plan and CodeComply cross-references IBC, IRC, ADA, NFPA, and local amendments in under 60 seconds. Each finding is severity-ranked with the exact code citation, plain-English explanation, and suggested fix.',
+      'Upload a floor plan and CodeComply cross-references IBC, IRC, ADA, NFPA, and local amendments in under 60 seconds. Each finding is severity-ranked with the exact code citation, plain-English explanation, and resolution pathways.',
     capabilities: [
       'IBC, IRC, ADA/A117.1, NFPA 101, Title 24',
       'Violation, warning, and pass severity levels',
       'Exact code section citations for every finding',
-      'Suggested remediation for each violation',
+      'Resolution pathways with design and cost tradeoffs',
+      'Pre-submission readiness score before permit filing',
       'Re-run after revisions to track progress',
     ],
   },
@@ -51,13 +54,15 @@ const FEATURES = [
     title: 'Plain-English reports',
     subtitle: 'Reports your clients and contractors can actually read',
     description:
-      'No jargon-heavy code references buried in a spreadsheet. Every violation is explained in clear language with the rule reference, why it matters for the project, and what to do about it. Export or share directly from the viewer.',
+      'No jargon-heavy code references buried in a spreadsheet. Every violation is explained in clear language with the rule reference, readiness score, top AHJ flags, and resolution pathways. Export markdown reports from the viewer or board.',
     capabilities: [
       'Human-readable violation explanations',
+      'Pre-submission readiness score and AHJ flag predictions',
+      'Resolution pathways with recommended options',
       'Grouped by severity and discipline',
-      'Exportable for client and permit review',
-      'Annotated viewer with violation overlays',
-      'Track violation counts across revisions',
+      'Exportable markdown for client and permit review',
+      'Plan chat for cited answers about your specific plan',
+      'Track violation counts across revisions with version diff',
     ],
   },
 ]
@@ -71,11 +76,11 @@ export function FeaturesSection() {
         <BlurFade inView direction="up" className="mx-auto max-w-3xl text-center">
           <p className="font-mono text-xs uppercase tracking-widest text-cyan">Features</p>
           <h2 className="mt-3 text-3xl font-semibold text-offwhite md:text-4xl">
-            Everything you need to submit clean plans
+            Resolution-first plan review on a compliance board
           </h2>
           <p className="mt-4 text-offwhite/60">
-            Canvas boards, instant compliance analysis, 3D model integration, and
-            reports that speak plain English. All in one place.
+            Every issue ships with resolution pathways. Every run ends with a FirstPass
+            Readiness Score. Built for lean firms doing multifamily and mixed-use.
           </p>
         </BlurFade>
 

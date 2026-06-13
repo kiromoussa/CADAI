@@ -1,9 +1,10 @@
-export const US_STATES = ['CA', 'AZ', 'NV', 'OR', 'WA', 'TX', 'FL', 'NY'] as const
+export const US_STATES = ['CA', 'OR', 'WA', 'NV', 'AZ', 'TX', 'FL', 'NY'] as const
 
 export const PROJECT_TYPES = [
-  'residential',
-  'adu',
   'multifamily',
+  'mixed-use',
+  'adu',
+  'residential',
   'commercial',
 ] as const
 
@@ -14,14 +15,16 @@ export type ProjectSetupValues = {
   projectType: string
 }
 
+import { FIRSTPASS_PERSONA } from '@/lib/persona/defaults'
+
 export function defaultProjectSetup(
   overrides?: Partial<ProjectSetupValues>
 ): ProjectSetupValues {
   return {
     name: overrides?.name ?? '',
-    city: overrides?.city ?? 'Santa Ana',
-    state: overrides?.state ?? 'CA',
-    projectType: overrides?.projectType ?? 'residential',
+    city: overrides?.city ?? FIRSTPASS_PERSONA.defaultCity,
+    state: overrides?.state ?? FIRSTPASS_PERSONA.defaultState,
+    projectType: overrides?.projectType ?? FIRSTPASS_PERSONA.defaultProjectType,
   }
 }
 

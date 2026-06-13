@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { disciplineLabel } from '@/lib/analysis/disciplines'
 import type { Discipline } from '@/types/analysis'
 import type { ViolationRow } from '@/types/database'
+import { ResolutionCard } from '@/components/viewer/ResolutionCard'
 
 export type SeverityFilter = 'all' | 'violation' | 'warning' | 'pass'
 
@@ -12,30 +13,11 @@ interface ViolationPanelProps {
   violations: ViolationRow[]
   selectedId: string | null
   activeSheetGuid?: string | null
+  analysisId?: string
   onSelect: (id: string) => void
   onLocate: (violation: ViolationRow) => void
+  onViolationUpdate?: (violation: ViolationRow) => void
 }
-
-const severityStyles = {
-  violation: {
-    border: 'border-severity-violation/40',
-    bg: 'bg-severity-violation/10',
-    text: 'text-severity-violation',
-    dot: 'bg-severity-violation',
-  },
-  warning: {
-    border: 'border-severity-warning/40',
-    bg: 'bg-severity-warning/10',
-    text: 'text-severity-warning',
-    dot: 'bg-severity-warning',
-  },
-  pass: {
-    border: 'border-severity-pass/40',
-    bg: 'bg-severity-pass/10',
-    text: 'text-severity-pass',
-    dot: 'bg-severity-pass',
-  },
-} as const
 
 const DISCIPLINE_ORDER: Discipline[] = [
   'architectural',
@@ -48,12 +30,6 @@ const DISCIPLINE_ORDER: Discipline[] = [
   'general',
 ]
 
-function severityLabel(severity: string) {
-  if (severity === 'violation') return 'Violation'
-  if (severity === 'warning') return 'Warning'
-  return 'Pass'
-}
-
 function disciplineOf(v: ViolationRow): Discipline {
   const d = v.discipline as Discipline | null
   if (d && DISCIPLINE_ORDER.includes(d)) return d
@@ -64,11 +40,12 @@ export function ViolationPanel({
   violations,
   selectedId,
   activeSheetGuid,
+  analysisId,
   onSelect,
   onLocate,
+  onViolationUpdate,
 }: ViolationPanelProps) {
   const [filter, setFilter] = useState<SeverityFilter>('all')
-  const [expandedId, setExpandedId] = useState<string | null>(null)
   const [collapsedDisciplines, setCollapsedDisciplines] = useState<Set<string>>(new Set())
 
   const counts = useMemo(
@@ -76,6 +53,7 @@ export function ViolationPanel({
       violation: violations.filter((v) => v.severity === 'violation').length,
       warning: violations.filter((v) => v.severity === 'warning').length,
       pass: violations.filter((v) => v.severity === 'pass').length,
+      accepted: violations.filter((v) => v.accepted_pathway != null).length,
     }),
     [violations]
   )
@@ -119,7 +97,10 @@ export function ViolationPanel({
   return (
     <div className="flex h-full flex-col bg-surface">
       <div className="sticky top-0 z-10 border-b border-border bg-surface px-4 py-4">
-        <h2 className="text-sm font-semibold text-text-primary">Compliance Report</h2>
+        <h2 className="text-sm font-semibold text-text-primary">Resolution plan</h2>
+        <p className="mt-0.5 text-xs text-text-secondary">
+          {counts.accepted} accepted · accept resolutions, then re-run for a new FirstPass score
+        </p>
         <div className="mt-3 grid grid-cols-3 gap-2">
           <SummaryPill label="Violations" value={counts.violation} tone="violation" />
           <SummaryPill label="Warnings" value={counts.warning} tone="warning" />
@@ -186,147 +167,21 @@ export function ViolationPanel({
 
                   {!collapsed && (
                     <ul className="mt-2 space-y-3 transition-all duration-200 ease-out">
-                      {items.map((violation, index) => {
-                        const styles =
-                          severityStyles[
-                            violation.severity as keyof typeof severityStyles
-                          ] ?? severityStyles.warning
-                        const isSelected = selectedId === violation.id
-                        const isExpanded = expandedId === violation.id
-                        const onOtherSheet =
-                          !!activeSheetGuid &&
-                          !!violation.sheet_guid &&
-                          violation.sheet_guid !== activeSheetGuid
-
-                        return (
-                          <li key={violation.id}>
-                            <article
-                              className={clsx(
-                                'rounded-lg border p-3 transition duration-200 ease-out',
-                                styles.border,
-                                isSelected ? 'ring-2 ring-accent/60' : 'hover:border-accent/30'
-                              )}
-                            >
-                              <button
-                                type="button"
-                                className="w-full text-left"
-                                onClick={() => {
-                                  onSelect(violation.id)
-                                  setExpandedId(isExpanded ? null : violation.id)
-                                }}
-                              >
-                                <div className="flex items-start gap-3">
-                                  <span
-                                    className={clsx(
-                                      'flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-background',
-                                      styles.dot
-                                    )}
-                                  >
-                                    {index + 1}
-                                  </span>
-                                  <div className="min-w-0 flex-1">
-                                    <div className="flex flex-wrap items-center gap-2">
-                                      <span
-                                        className={clsx(
-                                          'rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide',
-                                          styles.bg,
-                                          styles.text
-                                        )}
-                                      >
-                                        {severityLabel(violation.severity)}
-                                      </span>
-                                      {violation.confidence && (
-                                        <span className="text-[10px] uppercase text-text-secondary">
-                                          {violation.confidence} confidence
-                                        </span>
-                                      )}
-                                      {onOtherSheet && (
-                                        <span className="text-[10px] text-text-secondary">
-                                          Other sheet
-                                        </span>
-                                      )}
-                                    </div>
-                                    <p className="mt-1 font-mono text-xs text-accent">
-                                      {violation.code_section}
-                                    </p>
-                                    <p className="mt-0.5 text-sm font-medium text-text-primary">
-                                      {violation.code_title}
-                                    </p>
-                                    <p className="mt-2 text-sm text-text-secondary line-clamp-2">
-                                      {violation.finding}
-                                    </p>
-                                    {(violation.measured_value ||
-                                      violation.required_value) && (
-                                      <div className="mt-2 grid grid-cols-2 gap-2 font-mono text-xs">
-                                        {violation.measured_value && (
-                                          <div className="rounded bg-background/60 px-2 py-1">
-                                            <span className="text-text-secondary">
-                                              Measured{' '}
-                                            </span>
-                                            <span className="text-text-primary">
-                                              {violation.measured_value}
-                                            </span>
-                                          </div>
-                                        )}
-                                        {violation.required_value && (
-                                          <div className="rounded bg-background/60 px-2 py-1">
-                                            <span className="text-text-secondary">
-                                              Required{' '}
-                                            </span>
-                                            <span className="text-text-primary">
-                                              {violation.required_value}
-                                            </span>
-                                          </div>
-                                        )}
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
-                              </button>
-
-                              {isExpanded && (
-                                <div className="mt-3 border-t border-border/60 pt-3 pl-9">
-                                  <p className="text-xs font-medium uppercase tracking-wide text-text-secondary">
-                                    Code requirement
-                                  </p>
-                                  <p className="mt-1 text-sm text-text-primary">
-                                    {violation.code_requirement}
-                                  </p>
-                                  <p className="mt-3 text-xs font-medium uppercase tracking-wide text-text-secondary">
-                                    Recommendation
-                                  </p>
-                                  <p className="mt-1 text-sm text-text-primary">
-                                    {violation.recommendation}
-                                  </p>
-                                  {violation.element_location && (
-                                    <p className="mt-2 font-mono text-xs text-text-secondary">
-                                      {violation.element_location}
-                                    </p>
-                                  )}
-                                  <div className="relative mt-3 inline-block">
-                                    <button
-                                      type="button"
-                                      onClick={() => onLocate(violation)}
-                                      title={
-                                        onOtherSheet
-                                          ? 'Switch to that sheet and zoom to the finding'
-                                          : violation.element_id
-                                            ? 'Zoom to element on plan'
-                                            : violation.sheet_guid
-                                              ? 'Switch sheet and fit plan to view'
-                                              : 'Fit current sheet to view'
-                                      }
-                                      className="rounded-md bg-accent px-3 py-1.5 text-xs font-medium text-white transition duration-200 hover:bg-accent/90"
-                                    >
-                                      Locate on plan
-                                    </button>
-                                  </div>
-                                </div>
-                              )}
-                            </article>
-                          </li>
-                        )
-                      })}
+                      {items.map((violation, index) => (
+                        <li key={violation.id}>
+                          {analysisId ? (
+                            <ResolutionCard
+                              violation={violation}
+                              index={index}
+                              analysisId={analysisId}
+                              selected={selectedId === violation.id}
+                              onSelect={() => onSelect(violation.id)}
+                              onLocate={() => onLocate(violation)}
+                              onAccepted={onViolationUpdate}
+                            />
+                          ) : null}
+                        </li>
+                      ))}
                     </ul>
                   )}
                 </section>

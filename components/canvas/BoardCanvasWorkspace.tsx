@@ -38,8 +38,11 @@ export interface BoardCanvasWorkspaceProps {
   onAddPdf: (file: File) => void
   onAddDwg: (file: File) => void
   onAddDocument: (file: File) => void
+  onAddNote?: () => void
   onSelectNode: (nodeId: string | null) => void
   onGeometryChange: (nodeId: string, geometry: NodeGeometry) => void
+  onNoteContentChange?: (nodeId: string, text: string) => void
+  toolsPanelOpen?: boolean
 }
 
 export function BoardCanvasWorkspace({
@@ -58,8 +61,10 @@ export function BoardCanvasWorkspace({
   onAddPdf,
   onAddDwg,
   onAddDocument,
+  onAddNote,
   onSelectNode,
   onGeometryChange,
+  onNoteContentChange,
 }: BoardCanvasWorkspaceProps) {
   return (
     <ExcalidrawCanvas
@@ -70,6 +75,7 @@ export function BoardCanvasWorkspace({
       onAddPdf={onAddPdf}
       onAddDwg={onAddDwg}
       onAddDocument={onAddDocument}
+      onAddNote={onAddNote}
       planImportBusy={planImportBusy}
       className="h-full w-full min-h-0"
       overlay={
@@ -83,6 +89,7 @@ export function BoardCanvasWorkspace({
           selectedNodeId={selectedNodeId}
           onSelectNode={onSelectNode}
           onGeometryChange={onGeometryChange}
+          onNoteContentChange={onNoteContentChange}
         />
       }
     />

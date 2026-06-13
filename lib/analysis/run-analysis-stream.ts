@@ -19,6 +19,7 @@ import {
   isPropertiesEmpty,
 } from '@/lib/aps/modelDerivative'
 import { municipalCodeBodyForJurisdiction } from '@/lib/analysis/code-bodies'
+import { computeReadinessScore } from '@/lib/analysis/readiness'
 import { searchJurisdictionsForCity } from '@/lib/jurisdiction'
 import { embedQuery } from '@/lib/voyage'
 import type { Json } from '@/types/database'
@@ -354,6 +355,13 @@ export function createAnalysisStream(
             confidence: v.confidence ?? 'high',
             sheet_guid: v.sheet_guid ?? null,
             discipline: v.discipline ?? null,
+            resolution_pathways:
+              v.resolution_pathways && v.resolution_pathways.length > 0
+                ? (v.resolution_pathways as unknown as Json)
+                : null,
+            recommended_pathway: v.recommended_pathway ?? null,
+            recommended_action: v.recommended_action ?? null,
+            requires_manual_review: v.requires_manual_review ?? false,
           }))
 
           const { error: insertError } = await admin.from('violations').insert(rows)
@@ -361,6 +369,34 @@ export function createAnalysisStream(
             throw new Error(`Failed to save violations: ${insertError.message}`)
           }
         }
+
+        const readiness = computeReadinessScore(
+          allViolations.map((v, i) => ({
+            id: `temp-${i}`,
+            analysis_id: analysisId,
+            project_id,
+            severity: v.severity,
+            code_section: v.code_section,
+            code_title: v.code_title,
+            code_requirement: v.code_requirement,
+            finding: v.finding,
+            recommendation: v.recommendation,
+            element_id: v.element_id != null ? String(v.element_id) : null,
+            element_name: v.element_name ?? null,
+            element_location: v.element_location ?? null,
+            measured_value: v.measured_value ?? null,
+            required_value: v.required_value ?? null,
+            confidence: v.confidence ?? 'high',
+            sheet_guid: v.sheet_guid ?? null,
+            discipline: v.discipline ?? null,
+            resolution_pathways: null,
+            recommended_pathway: null,
+            recommended_action: null,
+            accepted_pathway: null,
+            requires_manual_review: v.requires_manual_review ?? false,
+            created_at: new Date().toISOString(),
+          }))
+        )
 
         await admin
           .from('analyses')
@@ -371,6 +407,9 @@ export function createAnalysisStream(
             pass_count: passCount,
             tokens_used: totalTokens,
             completed_at: new Date().toISOString(),
+            readiness_score: readiness.readiness_score,
+            readiness_recommendation: readiness.recommendation,
+            readiness_data: readiness as unknown as Json,
             extracted_properties: {
               ...properties,
               _coverage: coverageLog,
@@ -380,7 +419,7 @@ export function createAnalysisStream(
 
         send({
           stage: 'complete',
-          message: 'Analysis complete',
+          message: `FirstPass score: ${readiness.readiness_score}/100 — ${readiness.recommendation}`,
           analysis_id: analysisId,
         })
       } catch (err) {

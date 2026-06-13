@@ -93,6 +93,17 @@ export interface ExtractedProperties {
   }
 }
 
+export interface ResolutionPathwaySummary {
+  option: number
+  title: string
+  action_required: string
+  satisfies_code_by?: string
+  design_impact: 'Low' | 'Medium' | 'High'
+  cost_impact: 'Low' | 'Medium' | 'High'
+  requires_variance: boolean
+  notes?: string
+}
+
 export interface ComplianceViolation {
   severity: Severity
   code_section: string
@@ -108,6 +119,11 @@ export interface ComplianceViolation {
   element_id?: string | null
   sheet_guid?: string | null
   discipline?: Discipline | null
+  /** Inline resolution pathways generated at analysis time (FirstPass differentiator). */
+  resolution_pathways?: ResolutionPathwaySummary[]
+  recommended_pathway?: number
+  recommended_action?: string
+  requires_manual_review?: boolean
 }
 
 export interface CodeSectionMatch {

@@ -134,6 +134,9 @@ export interface Database {
           claude_model: string | null
           tokens_used: number | null
           canvas_node_id: string | null
+          readiness_score: number | null
+          readiness_recommendation: string | null
+          readiness_data: Json | null
           created_at: string
           completed_at: string | null
         }
@@ -153,6 +156,9 @@ export interface Database {
           claude_model?: string | null
           tokens_used?: number | null
           canvas_node_id?: string | null
+          readiness_score?: number | null
+          readiness_recommendation?: string | null
+          readiness_data?: Json | null
           created_at?: string
           completed_at?: string | null
         }
@@ -172,6 +178,9 @@ export interface Database {
           claude_model?: string | null
           tokens_used?: number | null
           canvas_node_id?: string | null
+          readiness_score?: number | null
+          readiness_recommendation?: string | null
+          readiness_data?: Json | null
           created_at?: string
           completed_at?: string | null
         }
@@ -376,6 +385,11 @@ export interface Database {
           confidence: string
           sheet_guid: string | null
           discipline: string | null
+          resolution_pathways: Json | null
+          recommended_pathway: number | null
+          recommended_action: string | null
+          accepted_pathway: Json | null
+          requires_manual_review: boolean
           created_at: string
         }
         Insert: {
@@ -396,6 +410,11 @@ export interface Database {
           confidence?: string
           sheet_guid?: string | null
           discipline?: string | null
+          resolution_pathways?: Json | null
+          recommended_pathway?: number | null
+          recommended_action?: string | null
+          accepted_pathway?: Json | null
+          requires_manual_review?: boolean
           created_at?: string
         }
         Update: {
@@ -416,6 +435,11 @@ export interface Database {
           confidence?: string
           sheet_guid?: string | null
           discipline?: string | null
+          resolution_pathways?: Json | null
+          recommended_pathway?: number | null
+          recommended_action?: string | null
+          accepted_pathway?: Json | null
+          requires_manual_review?: boolean
           created_at?: string
         }
         Relationships: []

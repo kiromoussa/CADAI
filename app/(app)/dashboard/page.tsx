@@ -4,6 +4,7 @@ import { signOut } from '@/app/actions/auth'
 import { DeleteProjectButton } from '@/components/DeleteProjectButton'
 import { createClient } from '@/lib/supabase/server'
 import { NewBoardButton } from '@/components/canvas/NewBoardButton'
+import { FirstPassScorePill } from '@/components/shared/FirstPassScorePill'
 import type { AnalysisRow, CanvasBoardRow, ProjectRow } from '@/types/database'
 
 export default async function DashboardPage() {
@@ -98,17 +99,25 @@ export default async function DashboardPage() {
         )}
 
         <div className="mt-8 flex flex-wrap gap-4">
+          <NewBoardButton />
           <Link
             href="/analyze"
-            className="rounded-md bg-accent px-6 py-3 font-medium text-white transition hover:bg-accent/90"
+            className="rounded-md border border-cyan px-6 py-3 font-medium text-cyan transition hover:bg-cyan/10"
           >
-            New analysis
+            Standalone analysis
           </Link>
-          <NewBoardButton />
         </div>
 
         <section className="mt-10">
-          <h2 className="text-lg font-medium text-offwhite">Compliance boards</h2>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-medium text-offwhite">Compliance boards</h2>
+              <p className="mt-1 text-sm text-offwhite/60">
+                Your primary workspace — arrange plans, run checks, chat, compare revisions, and export reports on one canvas.
+              </p>
+            </div>
+            <NewBoardButton />
+          </div>
           {boardList.length === 0 ? (
             <p className="mt-4 text-offwhite/60">
               Create a board to arrange PDFs and run compliance checks on a canvas.
@@ -149,6 +158,9 @@ export default async function DashboardPage() {
 
         <section className="mt-10">
           <h2 className="text-lg font-medium text-offwhite">Recent projects</h2>
+          <p className="mt-1 text-sm text-offwhite/50">
+            Standalone analyses — or open the board they belong to from Compliance boards above.
+          </p>
           {projectList.length === 0 ? (
             <p className="mt-4 text-offwhite/60">
               Your projects will appear here once you run an analysis.
@@ -175,16 +187,25 @@ export default async function DashboardPage() {
                           )}
                       </p>
                       {analysis && (
-                        <p className="mt-1 text-xs text-offwhite/50">
-                          Last run{' '}
-                          {new Date(analysis.created_at).toLocaleDateString(undefined, {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric',
-                          })}
-                          {' · '}
-                          {analysis.violation_count} violations, {analysis.warning_count}{' '}
-                          warnings
+                        <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-offwhite/50">
+                          <span>
+                            Last run{' '}
+                            {new Date(analysis.created_at).toLocaleDateString(undefined, {
+                              month: 'short',
+                              day: 'numeric',
+                              year: 'numeric',
+                            })}
+                          </span>
+                          <FirstPassScorePill
+                            score={analysis.readiness_score}
+                            recommendation={analysis.readiness_recommendation}
+                          />
+                          {!analysis.readiness_score && (
+                            <span>
+                              · {analysis.violation_count} violations, {analysis.warning_count}{' '}
+                              warnings
+                            </span>
+                          )}
                         </p>
                       )}
                     </div>

@@ -5,6 +5,7 @@ import type {
   ComplianceViolation,
   Discipline,
   ExtractedProperties,
+  ResolutionPathwaySummary,
 } from '@/types/analysis'
 
 const CLAUDE_MODEL = 'claude-sonnet-4-20250514'
@@ -58,7 +59,11 @@ ${JSON.stringify(properties, null, 2)}
 ${codeContext}
 
 ## Task
-Compare the extracted ${disciplineName.toLowerCase()} properties against the code sections. Return a JSON array of compliance findings. Each item must use this exact shape:
+Compare the extracted ${disciplineName.toLowerCase()} properties against the code sections. Return a JSON array of compliance findings.
+
+**FirstPass rule:** Every violation and warning MUST include resolution pathways — never return a bare flag. If you cannot suggest at least one credible pathway, set requires_manual_review to true.
+
+Each item must use this exact shape:
 
 {
   "severity": "violation" | "warning" | "pass",
@@ -66,7 +71,22 @@ Compare the extracted ${disciplineName.toLowerCase()} properties against the cod
   "code_title": "section title",
   "code_requirement": "what the code requires",
   "finding": "what was found in the model/plan",
-  "recommendation": "specific fix or note",
+  "recommendation": "the recommended resolution action (same as recommended pathway action)",
+  "recommended_action": "one-line summary of the best fix",
+  "recommended_pathway": 1,
+  "resolution_pathways": [
+    {
+      "option": 1,
+      "title": "short option title",
+      "action_required": "specific drawing changes",
+      "satisfies_code_by": "how this satisfies the code",
+      "design_impact": "Low" | "Medium" | "High",
+      "cost_impact": "Low" | "Medium" | "High",
+      "requires_variance": false,
+      "notes": "optional"
+    }
+  ],
+  "requires_manual_review": false,
   "element_name": "e.g. Bedroom 2 Window",
   "element_location": "Sheet name and room/level description for plan callout",
   "measured_value": "what was measured",
@@ -79,8 +99,10 @@ Compare the extracted ${disciplineName.toLowerCase()} properties against the cod
 
 Rules:
 - Focus only on ${disciplineName} compliance for this pass
-- Include violations and warnings for clear non-compliance
-- Include pass items for major checks that clearly comply (at least 2 if applicable)
+- Include violations and warnings for clear non-compliance — each with 2-4 resolution_pathways
+- Include pass items for major checks that clearly comply (at least 2 if applicable) — pass items omit resolution_pathways
+- recommended_pathway must match one option number in resolution_pathways
+- If no credible pathway exists, set requires_manual_review true and resolution_pathways to []
 - Prefer dbId from properties when assigning element_id
 - Include sheet_guid from entity sheet_guid fields when available
 - Return ONLY the JSON array, no markdown`,
@@ -121,6 +143,30 @@ const VALID_DISCIPLINE = new Set([
   'general',
 ])
 
+const VALID_IMPACT = new Set(['Low', 'Medium', 'High'])
+
+function sanitizePathways(raw: unknown): ResolutionPathwaySummary[] {
+  if (!Array.isArray(raw)) return []
+  return raw
+    .filter((p): p is Record<string, unknown> => !!p && typeof p === 'object')
+    .map((p, i) => ({
+      option: typeof p.option === 'number' ? p.option : i + 1,
+      title: String(p.title ?? `Option ${i + 1}`),
+      action_required: String(p.action_required ?? ''),
+      satisfies_code_by:
+        p.satisfies_code_by != null ? String(p.satisfies_code_by) : undefined,
+      design_impact: VALID_IMPACT.has(p.design_impact as string)
+        ? (p.design_impact as ResolutionPathwaySummary['design_impact'])
+        : 'Medium',
+      cost_impact: VALID_IMPACT.has(p.cost_impact as string)
+        ? (p.cost_impact as ResolutionPathwaySummary['cost_impact'])
+        : 'Medium',
+      requires_variance: Boolean(p.requires_variance),
+      notes: p.notes != null ? String(p.notes) : undefined,
+    }))
+    .filter((p) => p.action_required.length > 0)
+}
+
 function sanitizeViolations(
   raw: unknown,
   defaultDiscipline: Discipline
@@ -143,13 +189,29 @@ function sanitizeViolations(
         ? (item.discipline as Discipline)
         : defaultDiscipline
 
+      const resolution_pathways = sanitizePathways(item.resolution_pathways)
+      const requires_manual_review =
+        severity !== 'pass' &&
+        (Boolean(item.requires_manual_review) || resolution_pathways.length === 0)
+
+      const recommended_pathway =
+        typeof item.recommended_pathway === 'number'
+          ? item.recommended_pathway
+          : resolution_pathways[0]?.option
+
+      const recommended_action =
+        item.recommended_action != null
+          ? str(item.recommended_action)
+          : resolution_pathways.find((p) => p.option === recommended_pathway)
+              ?.action_required ?? str(item.recommendation)
+
       return {
         severity,
         code_section: str(item.code_section),
         code_title: str(item.code_title),
         code_requirement: str(item.code_requirement),
         finding: str(item.finding),
-        recommendation: str(item.recommendation),
+        recommendation: recommended_action || str(item.recommendation),
         element_name: item.element_name != null ? str(item.element_name) : undefined,
         element_location:
           item.element_location != null ? str(item.element_location) : undefined,
@@ -161,6 +223,14 @@ function sanitizeViolations(
         element_id: item.element_id != null ? str(item.element_id) : null,
         sheet_guid: item.sheet_guid != null ? str(item.sheet_guid) : null,
         discipline,
+        resolution_pathways:
+          severity === 'pass' ? undefined : resolution_pathways,
+        recommended_pathway:
+          severity === 'pass' ? undefined : recommended_pathway,
+        recommended_action:
+          severity === 'pass' ? undefined : recommended_action,
+        requires_manual_review:
+          severity === 'pass' ? false : requires_manual_review,
       }
     })
 }

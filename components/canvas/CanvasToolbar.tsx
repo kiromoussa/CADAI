@@ -10,6 +10,9 @@ interface CanvasToolbarProps {
   canRunCompliance?: boolean
   analyzing: boolean
   progressMessage: string
+  toolsOpen?: boolean
+  onToggleTools?: () => void
+  exportAnalysisId?: string | null
 }
 
 export function CanvasToolbar({
@@ -20,6 +23,9 @@ export function CanvasToolbar({
   canRunCompliance = true,
   analyzing,
   progressMessage,
+  toolsOpen,
+  onToggleTools,
+  exportAnalysisId,
 }: CanvasToolbarProps) {
   return (
     <header className="flex shrink-0 flex-wrap items-center gap-3 border-b border-border bg-surface px-4 py-3">
@@ -41,6 +47,36 @@ export function CanvasToolbar({
       >
         {analyzing ? 'Running…' : 'Run compliance'}
       </button>
+      {onToggleTools && (
+        <button
+          type="button"
+          onClick={onToggleTools}
+          className={
+            'rounded border px-3 py-1.5 text-sm transition ' +
+            (toolsOpen
+              ? 'border-accent bg-accent/10 text-accent'
+              : 'border-border text-text-primary hover:border-accent')
+          }
+        >
+          Board tools
+        </button>
+      )}
+      {exportAnalysisId && (
+        <>
+          <a
+            href={`/api/analyses/${exportAnalysisId}/approval-plan`}
+            className="rounded border border-border px-3 py-1.5 text-sm text-text-primary transition hover:border-accent hover:text-accent"
+          >
+            Approval plan
+          </a>
+          <a
+            href={`/api/analyses/${exportAnalysisId}/report`}
+            className="rounded border border-border px-3 py-1.5 text-sm text-text-primary transition hover:border-accent hover:text-accent"
+          >
+            Export report
+          </a>
+        </>
+      )}
       {progressMessage && (
         <span className="text-xs text-text-secondary">{progressMessage}</span>
       )}
